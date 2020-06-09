@@ -1,4 +1,4 @@
 
 <% @products.each do |product| %>
- <div><%= product.name %></div>
+ <div><%= link_to product.name, product_path(product) %></div>
 <% end %>
