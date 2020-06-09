@@ -1,0 +1,37 @@
+<section>
+  <%= form_with model: @product do |f| %>
+    <div class="form-group">
+      <%= f.label :category %>
+      <%= f.select :category, ['yoga', 'hiking'], class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :price %>
+      <%= f.text_field :price , class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image %>
+      <%= f.text_field :image, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :stock %>
+      <%= f.text_field :stock, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</section>
