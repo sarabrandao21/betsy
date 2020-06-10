@@ -12,6 +12,6 @@ class Merchant < ApplicationRecord
     merchant.email = auth_hash["info"]["email"]
     merchant.avatar = auth_hash["info"]["image"]
     
-    return user
+    return merchant
   end
 end
