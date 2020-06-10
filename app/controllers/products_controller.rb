@@ -1,11 +1,8 @@
 class ProductsController < ApplicationController
 
   before_action :find_product, only: [:show, :edit, :update, :destroy]
-
-  def root
-
-  end
-
+  before_action :check_product, only: [:show, :edit, :update, :destroy]
+  
   def index
     @products = Product.all
   end
@@ -57,7 +54,13 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
-    redirect_to products_path unless @product
-    flash[:error] = "Product not found!"
+  end
+
+  #helper method to react properly to check if the product is not found
+  def check_product
+    if @product.nil?
+      redirect_to products_path, notice: "Product not found!😢"
+      return
+    end
   end
 end
