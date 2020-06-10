@@ -1,0 +1,23 @@
+nataliya:
+  username: nataliya
+  email: nataliya@nataliya.com
+  provider: github
+  uid: 12345
+
+sharon:
+  username: sharon
+  email: sharon@sharon.com
+  provider: github
+  uid: 67890
+
+shonda:
+  username: shonda
+  email: shonda@shonda.com
+  provider: github
+  uid: 13579
+
+sara:
+  username: sara
+  email: sara@sara.com
+  provider: github
+  uid: 24680
