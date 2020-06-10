@@ -7,14 +7,16 @@
     </header>
     <%# sect-heading %>
     <div class= "row">
-      <div class="col-md-3">
-        <div href="#" class="card-product-grid">
-          <img src="">
-          </a>
+        <% @top_ten.each do |product|%>
+          <div class="col-md-3">
+          <div href="#" class="card-product-grid">
+          <%= image_tag product.image, alt: "product's image", class: 'product-img' %>
           <figcaption class="info-wrap">
-            <a href="" class= "title">Product Name</a>
-            <div class="price mt-1">179.00</div>
-            <%# price-wrap %>
-            </figcaption>
-            </div>
-            </div>
+          <p><%= link_to product.name, product_path(product.id) %></p>
+          <p>$ <%= product.price%></p>
+        <%# price-wrap %>
+        </figcaption>
+        </div>
+        </div>
+    <%end%>
+  </div>
