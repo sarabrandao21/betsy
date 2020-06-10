@@ -14,7 +14,7 @@ class MerchantsController < ApplicationController
 
     merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
     if merchant
-      flash[:success] = "Successfully created #{merchant.username}"
+      flash[:success] = "Successfully logged in as #{merchant.username}"
     else
       merchant = Merchant.build_from_github(auth_hash)
 
@@ -28,5 +28,11 @@ class MerchantsController < ApplicationController
 
     session[:merchant_id] = merchant.id
     return redirect_to root_path
+  end
+
+  def logout
+    session[:user_id] = nil
+    flash[:success] = "Successfully logged out"
+    redirect_to root_path
   end
 end
