@@ -3,6 +3,12 @@ require "test_helper"
 describe Merchant do
 
   describe "validations" do
+    it "is valid with unique username and email" do
+      new_merchant = Merchant.new(username: "Chris", email: "chris@chris.com")
+      expect(new_merchant.valid?).must_equal true
+      expect(new_merchant.save).must_equal true
+    end
+
     it "requires a username" do
       new_merchant = Merchant.new(email: "gmail@gmail.com")
       expect(new_merchant.valid?).must_equal false
