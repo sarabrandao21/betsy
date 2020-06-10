@@ -5,7 +5,7 @@ yogamat:
   image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
   stock: 50
   rating: 5
-  merchant_id: 1
+  merchant: sharon
 juice:
   name: Fresh Juice
   description: 100% fresh fruit juice
@@ -13,4 +13,4 @@ juice:
   image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
   stock: 20
   rating: 4
-  merchant_id: 1
+  merchant: sharon

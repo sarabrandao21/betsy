@@ -101,14 +101,17 @@ describe ProductsController do
 
   describe "update" do
     it "succeeds for valid data and an extant product ID" do
-      product = Product.create!(name: 'Carrot Juice', merchant: merchants(:sharon))
+      # product = Product.create!(name: 'Carrot Juice', merchant: merchants(:sharon))
+      product = products(:juice)
+  
+      # binding.pry
       update_hash = {
         product: {
           name: 'Watermelon Juice',
         }
       }
       
-      expect(product.name).must_equal 'Carrot Juice'
+      expect(product.name).must_equal "Fresh Juice"
 
       expect { 
           patch product_path(product.id), params: update_hash
