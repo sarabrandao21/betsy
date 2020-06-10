@@ -35,7 +35,6 @@ describe MerchantsController do
       get merchant_path(merchant_id)
       must_respond_with :missing
     end
-
   end
 
   describe "auth_callback" do
