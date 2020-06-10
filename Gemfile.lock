@@ -294,6 +294,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   debase (>= 0.2.4.1)
+  dotenv
   dotenv-rails
   guard
   guard-minitest
