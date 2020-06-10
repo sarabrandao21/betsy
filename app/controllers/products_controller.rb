@@ -43,10 +43,11 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :image, :stock, :rating)
+    params.require(:product).permit(:name, :description, :price, :image, :stock, :rating, :merchant_id)
   end
 
   def find_product
     @product = Product.find_by(id: params[:id])
+    render_404 unless @product
   end
 end

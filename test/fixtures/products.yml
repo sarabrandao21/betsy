@@ -1,0 +1,8 @@
+yogamat:
+  name: yoga mat
+  description: very good quality yoga mat
+  price: 150
+  image: some image
+  stock: 50
+  rating: 5
+  merchant_id: 1
