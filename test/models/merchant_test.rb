@@ -40,4 +40,14 @@ describe Merchant do
     end
   end
 
+  describe "relations" do
+    it "has a list of products" do
+      merchant = merchants(:nataliya)
+      expect(merchant).must_respond_to :products
+      merchant.products.each do |product|
+        expect(product).must_be_kind_of Product
+      end
+    end
+  end
+
 end
