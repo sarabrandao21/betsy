@@ -2,6 +2,25 @@ require "test_helper"
 
 describe MerchantsController do
 
+  describe "index" do
+    it "responds with success" do
+      get merchants_path
+      must_respond_with :success
+    end
+
+    it "responds with success even when there are no merchants" do
+      merchants = Merchant.all 
+      merchants.each do |merchant|
+        merchant.destroy
+      end
+      expect(Merchant.all).must_equal [] 
+
+      get merchants_path
+      must_respond_with :success
+    end
+
+  end
+
   describe "auth_callback" do
     it "logs in an existing merchant and redirects to the root route" do
       start_count = Merchant.count
