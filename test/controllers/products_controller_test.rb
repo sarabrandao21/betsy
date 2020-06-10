@@ -73,13 +73,12 @@ describe ProductsController do
       must_respond_with :success
     end
 
-    it "renders 404 not_found for a bogus product ID" do
-      destroyed_id = existing_product.id
-      existing_product.destroy
+    it "redirect for a bogus product ID" do
+      destroyed_id = -1
 
       get product_path(destroyed_id)
 
-      must_respond_with :not_found
+      must_redirect_to products_path
     end
   end
 
@@ -90,34 +89,28 @@ describe ProductsController do
       must_respond_with :success
     end
 
-    it "renders 404 not_found for a bogus product ID" do
+    it "redirect for a bogus product ID" do
       bogus_id = existing_product.id
       existing_product.destroy
 
       get edit_product_path(bogus_id)
 
-      must_respond_with :not_found
+      must_redirect_to products_path
     end
   end
 
   describe "update" do
     it "succeeds for valid data and an extant product ID" do
-      product_id = Product.last.id
-      updated_product = Product.create({name: "Yoga Block", merchant_id: merchants(:sharon).id})
-      # new_product = Product.create(name: 'Swim Suit', merchant_id: 1 )
-      # updates = { product: {name: "Yoga Block"} }
-      # updated_product = Product.find_by(id: Product.first.id)
-      # updated_product = products(:yogamat)
-      # updated_product.name = "Yoga Block"
+      updates = { product: { name: "Swim suit" } }
 
       expect {
-        patch product_path(product_id), params:updated_product 
+        patch product_path(existing_product.id), params: updates
       }.wont_change "Product.count"
-      
-      new_product.reload
-      expect(new_product.name).must_equal "Yoga Block"
+      updated_product = Product.find_by(id: existing_product.id)
+  
+      expect(updated_product.name).must_equal "Swim suit"
       must_respond_with :redirect
-      must_redirect_to product_path(new_product.id)
+      must_redirect_to products_path(existing_product.id)
     end
 
     it "renders bad_request for bogus data" do
@@ -127,41 +120,41 @@ describe ProductsController do
         put product_path(existing_product), params: updates
       }.wont_change "Product.count"
 
-      product = product.find_by(id: existing_product.id)
+      product = Product.find_by(id: existing_product.id)
 
-      must_respond_with :not_found
+      must_respond_with :bad_request
     end
 
-    it "renders 404 not_found for a bogus product ID" do
+    it "must redirect for a bogus product ID" do
       bogus_id = existing_product.id
       existing_product.destroy
 
       put product_path(bogus_id), params: { product: { name: "yoga mat" } }
 
-      must_respond_with :not_found
+      must_redirect_to products_path
     end
   end
 
-  # describe "destroy" do
-  #   it "succeeds for an extant product ID" do
-  #     expect {
-  #       delete product_path(existing_product.id)
-  #     }.must_change "product.count", -1
+  describe "destroy" do
+    it "succeeds for an extant product ID" do
+      expect {
+        delete product_path(existing_product.id)
+      }.must_change "Product.count", -1
 
-  #     must_respond_with :redirect
-  #     must_redirect_to root_path
-  #   end
+      must_respond_with :redirect
+      must_redirect_to products_path
+    end
 
-  #   it "renders 404 not_found and does not update the DB for a bogus product ID" do
-  #     bogus_id = existing_product.id
-  #     existing_product.destroy
+    it "redirect back to products_path and does not update the DB for a bogus product ID" do
+      bogus_id = existing_product.id
+      existing_product.destroy
 
-  #     expect {
-  #       delete product_path(bogus_id)
-  #     }.wont_change "product.count"
+      expect {
+        delete product_path(bogus_id)
+      }.wont_change "Product.count"
 
-  #     must_respond_with :not_found
-  #   end
-  # end
+      must_redirect_to products_path
+    end
+  end
 
 end

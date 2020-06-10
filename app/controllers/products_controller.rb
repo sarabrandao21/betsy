@@ -1,12 +1,16 @@
 class ProductsController < ApplicationController
 
-  before_action :find_product, only: [:show, :edit, :update]
+  before_action :find_product, only: [:show, :edit, :update, :destroy]
+
+  def root
+
+  end
+
   def index
     @products = Product.all
   end
 
   def show
-    # @product = Product.find_by(id: params[:id])
   end
 
 
@@ -26,18 +30,23 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    # @product = Product.find_by(id: params[:id])
   end
 
   def update
-    # @product = Product.find_by(id: params[:id])
     if @product.update(product_params)
       flash[:success] = "Successfully edited #{@product.name}"
-      redirect_to product_path(@product)
+      redirect_to product_path(@product.id)
     else
       flash[:error] = "Couldn't edit this product!"
       render :edit, status: :bad_request
     end
+  end
+
+  def destroy
+    @product.destroy
+    redirect_to products_path
+    flash[:success] = "Product successfully removed."
+    return
   end
 
   private
@@ -48,6 +57,7 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
-    render_404 unless @product
+    redirect_to products_path unless @product
+    flash[:error] = "Product not found!"
   end
 end
