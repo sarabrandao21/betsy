@@ -31,10 +31,10 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      flash[:success] = "Successfully edited #{@product.name}"
+      flash[:success] = "Successfully updated #{@product.name}"
       redirect_to product_path(@product.id)
     else
-      flash[:error] = "Couldn't edit this product!"
+      flash[:error] = "Couldn't update this product!"
       render :edit, status: :bad_request
     end
   end
