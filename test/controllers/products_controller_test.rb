@@ -101,16 +101,21 @@ describe ProductsController do
 
   describe "update" do
     it "succeeds for valid data and an extant product ID" do
-      updates = { product: { name: "Swim suit" } }
+      update_hash = {
+        product: {
+          name: 'Watermelon Juice',
+        }
+      }
+      product = products(:juice)
+      expect(product.name).must_equal 'Fresh Juice'
 
-      expect {
-        patch product_path(existing_product.id), params: updates
-      }.wont_change "Product.count"
-      updated_product = Product.find_by(id: existing_product.id)
-  
-      expect(updated_product.name).must_equal "Swim suit"
-      must_respond_with :redirect
-      must_redirect_to products_path(existing_product.id)
+      expect { 
+          patch product_path(product.id), params: update_hash
+        }.wont_change "Product.count"
+
+      product.reload
+      # updated_product = Product.find_by(id: product.id)
+      expect(product.name).must_equal update_hash[:product][:name]
     end
 
     it "renders bad_request for bogus data" do
