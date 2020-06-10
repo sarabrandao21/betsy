@@ -1,0 +1,40 @@
+<div class="container mt-5">
+
+  <div class="card bg-light" style="width: 30rem;">
+    <div class="row card-body">
+      <div class="col-5">
+        <img src="https://avatars2.githubusercontent.com/u/48928414?s=460&u=9df96e62375209f77b7c9487c782b656ef738fdc&v=4" alt="" class="img-fluid">
+      </div>
+      <div class="col">
+        <h1 class="card-title"> <%= @merchant.username %> </h5>
+        <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
+        <ul>
+          <li>Products: <%= @merchant.products.count %></li>
+          <li>Orders: N/A</li>
+          <li>Rating: N/A</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-5">Products:</h2>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Products #</th>
+        <th scope="col">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @merchant.products.each do |product| %>
+          <tr class="list-group-item-action">
+            <td> N/A </td>
+            <td> N/A </td>            
+            <td> N/A </td>
+          </tr>
+      <% end %> 
+    </tbody>
+  </table>
+
+</div>
