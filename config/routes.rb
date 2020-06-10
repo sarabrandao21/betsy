@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :products
   root 'products#index'
   
+  resources :categories
+  
   resources :merchants, only: [:index, :show]
 
   get "/auth/github", as: "github_login"
