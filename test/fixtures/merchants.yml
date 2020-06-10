@@ -1,0 +1,8 @@
+sharon:
+  username: Sharon Cheung
+  first_name: Sharon
+  last_name: Cheung
+  uid: 12345
+  email: sharon@ada.org
+  avatar: some_url
+  provider: github

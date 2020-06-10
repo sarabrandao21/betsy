@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(version: 2020_06_09_213738) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "categories_products", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_categories_products_on_category_id"
+    t.index ["product_id"], name: "index_categories_products_on_product_id"
+  end
+
   create_table "merchants", force: :cascade do |t|
     t.string "username"
     t.string "first_name"
@@ -44,13 +51,6 @@ ActiveRecord::Schema.define(version: 2020_06_09_213738) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "merchant_id"
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
-  end
-
-  create_table "products_categories", force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "category_id"
-    t.index ["category_id"], name: "index_products_categories_on_category_id"
-    t.index ["product_id"], name: "index_products_categories_on_product_id"
   end
 
 end
