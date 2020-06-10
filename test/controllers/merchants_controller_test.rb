@@ -18,6 +18,23 @@ describe MerchantsController do
       get merchants_path
       must_respond_with :success
     end
+  end
+
+  describe "show" do
+    it "responds with success when showing an existing valid merchant" do
+      merchant = merchants(:nataliya)
+      get merchants_path(merchant.id)
+      must_respond_with :success
+    end
+
+    it "responds with 404 for an invalid merchant id" do
+      merchant_id = -1
+      merchant = Merchant.find_by(id: merchant_id)
+      assert_nil merchant
+
+      get merchant_path(merchant_id)
+      must_respond_with :missing
+    end
 
   end
 
