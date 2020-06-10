@@ -1,0 +1,22 @@
+<%# SECTION %>
+<section>
+  <div class="container">
+    <header class="section-heading">
+      <a href="" class= "btn btn-outline-primary float-right">See all</a>
+      <h3 class= "section-title">Popular products</h3>
+    </header>
+    <%# sect-heading %>
+    <div class= "row">
+        <% @top_ten.each do |product|%>
+          <div class="col-md-3">
+          <div href="#" class="card-product-grid">
+          <%= image_tag product.image, alt: "product's image", class: 'product-img' %>
+          <figcaption class="info-wrap">
+          <p><%= link_to product.name, product_path(product.id) %></p>
+          <p>$ <%= product.price%></p>
+        <%# price-wrap %>
+        </figcaption>
+        </div>
+        </div>
+    <%end%>
+  </div>

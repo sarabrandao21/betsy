@@ -10,6 +10,12 @@
         <p><%= @product.rating%>★</p>
         <%= link_to 'Add to cart', "", class:'btn btn-outline-secondary btn-sm'%>
         <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
+        <%= link_to 'Delete Product', 
+            product_path(@product.id), 
+            method: :delete, 
+            data: {confirm: "Are you sure to delete this product?"}, 
+            class:'btn btn-outline-danger btn-sm'
+        %>
     </div>
   </div>
 </div>
