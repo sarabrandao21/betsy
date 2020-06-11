@@ -1,0 +1,3 @@
+console.log("Comment created...");
+
+document.getElementById("products-reviews").innerHTML = "<%= escape_javascript(render partial: 'products/reviews', locals: {reviews: @reviews})%>";
