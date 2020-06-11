@@ -18,7 +18,7 @@
         %>
     </div>
   </div>
-  
+
   <div id="products-reviews">
     <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
   </div>
@@ -26,6 +26,7 @@
     <h5>Leave a comment</h5>
     <%= form_for @review, remote: true do |f| %>
       <%= f.hidden_field :product_id, value: @product.id%>
+      <%= f.select :rating,[1,2,3,4,5], {}, value: @review.rating%>
       <%= f.text_area :comment, placeholder: 'Your Comment goes here', class: 'form-control'%>
       <%=f.submit "Submit review", class: 'btn btn-success mt-3'%>
     <% end %>

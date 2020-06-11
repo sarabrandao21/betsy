@@ -6,10 +6,11 @@ class ReviewsController < ApplicationController
       # rendering js partials
       format.js {
         if @review.save
-          @reviews = Reviews.where(product_id: @review.product_id)
+          flash.now[:sucess] = "Review added!"
+          @reviews = Review.where(product_id: @review.product_id)
           render 'reviews/create'
         else
-          #unable to save
+          # unable to save
           flash[:error] = @review.error.messages
           redirect_to product_path(@review.product_id)
         end
