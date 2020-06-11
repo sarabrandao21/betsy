@@ -16,3 +16,70 @@
 @import "bootstrap";
 
 @import "**/*";
+
+main {
+  padding: 2rem;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
+h2 {
+  color: #26A69A;
+}
+
+a {
+  color: #26A69A;
+
+  &:hover {
+    color: #00796B;
+    text-decoration: none;
+  }
+}
+
+.app-header {
+  text-align: center;
+  padding: 2rem 1rem 0.5rem 1rem;
+  background-size: cover;
+  background-position: center;
+
+
+  &__header {
+    margin: 25px auto 60px auto
+  }
+
+  & h1 a {
+    font-family: 'Alex Brush', cursive;
+    font-size: 4.5rem;
+    color: rgb(245, 236, 158);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  & h1 small {
+    color: white;
+  }
+  
+  &__nav {
+    
+    &__item {
+      color: white; 
+      margin: 0.2rem 1rem; 
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    &__button {
+      margin: 0.2rem 1rem;
+    }
+
+    & .navbar-toggler {
+      color: white;
+    }
+  }
+}
