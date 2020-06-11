@@ -6,7 +6,6 @@ class ReviewsController < ApplicationController
       # rendering js partials
       format.js {
         if @review.save
-          flash.now[:sucess] = "Review added!"
           @reviews = Review.where(product_id: @review.product_id)
           render 'reviews/create'
         else
