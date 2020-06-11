@@ -14,3 +14,67 @@ juice:
   stock: 20
   rating: 4
   merchant: sharon
+chips:
+  name: Terra Chips
+  description: veggie chips
+  price: 8
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 20
+  rating: 4
+  merchant: sharon
+yogastrip:
+  name: yoga strip
+  description: Very good quality one 
+  price: 15
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 100
+  rating: 1
+  merchant: sarah
+energy_bar:
+  name: Nature Valley
+  description: granola bar
+  price: 9
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 12
+  rating: 4
+  merchant: sharon
+med_ball:
+  name: Med Ball
+  description: weighted ball
+  price: 25
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 6
+  rating: 2
+  merchant: shonda
+tennisshoes:
+  name: Tennis Shoes
+  description: The most wanted item in 2020 
+  price: 35
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 120
+  rating: 5
+  merchant: shonda
+yogurt:
+  name: Frozen Yogurt
+  description: Strawberry flavour
+  price: 50
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 20
+  rating: 4
+  merchant: nataliya
+jump_rope:
+  name: Rogue
+  description: weighted jump rope
+  price: 25
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 16
+  rating: 2
+  merchant: sara
+dumbells:
+  name: dumbells
+  description: 5lbs dumbells
+  price: 58
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 20
+  rating: 2
+  merchant: sara
