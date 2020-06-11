@@ -1,5 +1,6 @@
 yoga:
   name: yoga
+  products: [yogamat]
 
 gear: 
   name: gear
