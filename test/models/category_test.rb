@@ -2,7 +2,7 @@ require "test_helper"
 
 describe Category do
   let(:new_category) { categories(:yoga) }
-  let(:new_relation) { categories_products(:yoga_yogamat) }
+  let(:new_product) { products(:yogamat) }
   describe "validations" do 
     it "is valid when all required fields are present" do
 
@@ -17,11 +17,11 @@ describe Category do
     end
   end 
   describe "relations" do 
-    #category has many products, products can have many categories 
     it "can have many products" do 
-      new_category.reload
-
       expect(new_category.products.size).must_equal 1
+    end 
+    it "can have many categories" do 
+      expect(new_product.categories.size).must_equal 1
     end 
   end 
 
