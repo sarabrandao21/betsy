@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
 
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   before_action :check_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_merchant, only: [:create, :update]
   
   def index
     @products = Product.all
@@ -16,13 +17,21 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    if @product.save
-      flash[:success] = "Successfully created #{@product.name}"
-      redirect_to products_path
+    if @login_merchant
+      @product = Product.new(product_params)
+      @product.merchant = @login_merchant
+      if @product.save
+        flash[:success] = "Successfully created #{@product.name}"
+        redirect_to products_path
+        return
+      else
+        flash[:error] = "Couldn't create product! #{@product.errors.messages}"
+        render :new, status: :bad_request
+      end
     else
-      flash[:error] = "Couldn't create product! #{@product.errors.messages}"
-      render :new, status: :bad_request
+      flash[:error] = @product.errors.messages
+      redirect_to products_path
+      return
     end
   end
 
@@ -49,7 +58,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :image, :stock, :rating, :merchant_id)
+    params.require(:product).permit(:name, :description, :price, :image, :stock, :rating)
   end
 
   def find_product
