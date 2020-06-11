@@ -1,6 +1,6 @@
 <%default_image = "https://i.imgur.com/WO2Uui9.jpg"%>
 <div class=" products-list">
-<h1>Categories:</h1>
+<h1>Find things you'll love. Support independent sellers!</h1>
 
   <section class="row all-categories">
       <% @categories.each do |category| %>
@@ -8,12 +8,12 @@
             <%if category.products.first%>
               <%= link_to  category_path(category.id) do %> 
                   <%= image_tag category.products.first.image, alt: "product's image", class:'category-image'%>
-                  <span><%= category.name %></span>
+                  <span class="category-name"><%= category.name %></span>
               <% end %>
             <%else%>
                <%= link_to category_path(category.id) do %> 
                   <%= image_tag default_image, alt: "default product's image", class:'category-image'%>
-                  <span><%= link_to category.name %></span>
+                  <span class="category-name"><%= link_to category.name %></span>
                 <% end %>
             <%end%>
           </div>
