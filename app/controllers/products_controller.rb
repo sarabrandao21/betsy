@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
 
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   before_action :check_product, only: [:show, :edit, :update, :destroy]
-  before_action :find_merchant, only: [:new, :create, :update]
+  before_action :find_merchant, only: [:new, :create, :edit, :update]
   
   def index
     @products = Product.all
@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
     else
       flash[:error] = "You must login to add new product!"
       redirect_to products_path
+      return
     end
   end
 
@@ -42,6 +43,11 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    if !(@login_merchant == @product.merchant)
+      flash[:error] = "You are not authorized to edit this product!"
+      redirect_to products_path
+      return
+    end
   end
 
   def update
