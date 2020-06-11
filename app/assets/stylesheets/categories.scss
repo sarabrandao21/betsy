@@ -1,0 +1,35 @@
+// Place all the styles related to the categories controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.all-categories {
+    background-color: #F0FFF0;
+    padding: 1rem;
+    margin: 1rem 1rem;
+    
+}
+
+
+.category-name {
+    color: black
+}
+
+.category-card {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    display: inline-block;
+}
+
+.category-image {
+    border-radius: 50%;
+    height: 165px;
+    width: 200px;
+}
+
+.everyday-finds {
+    text-align: center;
+
+}
+
+.find-category {
+    text-align: center;
+}

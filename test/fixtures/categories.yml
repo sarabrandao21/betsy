@@ -1,2 +1,10 @@
 yoga:
   name: yoga
+  products: [yogamat]
+
+gear: 
+  name: gear
+
+snacks: 
+  name: snacks
+

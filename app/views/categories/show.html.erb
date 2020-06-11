@@ -1,0 +1,18 @@
+<section>
+    <div class="row products-list">
+  <% @category.products.each do |product| %>
+    <div class='col-lg-4 col-md-6 mb-4'>
+      <div class='card h-100'>
+        <%= image_tag product.image, alt: "product's image", class:'card-img-top products-imgs'%>
+        <h4><%= link_to product.name, product_path(product) , class: 'card-title' %></h4>
+        <p><%= product.description %></p>
+        <h5>$ <%= product.price %></h5>
+        <p><%= product.stock %> left in stock!</p>
+        <p><%= product.rating%>★</p>
+        <%= link_to 'Add to cart', "", class:'btn btn-outline-secondary btn-sm'%>
+      </div>
+    </div>
+  <% end %>
+</div>
+    <%= link_to "Back to Categories", categories_path, class: "btn btn-primary" %>
+</section>

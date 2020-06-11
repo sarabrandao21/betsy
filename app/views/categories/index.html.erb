@@ -1,0 +1,24 @@
+<%default_image = "https://i.imgur.com/WO2Uui9.jpg"%>
+<div class=" products-list">
+<h1 class="find-category">Find things you'll love. Support independent sellers!</h1>
+<h4 class="everyday-finds"><strong>Everyday finds</strong></h4>
+  <section class="row all-categories">
+      <% @categories.each do |category| %>
+          <div class="category-card">
+            <%if category.products.first%>
+              <%= link_to  category_path(category.id) do %> 
+                  <%= image_tag category.products.first.image, alt: "product's image", class:'category-image'%>
+                  <span class="category-name"><%= category.name %></span>
+              <% end %>
+            <%else%>
+               <%= link_to category_path(category.id) do %> 
+                  <%= image_tag default_image, alt: "default product's image", class:'category-image'%>
+                  <span class="category-name"><%= link_to category.name %></span>
+                <% end %>
+            <%end%>
+          </div>
+      <% end %> 
+  </section>
+
+  <%= link_to "Add a new category", new_category_path, class: "btn btn-primary" %>
+</div>
