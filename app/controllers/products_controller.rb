@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
 
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   before_action :check_product, only: [:show, :edit, :update, :destroy]
-  before_action :find_merchant, only: [:create, :update]
+  before_action :find_merchant, only: [:new, :create, :update]
   
   def index
     @products = Product.all
@@ -14,7 +14,12 @@ class ProductsController < ApplicationController
 
 
   def new
-    @product = Product.new
+    if @login_merchant
+      @product = Product.new
+    else
+      flash[:error] = "You must login to add new product!"
+      redirect_to products_path
+    end
   end
 
   def create
