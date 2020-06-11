@@ -1,7 +1,25 @@
 require "test_helper"
 
 describe Category do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  let(:new_category) { categories(:yoga) }
+  describe "validations" do 
+    it "is valid when all required fields are present" do
+
+      expect(new_category.valid?).must_equal true
+    end
+
+    it "is invalid when category name is NOT present" do
+      new_category.name = nil
+      expect(new_category.valid?).must_equal false
+      expect(new_category.errors.messages).must_include :name
+      expect(new_category.errors.messages[:name]).must_equal ["can't be blank"]
+    end
+  end 
+  describe "relations" do 
+    
+
+  end 
+
+  
+
 end

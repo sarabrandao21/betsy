@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
 
-    before_action :find_category, only: [:show, :edit, :update, :destroy]
+    before_action :find_category, only: [:show]
     before_action :find_merchant, only: [:create, :update]
 
     def index 
@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
     end 
 
     def show
-        render_404 unless @category
+        redirect_to categories_path unless @category
     end 
 
     def new 
