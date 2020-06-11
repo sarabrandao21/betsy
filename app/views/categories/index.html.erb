@@ -1,15 +1,24 @@
-<div class="row products-list">
+<%default_image = "https://i.imgur.com/WO2Uui9.jpg"%>
+<div class=" products-list">
 <h1>Categories:</h1>
 
-  <table class="table">
-    <tbody>
+  <section class="row all-categories">
       <% @categories.each do |category| %>
-          <tr class="list-group-item-action">
-            <td> <%= link_to category.name, category_path(category.id) %> </td>
-          </tr>
+          <div class="category-card">
+            <%if category.products.first%>
+              <%= link_to  category_path(category.id) do %> 
+                  <%= image_tag category.products.first.image, alt: "product's image", class:'category-image'%>
+                  <span><%= category.name %></span>
+              <% end %>
+            <%else%>
+               <%= link_to category_path(category.id) do %> 
+                  <%= image_tag default_image, alt: "default product's image", class:'category-image'%>
+                  <span><%= link_to category.name %></span>
+                <% end %>
+            <%end%>
+          </div>
       <% end %> 
-    </tbody>
-  </table>
+  </section>
 
   <%= link_to "Add a new category", new_category_path, class: "btn btn-primary" %>
 </div>
