@@ -1,0 +1,36 @@
+<div class="container mt-5 mb-5">
+  <h1>Your cart</h1>
+  <% if !@order %>
+    <div>Your cart is empty. Add something already!</div>
+  <% else %>
+
+    <% @order.order_items.each do |order_item| %>
+      <div class="card bg-light mb-3">
+        <div class="row card-body">
+          <div class="col-3">
+            <img src= <%= order_item.product.image %> alt="" class="img-fluid">
+          </div>
+          <div class="col">
+            <h3 class="card-title"> <%= order_item.product.name %> </h5>
+            <h6 class="card-subtitle mb-2 text-muted"> Merchant: <%= order_item.product.merchant.username %></h6>
+            <ul class="">
+              <li>How many?  <%= order_item.quantity %> </li>
+              <li>Price: <%= order_item.product.price %> </li>
+              <li>Price Total: N/A (for now) </li>
+            </ul>
+            <%= link_to "Remove", root_path, class: "btn btn-outline-danger" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  
+    <div class="mt-5 mb-5">
+      <h5>Subtotal: N/A</h5>
+      <h5>Taxes: N/A</h5>
+      <h5>Total: N/A</h5>
+    </div>
+    
+    <%= link_to "Checkout", root_path, class: "btn btn-outline-primary" %>
+    <%= link_to "Empty Cart", order_path(@order), method: :delete, data: {confirm: "Empty your cart?"}, class: "btn btn-outline-danger" %>
+  <% end %>
+</div>
