@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_215437) do
+ActiveRecord::Schema.define(version: 2020_06_11_230748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,12 +62,13 @@ ActiveRecord::Schema.define(version: 2020_06_11_215437) do
     t.string "name"
     t.string "description"
     t.float "price"
-    t.string "image"
+    t.string "image", default: "https://i.imgur.com/WO2Uui9.jpg"
     t.integer "stock"
     t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "merchant_id"
+    t.boolean "active", default: true
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 
