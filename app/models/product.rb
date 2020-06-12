@@ -9,6 +9,8 @@ class Product < ApplicationRecord
     validates_uniqueness_of :name, scope: :merchant
     validates :price, presence: true,
                     numericality: { greater_than: 0 }
+    validates :stock, presence: true,
+                    numericality: { greater_than_or_equal_to: 0 }
 
     def self.active_products
         products = Product.where(active: true)
