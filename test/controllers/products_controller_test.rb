@@ -2,13 +2,8 @@ require "test_helper"
 
 describe ProductsController do
   let(:existing_product) { products(:yogamat) }
-  let(:merchant){merchant(:shonda)}
+  let(:merchant) {merchants(:shonda)}
 
-describe "merchants" do
-  before do
-    perform_login(shonda)
-  end
- 
   describe "index" do
     it "succeeds when there are products" do
       get products_path
@@ -24,10 +19,14 @@ describe "merchants" do
       get products_path
 
       must_respond_with :success
+    end
 
-      it "can get all the products for selected merchant" do
-        product = existing_product.merchant_id 
+    it "can get all the products for selected merchant" do
+      existing_product.merchant_id = merchant.id
 
+       get merchant_path(merchant.id)
+
+       must_respond_with :success
     end
   end
 
@@ -71,7 +70,26 @@ describe "merchants" do
 
       must_respond_with :bad_request
     end
+    
+    it "redirects to products page if merchant not logged in" do
+      @login_merchant = nil
+      new_product = {
+        product: {
+          name: "Dri-Fit Shirt",
+          price: 22,
+          image: "https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg",
+          stock: 14,
+          rating: 5,
+        }
+      }
+      
+      perform_login(@login_merchant)
+      post products_path, params: new_product
+      must_respond_with :redirect
+    end
 
+
+    
     # TODO : update once we have categories!!!!!!!!!
     # it "renders 400 bad_request for bogus categories" do
     #   INVALID_CATEGORIES.each do |category|
@@ -186,5 +204,4 @@ describe "merchants" do
   #     must_redirect_to products_path
   #   end
   # end
-
 end
