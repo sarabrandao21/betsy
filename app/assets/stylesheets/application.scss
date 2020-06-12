@@ -118,3 +118,11 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   padding-right: 10px;
   padding-left: 10px;
 }
+
+// https://www.w3schools.com/howto/howto_css_image_avatar.asp
+.reviewer_avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

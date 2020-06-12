@@ -1,8 +1,21 @@
 <% reviews.each do |review|%>
-  <div class='review'>
-    <p><%= review.reviewer %></p>
-    <p><%= review.rating %> ★</p>
-    <%# simple_format to help us put it in paragraph %>
-    <%= simple_format review.comment%>
-  </div>
+  <section class='card'>
+    <div class='review card-body'>
+      <%= image_tag 'https://images-na.ssl-images-amazon.com/images/S/amazon-avatars-global/default._CR0,0,1024,1024_SX460_.png',
+          class: 'reviewer_avatar'
+      %>
+      <%= review.reviewer %>
+      <br>
+      <p>Rating:
+            <% review.rating.times do  %>
+                  ★
+            <%end%>
+            <% (5-review.rating).times do%>
+                  ☆
+            <%end%>
+      </p>
+      <%# simple_format to help us put it in paragraph %>
+      <%= simple_format review.comment%>
+    </div>
+  </section>
 <%end%>
