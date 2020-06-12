@@ -21,8 +21,10 @@ class ProductsController < ApplicationController
     if @login_merchant
       @product = Product.new(product_params)
       @product.merchant = @login_merchant
+      puts "Create product"
+
       if @product.save
-        @product.add_categories(product_params[:category_ids])
+        puts "Saving"
         flash[:success] = "Successfully created #{@product.name}"
         redirect_to products_path
         return

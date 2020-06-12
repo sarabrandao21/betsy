@@ -1,13 +1,8 @@
 <section>
   <%= form_with model: @product do |f| %>
     <div class="form-group">
-      <%= f.label :category %>
-      <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, class: "form-control" do |b| %>
-        <div class="collection-check-box">
-          <%= b.check_box %>
-          <%= b.label %>
-        </div>
-      <% end %>
+      <%= f.label :categories %>
+      <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
     </div>
     <div class="form-group ">
       <%= f.label :name %>

@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
     has_many :order_items
-    has_and_belongs_to_many :categories
+    has_and_belongs_to_many :categories, :uniq => true
     belongs_to :merchant
     has_many :reviews
 
@@ -15,14 +15,5 @@ class Product < ApplicationRecord
         return products.order(rating: :desc)[0...10]
     end
 
-    def add_categories(category_ids) #category_ids is an array 
-        category_ids.uniq!
-        category_ids.each do |id|
-            if id != ""
-                category = Category.find_by(id: id.to_i)
-                self.categories << category 
-            end 
-        end 
-    end 
     
 end
