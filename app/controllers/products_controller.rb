@@ -1,20 +1,25 @@
 class ProductsController < ApplicationController
 
-  before_action :find_product, only: [:show, :edit, :update, :destroy]
-  before_action :check_product, only: [:show, :edit, :update, :destroy]
-  before_action :find_merchant, only: [:create, :update]
+  before_action :find_product, only: [:show, :edit, :update, :toggle_active]
+  before_action :check_product, only: [:show, :edit, :update, :toggle_active]
+  before_action :find_merchant, only: [:new, :create, :edit, :update, :toggle_active]
   
   def index
-    @products = Product.all
+    @products = Product.active_products
   end
 
   def show
     @review = Review.new
   end
 
-
   def new
-    @product = Product.new
+    if @login_merchant
+      @product = Product.new
+    else
+      flash[:error] = "You must login to add new product!"
+      redirect_to products_path
+      return
+    end
   end
 
   def create
@@ -29,17 +34,24 @@ class ProductsController < ApplicationController
         redirect_to products_path
         return
       else
-        flash[:error] = "Couldn't create product! #{@product.errors.messages}"
+        # TODO: to fix the errors message to display properly
+        flash[:error] = "Couldn't create product!"
+        # flash[:messages] = @product.errors.messages
         render :new, status: :bad_request
       end
     else
-      flash[:error] = @product.errors.messages
+      flash[:error] = "Couldn't create product!"
       redirect_to products_path
       return
     end
   end
 
   def edit
+    if !(@login_merchant == @product.merchant)
+      flash[:error] = "You are not authorized to edit this product!"
+      redirect_to products_path
+      return
+    end
   end
 
   def update
@@ -52,12 +64,29 @@ class ProductsController < ApplicationController
     end
   end
 
-  def destroy
-    @product.destroy
-    redirect_to products_path
-    flash[:success] = "Product successfully removed."
-    return
+  def toggle_active
+    @product.update(active: @product.toggle_active_state)
+    flash[:success] = "Successfully set #{@product.name}'s status to #{@product.active ? "active" : "inactive"} "
+    redirect_to product_path(@product.id)
   end
+
+  
+  # def destroy
+  #   if (@login_merchant == @product.merchant)
+  #     if @product.destroy
+  #       redirect_to products_path
+  #       flash[:success] = "Product successfully removed."
+  #       return
+  #     else
+  #       flash[:error] = "Couldn't update this product!"
+  #       redirect_to product_path(@product.id)
+  #     end
+  #   else
+  #     flash[:error] = "You are not authorized to edit this product!"
+  #     redirect_to products_path
+  #     return
+  #   end
+  # end
 
   private
 
