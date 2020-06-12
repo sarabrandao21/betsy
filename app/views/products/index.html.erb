@@ -7,7 +7,20 @@
         <p><%= product.description %></p>
         <h5>$ <%= product.price %></h5>
         <p><%= product.stock %> left in stock!</p>
-        <p><%= "#{product.find_average_rating ? "#{product.find_average_rating} ★" : "No review for this product yet!"}"%></p>
+        
+        <% if product.find_average_rating.nil? %>
+          <p> No review for this product yet!" </p>
+        <%else%>
+          <p>Rating:
+              <% product.find_average_rating.times do  %>
+                    ★
+              <%end%>
+              <% (5 - product.find_average_rating).times do%>
+                    ☆
+              <%end%>
+          </p>
+        <%end%>
+        
         <%= link_to 'Add to cart', add_to_cart_path(product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
       </div>
     </div>
