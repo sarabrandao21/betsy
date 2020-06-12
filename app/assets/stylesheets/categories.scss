@@ -5,31 +5,40 @@
     background-color: #F0FFF0;
     padding: 1rem;
     margin: 1rem 1rem;
+    justify-content: center;
     
 }
 
-
-.category-name {
-    color: black
-}
-
 .category-card {
-    padding: 0.5rem;
+    padding: 0.9rem;
     margin: 0.5rem;
     display: inline-block;
 }
 
+.category-item {
+    
+}
+
+.category-name {
+    display: block;
+    text-align: center;
+    margin-top: 1rem
+}
+
 .category-image {
     border-radius: 50%;
-    height: 165px;
+    height: 200px;
     width: 200px;
+    display: block;
+    margin: 0 auto;
+    background-size: cover;
 }
+
 
 .everyday-finds {
     text-align: center;
-
 }
 
-.find-category {
+.text-category {
     text-align: center;
 }

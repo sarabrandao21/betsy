@@ -1,4 +1,13 @@
 require "csv"
+
+category_file = Rails.root.join("db", "category_seeds.csv")
+
+CSV.foreach(category_file, headers: true, header_converters: :symbol, converters: :all) do |row|
+  data = Hash[row.headers.zip(row.fields)]
+  puts data
+  Category.create!(data)
+end
+
 merchant_file = Rails.root.join("db", "merchant_seeds.csv")
 
 CSV.foreach(merchant_file, headers: true, header_converters: :symbol, converters: :all) do |row|
@@ -14,3 +23,4 @@ CSV.foreach(product_file, headers: true, header_converters: :symbol, converters:
     puts data
     Product.create!(data)
 end
+

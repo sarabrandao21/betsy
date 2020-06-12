@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
 
     before_action :find_category, only: [:show]
-    before_action :find_merchant, only: [:create, :update]
+    before_action :find_merchant, only: [:create]
 
     def index 
         @categories = Category.all

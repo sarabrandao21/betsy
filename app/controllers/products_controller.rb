@@ -26,7 +26,10 @@ class ProductsController < ApplicationController
     if @login_merchant
       @product = Product.new(product_params)
       @product.merchant = @login_merchant
+      puts "Create product"
+
       if @product.save
+        puts "Saving"
         flash[:success] = "Successfully created #{@product.name}"
         redirect_to products_path
         return
@@ -88,7 +91,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :image, :stock, :rating)
+    params.require(:product).permit(:name, :description, :price, :image, :stock, :rating, category_ids:[])
   end
 
   def find_product
