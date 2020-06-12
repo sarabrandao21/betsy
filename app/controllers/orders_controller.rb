@@ -26,6 +26,8 @@ class OrdersController < ApplicationController
       
       session[:order_id] = order.id
     end
+
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
