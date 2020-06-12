@@ -1,7 +1,10 @@
 // Place all the styles related to the homepage controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-
+[class*='card-product'] a.title {
+  color: #212529;
+  display: block;
+}
 
 .input-group > .form-control:not(:last-child), .input-group > .custom-select:not(:last-child) {
   border-top-right-radius: 0;
@@ -48,64 +51,4 @@ fa, .fab, .fal, .far, .fas {
 }
 i {
   font-style: italic;
-}
-// Card-product
-.card-product-grid {
-  margin-bottom: 20px;
-}
-.card .img-wrap {
-  overflow: hidden;
-}
-.card-product-grid .img-wrap {
-  border-radius: 0.2rem 0.2rem 0 0;
-  height: 220px;
-}
-[class*='card-product'] a.title {
-  color: #212529;
-  display: block;
-}
-.card-product-grid .info-wrap {
-  overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  padding: 18px 20px;
-  padding-top: 18px;
-  padding-right: 20px;
-  padding-bottom: 18px;
-  padding-left: 20px;
-}
-// List Group
-.card {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 0.37rem;
-}
-// Products
-.price {
-  font-weight: 600;
-  color: #212529;
-}
-.mt-1, .my-1 {
-  margin-top: 0.25rem !important;
-}
-// Section
-.padding-y-sm {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.section-heading {
-  margin-bottom: 20px;
-  margin-top: 15px;
 }
