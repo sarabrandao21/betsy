@@ -20,6 +20,12 @@ describe OrdersController do
   describe "create" do
     #TODO
     it "creates a new instance of OrderItem if there are enough products in stock" do
+      # assert_nil session[:order_id]
+      
+      product = products(:yogamat)
+      id = product.id
+      post add_to_cart_path(product)
+
       
     end
 
