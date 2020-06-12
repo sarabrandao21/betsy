@@ -1,36 +1,41 @@
 <section>
-  <%= form_with model: @product do |f| %>
+    <%= form_with model: @product do |f| %>
     <div class="form-group">
-      <%= f.label :categories %>
-      <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+        <%= f.label :categories %>
+        <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) do |b| %>
+        <div class="form-check">
+            <%= b.check_box class: 'form-check-input' %>
+            <%= b.label class: 'form-check-label' %>
+        </div>
+        <% end %>
     </div>
     <div class="form-group ">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :description %>
-      <%= f.text_area :description, class: "form-control" %>
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :price %>
-      <%= f.text_field :price , class: "form-control" %>
+        <%= f.label :price %>
+        <%= f.text_field :price , class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :image %>
-      <%= f.text_field :image, class: "form-control" %>
+        <%= f.label :image %>
+        <%= f.text_field :image, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :stock %>
-      <%= f.text_field :stock, class: "form-control" %>
+        <%= f.label :stock %>
+        <%= f.text_field :stock, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.submit action_name, class: "btn btn-primary" %>
+        <%= f.submit action_name, class: "btn btn-primary" %>
     </div>
-  <% end %>
+    <% end %>
 </section>
