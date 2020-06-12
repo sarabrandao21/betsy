@@ -14,4 +14,12 @@ class Product < ApplicationRecord
         products = Product.all
         return products.order(rating: :desc)[0...10]
     end
+
+    def toggle_active_state
+        if self.active?
+            return false
+        else
+            return true
+        end
+    end
 end
