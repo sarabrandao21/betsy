@@ -1,4 +1,10 @@
 class OrdersController < ApplicationController
+
+  def show
+    @order = Order.find_by(id: session[:order_id])
+    
+  end
+
   def create
     if session[:order_id]
       product = Product.find_by(id: params[:id])

@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   root 'homepage#index'
   
   resources :categories
+
+  # resources :orders, only: [:show, :create]
+  get "/cart", to: "orders#show", as: "cart"
+
   
   resources :merchants, only: [:index, :show]
 
