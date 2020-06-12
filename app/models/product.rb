@@ -32,7 +32,7 @@ class Product < ApplicationRecord
     def self.popular_products        
         products = Product.active_products
 
-        return products[0..10]
+        return products[0...12]
     end
 
     def toggle_active_state
