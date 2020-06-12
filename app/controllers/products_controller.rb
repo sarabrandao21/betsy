@@ -31,7 +31,9 @@ class ProductsController < ApplicationController
         redirect_to products_path
         return
       else
-        flash[:error] = "Couldn't create product! #{@product.errors.messages}"
+        # TODO: to fix the errors message to display properly
+        flash[:error] = "Couldn't create product!"
+        # flash[:messages] = @product.errors.messages
         render :new, status: :bad_request
       end
     else
