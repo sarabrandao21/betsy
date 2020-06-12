@@ -12,16 +12,26 @@ class Product < ApplicationRecord
 
     def self.active_products
         products = Product.where(active: true)
-        products.each do |product|
-            if product.find_average_rating
-                product.rating = product.find_average_rating
-            end
-        end
-        return products.sort_by {|product| -product.rating}
     end
 
     def self.popular_products        
-        return Product.active_products[0...10]
+        products = Product.active_products
+        favorite_products = []
+
+        products.each do |product|
+            if product.find_average_rating
+                product.rating = product.find_average_rating
+                favorite_products << product
+            end
+        end
+
+        top_ten = favorite_products.sort_by {|product| -product.rating}[0..10]
+
+        if top_ten.nil?
+            return Product.all.sample(5)
+        else 
+            return top_ten
+        end
     end
 
     def toggle_active_state

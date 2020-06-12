@@ -7,7 +7,7 @@
         <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
         <p><%= @product.description %></p>
         <h5>$ <%= @product.price %></h5>
-        <p><%= @product.rating%>★</p>
+        <p><%= "#{@product.find_average_rating ? "#{@product.find_average_rating} ★" : "No review for this product yet!"}"%></p>
         <%= link_to 'Add to cart', "", class:'btn btn-outline-secondary btn-sm'%>
         <% if session[:merchant_id] == @product.merchant_id %>
           <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
