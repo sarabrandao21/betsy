@@ -22,16 +22,24 @@ describe ProductsController do
   end
 
   describe "new" do
-    it "succeeds" do
+    it "succeeds if there is a valid merchant logged in" do
+      perform_login(merchants(:sara))
       get new_product_path
 
       must_respond_with :success
+    end
+
+    it "will redirect if there is no merchant log in" do
+      get new_product_path
+
+      must_redirect_to products_path
     end
   end
 
   describe "create" do
     it "creates a product with valid data for a real category" do
-      new_product = { product: { name: "Yoga socks", merchant_id: merchants(:sharon).id} }
+      perform_login(merchants(:sara))
+      new_product = { product: { name: "Yoga socks", merchant_id: merchants(:sharon).id, price: 20, stock: 20 } }
 
       expect {
         post products_path, params: new_product
@@ -44,6 +52,7 @@ describe ProductsController do
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
+      perform_login(merchants(:sara))
       bad_product = { product: { name: "Yoga block" } }
 
       expect {
@@ -84,6 +93,7 @@ describe ProductsController do
 
   describe "edit" do
     it "succeeds for an extant product ID" do
+      perform_login(merchants(:sharon))
       get edit_product_path(existing_product.id)
 
       must_respond_with :success
@@ -144,26 +154,27 @@ describe ProductsController do
     end
   end
 
-  describe "destroy" do
-    it "succeeds for an extant product ID" do
-      expect {
-        delete product_path(existing_product.id)
-      }.must_change "Product.count", -1
+  # TODO: to add toggle_active test!!!!!
+  # describe "destroy" do
+  #   it "succeeds for an extant product ID" do
+  #     expect {
+  #       delete product_path(existing_product.id)
+  #     }.must_change "Product.count", -1
 
-      must_respond_with :redirect
-      must_redirect_to products_path
-    end
+  #     must_respond_with :redirect
+  #     must_redirect_to products_path
+  #   end
 
-    it "redirect back to products_path and does not update the DB for a bogus product ID" do
-      bogus_id = existing_product.id
-      existing_product.destroy
+  #   it "redirect back to products_path and does not update the DB for a bogus product ID" do
+  #     bogus_id = existing_product.id
+  #     existing_product.destroy
 
-      expect {
-        delete product_path(bogus_id)
-      }.wont_change "Product.count"
+  #     expect {
+  #       delete product_path(bogus_id)
+  #     }.wont_change "Product.count"
 
-      must_redirect_to products_path
-    end
-  end
+  #     must_redirect_to products_path
+  #   end
+  # end
 
 end
