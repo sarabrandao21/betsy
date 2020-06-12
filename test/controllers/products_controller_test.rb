@@ -2,7 +2,13 @@ require "test_helper"
 
 describe ProductsController do
   let(:existing_product) { products(:yogamat) }
+  let(:merchant){merchant(:shonda)}
 
+describe "merchants" do
+  before do
+    perform_login(shonda)
+  end
+ 
   describe "index" do
     it "succeeds when there are products" do
       get products_path
@@ -18,6 +24,10 @@ describe ProductsController do
       get products_path
 
       must_respond_with :success
+
+      it "can get all the products for selected merchant" do
+        product = existing_product.merchant_id 
+
     end
   end
 
