@@ -23,14 +23,14 @@
         </div>
       </div>
     <% end %>
-  <% end %>
-
-  <div class="mt-5 mb-5">
-    <h5>Subtotal: N/A</h5>
-    <h5>Taxes: N/A</h5>
-    <h5>Total: N/A</h5>
-  </div>
   
-  <%= link_to "Checkout", root_path, class: "btn btn-outline-primary" %>
-  <%= link_to "Empty Cart", root_path, class: "btn btn-outline-danger" %>
+    <div class="mt-5 mb-5">
+      <h5>Subtotal: N/A</h5>
+      <h5>Taxes: N/A</h5>
+      <h5>Total: N/A</h5>
+    </div>
+    
+    <%= link_to "Checkout", root_path, class: "btn btn-outline-primary" %>
+    <%= link_to "Empty Cart", order_path(@order), method: :delete, data: {confirm: "Empty your cart?"}, class: "btn btn-outline-danger" %>
+  <% end %>
 </div>
