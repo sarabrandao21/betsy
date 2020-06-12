@@ -143,27 +143,28 @@ describe ProductsController do
       must_redirect_to products_path
     end
   end
+  
+  # TODO: to add toggle_active test!!!!!
+  # describe "destroy" do
+  #   it "succeeds for an extant product ID" do
+  #     expect {
+  #       delete product_path(existing_product.id)
+  #     }.must_change "Product.count", -1
 
-  describe "destroy" do
-    it "succeeds for an extant product ID" do
-      expect {
-        delete product_path(existing_product.id)
-      }.must_change "Product.count", -1
+  #     must_respond_with :redirect
+  #     must_redirect_to products_path
+  #   end
 
-      must_respond_with :redirect
-      must_redirect_to products_path
-    end
+  #   it "redirect back to products_path and does not update the DB for a bogus product ID" do
+  #     bogus_id = existing_product.id
+  #     existing_product.destroy
 
-    it "redirect back to products_path and does not update the DB for a bogus product ID" do
-      bogus_id = existing_product.id
-      existing_product.destroy
+  #     expect {
+  #       delete product_path(bogus_id)
+  #     }.wont_change "Product.count"
 
-      expect {
-        delete product_path(bogus_id)
-      }.wont_change "Product.count"
-
-      must_redirect_to products_path
-    end
-  end
+  #     must_redirect_to products_path
+  #   end
+  # end
 
 end
