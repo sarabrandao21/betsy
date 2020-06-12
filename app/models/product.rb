@@ -30,7 +30,7 @@ class Product < ApplicationRecord
         top_ten = favorite_products.sort_by {|product| -product.rating}[0..10]
 
         if top_ten.nil?
-            return Product.all.sample(5)
+            return Product.all.sample(10)
         else 
             return top_ten
         end
@@ -57,4 +57,16 @@ class Product < ApplicationRecord
         return (total_rating.sum.to_f/(total_rating.length)).round()
     end
 
+    # model method to use when product is added to cart
+    def deduct_inventory(num)
+        self.stock -= num
+        self.save
+    end 
+
+    # model method to use when a cart is removed
+    def restock_inventory(num)
+        self.stock += num
+        self.save
+    end
+    
 end
