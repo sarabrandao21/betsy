@@ -10,9 +10,18 @@ class Product < ApplicationRecord
     validates :price, presence: true,
                     numericality: { greater_than: 0 }
 
-    def self.popular_products
-        products = Product.all
-        return products.order(rating: :desc)[0...10]
+    def self.active_products
+        products = Product.where(active: true)
+        products.each do |product|
+            if product.find_average_rating
+                product.rating = product.find_average_rating
+            end
+        end
+        return products.sort_by {|product| -product.rating}
+    end
+
+    def self.popular_products        
+        return Product.active_products[0...10]
     end
 
     def toggle_active_state
@@ -22,4 +31,18 @@ class Product < ApplicationRecord
             return true
         end
     end
+
+    def find_average_rating
+        total_rating = []
+        if self.reviews.length < 1
+            return nil
+        else 
+            self.reviews.each do |reviews|
+                total_rating << reviews.rating
+            end
+        end
+        # to get the digits not to round up?
+        return (total_rating.sum.to_f/(total_rating.length)).round()
+    end
+
 end

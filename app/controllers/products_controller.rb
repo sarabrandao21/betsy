@@ -5,13 +5,12 @@ class ProductsController < ApplicationController
   before_action :find_merchant, only: [:new, :create, :edit, :update, :toggle_active]
   
   def index
-    @products = Product.all
+    @products = Product.active_products
   end
 
   def show
     @review = Review.new
   end
-
 
   def new
     if @login_merchant
