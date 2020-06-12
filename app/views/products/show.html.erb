@@ -6,9 +6,10 @@
     <div class='col-lg-6 col-xl-4 pt-4 order-1 orderlg-2 ml-lg-auto'>
     <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
     <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
+    <p class="lead font-weight-bold">Categories</p><%= @product.categories.first.name %></p>
     <h5>$ <%= @product.price %></h5>
     <% if @product.find_average_rating.nil? %>
-        <p> No review for this product yet!" </p>
+        <p> No review for this product yet! </p>
     <%else%>
       <p>Rating:
           <% @product.find_average_rating.times do  %>
