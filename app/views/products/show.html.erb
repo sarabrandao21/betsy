@@ -1,35 +1,35 @@
 <div class="row product-item">
-      <div class='card h-100'>
-        <div class='col-lg-6 col-xl-7 '>
-        <%= image_tag @product.image, alt: "product's image", class:'img-fluid product-img'%>
-        </div>
-        <div class='col-lg-6 col-xl-4 pt-4 order-1 orderlg-2 ml-lg-auto'>
-        <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
-        <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
-        <h5>$ <%= @product.price %></h5>
-        <% if @product.find_average_rating.nil? %>
-            <p> No review for this product yet!" </p>
-        <%else%>
-          <p>Rating:
-              <% @product.find_average_rating.times do  %>
-                    ★
-              <%end%>
-              <% (5-@product.find_average_rating).times do%>
-                    ☆
-              <%end%>
-          </p>
-        <%end%>
-        
-        <%= link_to 'Add to cart', add_to_cart_path(@product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
-        <% if session[:merchant_id] == @product.merchant_id %>
-          <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
-          <%= link_to "Set #{@product.active ? "inactive" : "active"}", 
-              toggle_active_path(@product.id), 
-              method: :patch,
-              data: {confirm: "Are you sure to set the state to #{@product.active ? "inactive" : "active"}"}, 
-              class:'btn btn-outline-danger btn-sm'
-          %>
-        <% end %>
+  <div class='card h-100'>
+    <div class='col-lg-6 col-xl-7 '>
+      <%= image_tag @product.image, alt: "product's image", class:'img-fluid product-img'%>
+    </div>
+    <div class='col-lg-6 col-xl-4 pt-4 order-1 orderlg-2 ml-lg-auto'>
+    <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
+    <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
+    <h5>$ <%= @product.price %></h5>
+    <% if @product.find_average_rating.nil? %>
+        <p> No review for this product yet!" </p>
+    <%else%>
+      <p>Rating:
+          <% @product.find_average_rating.times do  %>
+                ★
+          <%end%>
+          <% (5-@product.find_average_rating).times do%>
+                ☆
+          <%end%>
+      </p>
+    <%end%>
+    
+    <%= link_to 'Add to cart', add_to_cart_path(@product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
+    <% if session[:merchant_id] == @product.merchant_id %>
+      <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
+      <%= link_to "Set #{@product.active ? "inactive" : "active"}", 
+          toggle_active_path(@product.id), 
+          method: :patch,
+          data: {confirm: "Are you sure to set the state to #{@product.active ? "inactive" : "active"}"}, 
+          class:'btn btn-outline-danger btn-sm'
+      %>
+    <% end %>
     </div>
   </div>
 <div class='col-11 '>
@@ -38,24 +38,7 @@
     <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
   </div>
 
-  <div class="card md-4">
-    <div class="card-body">
-      <h5 class="card-title">Leave a comment</h5>
-      <%= form_for @review, remote: true do |f| %>
-        <%= f.hidden_field :product_id, value: @product.id%>
-        <div class='form-group'>
-          <%=f.label :reviewer_name%>
-          <%= f.text_field :reviewer, value: @review.reviewer%>
-        </div>
-        <div class='form-group'>
-          <%=f.label :rating%>
-          <%= f.select :rating,[1,2,3,4,5], {}, value: @review.rating%>
-        </div>
-        <div class='form-group'>
-          <%=f.label :comment%>
-          <%= f.text_area :comment, placeholder: 'Your Comment goes here', class: 'form-control'%>
-        </div>
-        <%=f.submit "Submit review", class: 'btn btn-success mt-3'%>
-      <% end %>
-    </div>
+  <div id="products-reviews">
+    <%= render partial: 'reviews/new', locals: {review: @review}%>
   </div>
+</div>
