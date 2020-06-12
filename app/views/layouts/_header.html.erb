@@ -15,13 +15,13 @@
           <%= link_to "All Products", products_path, class: "nav-link app-header__nav__item" %>
         </li>
         <li class="nav-item">
-          <%= link_to "By Category", products_path, class: "nav-link app-header__nav__item" %>
+          <%= link_to "By Category", categories_path, class: "nav-link app-header__nav__item" %>
         </li>
         <li class="nav-item">
           <%= link_to "By Merchant", merchants_path, class: "nav-link app-header__nav__item" %>
         </li>
         <li class="nav-item">
-          <%= link_to merchants_path, class: "nav-link app-header__nav__item", style: "color: orange; font-size: 1.3rem; padding: 0.2rem;" do %>
+          <%= link_to cart_path, class: "nav-link app-header__nav__item", style: "color: orange; font-size: 1.3rem; padding: 0.2rem;" do %>
             <i class="fa fa-shopping-cart"></i>
           <% end %>
         </li>
@@ -29,7 +29,17 @@
 
       <ul class="navbar-nav">
         <% if session[:merchant_id] %>
-          <%= link_to "Dashboard", merchant_path(session[:merchant_id]), class: "btn btn-outline-warning app-header__nav__button" %>
+
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle btn btn-outline-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Portal
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Dashboard", merchant_path(session[:merchant_id]), class: "dropdown-item" %>
+              <%= link_to "Add Product", new_product_path, class: "dropdown-item" %>
+            </div>
+          </li>
+
           <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-outline-warning app-header__nav__button" %>    
         <% else %>
           <%= link_to "Log In", github_login_path, class: "btn btn-outline-warning app-header__nav__button" %>    
