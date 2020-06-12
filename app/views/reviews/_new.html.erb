@@ -1,0 +1,22 @@
+<div class="card md-4">
+  <div class="card-body">
+    <h5 class="card-title">Review this product</h5>
+    <p>Share your thoughts with other customers</p>
+    <%= form_for @review, remote: true do |f| %>
+      <%= f.hidden_field :product_id, value: @product.id%>
+      <div class='form-group'>
+        <%=f.label :reviewer_name%>
+        <%= f.text_field :reviewer, value: @review.reviewer%>
+      </div>
+      <div class='form-group'>
+        <%=f.label :rating%>
+        <%= f.select :rating,[1,2,3,4,5], {}, value: @review.rating%>
+      </div>
+      <div class='form-group'>
+        <%=f.label :comment%>
+        <%= f.text_area :comment, placeholder: 'Your Comment goes here', class: 'form-control'%>
+      </div>
+      <%=f.submit "Submit review", class: 'btn btn-success mt-3'%>
+    <% end %>
+  </div>
+</div>
