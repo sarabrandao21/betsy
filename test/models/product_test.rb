@@ -1,9 +1,10 @@
 require "test_helper"
 
 describe Product do
+  let(:product_with_category) { products(:yogamat) }
   before do 
     @new_product = Product.new(name:"Air Force Ones", price:150, merchant_id: merchants(:sharon).id)
-  
+    
   end
 
   describe "validations" do
@@ -90,7 +91,10 @@ end
     end
   end
 
-  # TODO: TO TEST CATERGORIES
+  it "can have none or many categories" do 
+    expect(product_with_category.categories.size).must_equal 1 
+    expect(@new_product.categories.size).must_equal 0 
+  end 
 end
 
  
