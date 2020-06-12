@@ -5,25 +5,24 @@
   <% else %>
 
     <% @order.order_items.each do |order_item| %>
-      <div class="card bg-light" style="width: 30rem;">
+      <div class="card bg-light mb-3">
         <div class="row card-body">
-          <div class="col-5">
+          <div class="col-3">
             <img src= <%= order_item.product.image %> alt="" class="img-fluid">
           </div>
           <div class="col">
-            <h1 class="card-title"> <%= order_item.product.name %> </h5>
-            <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= order_item.product.price %></h6>
-            <ul>
-              <li>Products: <%=  %></li>
-              <li>Orders: N/A</li>
-              <li>Rating: N/A</li>
+            <h3 class="card-title"> <%= order_item.product.name %> </h5>
+            <h6 class="card-subtitle mb-2 text-muted"> Merchant: <%= order_item.product.merchant.username %></h6>
+            <ul class="">
+              <li>How many?  <%= order_item.quantity %> </li>
+              <li>Price: <%= order_item.product.price %> </li>
+              <li>Price Total: N/A (for now) </li>
             </ul>
+            <%= link_to "Remove", root_path, class: "btn btn-outline-danger" %>
           </div>
         </div>
       </div>
     <% end %>
 
   <% end %>
-
-
 </div>
