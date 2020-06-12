@@ -1,0 +1,8 @@
+<% reviews.each do |review|%>
+  <div class='review'>
+    <p><%= review.reviewer %></p>
+    <p><%= review.rating %> ★</p>
+    <%# simple_format to help us put it in paragraph %>
+    <%= simple_format review.comment%>
+  </div>
+<%end%>
