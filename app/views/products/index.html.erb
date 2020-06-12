@@ -7,7 +7,7 @@
         <p><%= product.description %></p>
         <h5>$ <%= product.price %></h5>
         <p><%= product.stock %> left in stock!</p>
-        <p><%= product.rating%>★</p>
+        <p><%= "#{product.find_average_rating ? "#{product.find_average_rating} ★" : "No review for this product yet!"}"%></p>
         <%= link_to 'Add to cart', "", class:'btn btn-outline-secondary btn-sm'%>
       </div>
     </div>
