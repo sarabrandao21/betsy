@@ -1,6 +1,7 @@
 <div class="card md-4">
   <div class="card-body">
-    <h5 class="card-title">Leave a comment</h5>
+    <h5 class="card-title">Review this product</h5>
+    <p>Share your thoughts with other customers</p>
     <%= form_for @review, remote: true do |f| %>
       <%= f.hidden_field :product_id, value: @product.id%>
       <div class='form-group'>
