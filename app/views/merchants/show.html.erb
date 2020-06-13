@@ -1,5 +1,5 @@
 <div class="container mt-5">
-
+  <h4>Come check out <%=@merchant.username%>'s merchandises</h4>
   <div class="card bg-light" style="width: 30rem;">
     <div class="row card-body">
       <div class="col-5">
@@ -10,31 +10,50 @@
         <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
         <ul>
           <li>Products: <%= @merchant.products.count %></li>
-          <li>Orders: N/A</li>
-          <li>Rating: N/A</li>
+          <li>Orders: </li>
+          <li>Rating: <%= @merchant.own_average_rating %></li>
         </ul>
       </div>
     </div>
   </div>
 
-  <h2 class="mt-5">Products:</h2>
+  <h2 class="mt-5"> Products:</h2>
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="thead-light">
       <tr>
         <th scope="col">Name</th>
-        <th scope="col">Products #</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
         <th scope="col">Rating</th>
       </tr>
     </thead>
     <tbody>
-      <% @merchant.products.each do |product| %>
-          <tr class="list-group-item-action">
-            <td> N/A </td>
-            <td> N/A </td>            
-            <td> N/A </td>
-          </tr>
-      <% end %> 
+      <% if @merchant.products.length > 0 %>
+        <% @merchant.products.each do |product| %>
+            <tr class="list-group-item-action">
+              <td><%= link_to product.name, product_path(product.id) %></td>
+              <td>$ <%= product.price%></td>            
+              <td><%= product.stock %> left
+                  <% if product.stock <= 10 %>
+                    <span class="badge badge-danger">Low in stock</span>
+                  <% end %>
+              </td>
+              <td>
+                <% if product.find_average_rating.nil? %>
+                    No review for this product yet!
+                <%else%>
+                      <% product.find_average_rating.times do  %>
+                            ★
+                      <%end%>
+                      <% (5-product.find_average_rating).times do%>
+                            ☆
+                      <%end%>
+                <%end%>
+              </td>
+            </tr>
+        <% end %> 
+      <% else %>
+        <h5>No Products from <%=@merchant.username%> yet!</h5>
+      <% end %>
     </tbody>
   </table>
-
-</div>
