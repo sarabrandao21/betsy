@@ -19,7 +19,7 @@ describe OrdersController do
     end
   end
 
-  describe "create" do
+  describe "add_to_cart" do
     it "creates a new instance of Order if session[:order_id] is nil and adds OrderItem to it" do
       product = products(:yogamat)
       get product_path(product)
@@ -73,6 +73,5 @@ describe OrdersController do
     end
   end
 
-
-
+  
 end
