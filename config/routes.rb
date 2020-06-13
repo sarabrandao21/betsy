@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   
   resources :merchants, only: [:index, :show]
+  get "/merchants/:id/dashboard", to: 'merchants#dashboard', as: 'dashboard'
 
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
