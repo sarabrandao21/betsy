@@ -7,8 +7,4 @@ class Order < ApplicationRecord
     validates :cvv, length:{is: 3},on: :update
     validates :zip, length:{is: 5}, on: :update
 
-
-    # def status
-    # end 
-
 end
