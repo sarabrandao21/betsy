@@ -1,0 +1,8 @@
+yogamat_orderitem:
+  product: yogamat
+  order: nataliyas_order
+  quantity: 1
+juice_orderitem:
+  product: juice
+  order: nataliyas_order
+  quantity: 2
