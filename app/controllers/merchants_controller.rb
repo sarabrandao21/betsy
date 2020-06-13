@@ -2,7 +2,7 @@ class MerchantsController < ApplicationController
   before_action :find_merchant, only: [:dashboard]
   
   def index
-    @merchants = Merchant.all
+    @merchants = Merchant.all.sort_by {|merchant| -merchant.own_average_rating}
   end
 
   def show

@@ -26,7 +26,7 @@ class Merchant < ApplicationRecord
       end
     end
     if total_rating.length < 1
-      return "no rating yet"
+      return 0
     else
       return (total_rating.sum.to_f/(total_rating.length)).round()
     end   

@@ -14,7 +14,7 @@
           <tr class="list-group-item-action">
             <td> <%= link_to merchant.username, merchant_path(merchant) %> </td>
             <td> <%= merchant.products.count %> </td>
-            <td> N/A </td>
+            <td> <%= (merchant.own_average_rating > 0) ? merchant.own_average_rating : 'no rating yet'%> </td>
           </tr>
       <% end %> 
     </tbody>
