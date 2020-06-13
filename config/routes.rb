@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   
   resources :categories
 
-  resources :orders, only: [:show, :create, :destroy]
+  resources :orders, only: [:show, :destroy, :edit, :update, :create]
   get "/cart", to: "orders#show", as: "cart"
+
 
   
   resources :merchants, only: [:index, :show]

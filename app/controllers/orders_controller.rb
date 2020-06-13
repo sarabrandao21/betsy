@@ -4,6 +4,33 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: session[:order_id])
   end
 
+  def edit
+    if params[:order_id]
+      @order = Order.find_by(id: params[:order_id])
+    elsif params[:id]
+      @order = Order.find_by(id: params[:id])
+    elsif session[:order_id] && session[:order_id] != nil
+      @order = Order.find_by(id: session[:order_id])
+    end 
+  end
+
+  def update
+    @order = Order.find_by(id: session[:order_id])
+    @order.card_status = "paid"
+    if @order.update(order_params)
+      @order.save
+      session.delete(:order_id)
+      #@order.qty
+      flash[:status] = :success
+      flash[:result_text] = "Your order has been submitted."
+      redirect_to order_path(@order)
+      return
+    else
+      render :edit
+      return
+    end
+  end
+
   def create
     if session[:order_id]
       product = Product.find_by(id: params[:id])
@@ -46,4 +73,11 @@ class OrdersController < ApplicationController
     session[:order_id] = nil
     redirect_to root_path
   end
+
+  private
+  def order_params
+    return params.require(:order).permit(:customer_name, :email, :address, :exp_date, :cvv, :zip, :last_four_cc)
+  end
 end
+
+
