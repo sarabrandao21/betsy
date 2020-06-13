@@ -73,5 +73,15 @@ describe OrdersController do
     end
   end
 
-  
+  describe "destroy" do
+    it "destroys the Order instance" do
+    end
+
+    it "destroys all OrderItems in the Order instance" do
+    end
+
+    it "does not do anything if Order id is invalid" do
+
+    end
+  end
 end

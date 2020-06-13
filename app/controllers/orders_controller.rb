@@ -26,10 +26,6 @@ class OrdersController < ApplicationController
       return
     end
 
-    @order.order_items.each do |order_item|
-      order_item.destroy
-    end
-
     @order.destroy
     flash[:success] = "We removed all items from your shopping cart" 
 
