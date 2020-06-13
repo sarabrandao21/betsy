@@ -1,30 +1,18 @@
 class OrdersController < ApplicationController
+  before_action :require_product, only: [:add_to_cart]
 
   def cart
     @order = Order.find_by(id: session[:order_id])
   end
 
-  def create
-    if session[:order_id]
-      product = Product.find_by(id: params[:id])
+  def add_to_cart
+    order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
+    order_item = OrderItem.new(order: order, product: @product)
 
-      order = Order.find_by(id: session[:order_id])
-      
-      order_item = OrderItem.create(
-        order: order,
-        product: product)
-    else 
-      product = Product.find_by(id: params[:id])
-
-      order = Order.create
-      id = order.id
-      order = Order.find_by(id: id)
-
-      order_item = OrderItem.create(
-        order: order,
-        product: product)
-      
-      session[:order_id] = order.id
+    if order_item.save
+      flash[:success] = "Successfully added #{@product.name} to your cart"
+    else
+      flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
     end
 
     redirect_back(fallback_location: root_path)
@@ -47,5 +35,34 @@ class OrdersController < ApplicationController
 
     session[:order_id] = nil
     redirect_to root_path
+  end
+
+  private
+
+  def require_product
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      flash[:error] = "A problem occured. We couldn't find this product."
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def find_order(id:)
+    order = Order.find_by(id: id)
+    if order.nil?
+      flash[:error] = "A problem occured. We couldn't find your cart."
+      return redirect_back(fallback_location: root_path)
+    end
+    return order
+  end
+
+  def create_order
+    order = Order.new
+    unless order.save
+      flash[:error] = "Something went wrong: #{order.errors.messages}"
+    end
+    order.reload
+    session[:order_id] = order.id
+    return order
   end
 end
