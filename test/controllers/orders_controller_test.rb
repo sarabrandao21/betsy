@@ -77,13 +77,29 @@ describe OrdersController do
     it "destroys the Order instance and redirects to root" do
       order = orders(:nataliyas_order)
       expect{delete order_path(order)}.must_differ "Order.count", -1
+      must_redirect_to root_path
     end
 
     it "destroys all OrderItems in the Order instance" do
+      order = orders(:nataliyas_order)
+      expect{delete order_path(order)}.must_differ "OrderItem.count", -2
+    end
+
+    it "sets session[:order_id] to nil" do
+      product = products(:yogamat)
+      post add_to_cart_path(product)
+      expect(session[:order_id]).wont_be_nil
+
+      order = Order.find_by(id: session[:order_id])
+      delete order_path(order)
+      assert_nil session[:order_id]
     end
 
     it "does not do anything if Order id is invalid" do
-
+      order_id = -1
+      order = Order.find_by(id: order_id)
+      expect{delete order_path(order_id)}.wont_change "Order.count"
+      must_respond_with :not_found
     end
   end
 end
