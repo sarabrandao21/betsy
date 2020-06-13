@@ -7,8 +7,14 @@
     <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
     <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
     <h5>$ <%= @product.price %></h5>
+    <p>
+      <%= @product.stock %> left in stock!
+      <% if @product.stock <= 10 %>
+        <span class="badge badge-pill badge-danger">Low in stock</span>
+      <% end %>
+    </p>
     <% if @product.find_average_rating.nil? %>
-        <p> No review for this product yet!" </p>
+        <p> No review for this product yet! </p>
     <%else%>
       <p>Rating:
           <% @product.find_average_rating.times do  %>
