@@ -74,7 +74,9 @@ describe OrdersController do
   end
 
   describe "destroy" do
-    it "destroys the Order instance" do
+    it "destroys the Order instance and redirects to root" do
+      order = orders(:nataliyas_order)
+      expect{delete order_path(order)}.must_differ "Order.count", -1
     end
 
     it "destroys all OrderItems in the Order instance" do
