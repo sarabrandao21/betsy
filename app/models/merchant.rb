@@ -21,12 +21,15 @@ class Merchant < ApplicationRecord
 
     self.products.each do |product|
       product_rating = product.find_average_rating
-      if product_rating
+      if product_rating 
         total_rating << product_rating
       end
     end
-
-    return (total_rating.sum.to_f/(total_rating.length)).round()
+    if total_rating.length < 1
+      return "no rating yet"
+    else
+      return (total_rating.sum.to_f/(total_rating.length)).round()
+    end   
   end
 
   def find_total_order
