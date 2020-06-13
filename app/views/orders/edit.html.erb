@@ -4,59 +4,59 @@
   <section class="alert alert-danger">
     <h1>You have not selected any orders</h1>
     <ul>
-      <% @orders.errors.each do |column, message|%>
+      <% @order.errors.each do |column, message|%>
       <li>
         <strong><%= column.capitalize %></strong><%= message%>
       </li>
       <% end %>
     </ul>
     </section>
-<%end%>
+<% end %>
 
-<section class="checkoutpage">
+<section>
+                                  
+  <%= form_with model: @order, url: order_path(@order), method: :patch do |f| %>
+    <div class="form-group">
+    <%= f.label :customer_name, "Name" %>
+    <%= f.text_field :customer_name, class: "form-control", placeholder: "Your Name"  %>
+    </div>
 
- <%= form_with model: @order, url:order_path(@order), method: :patch do |f|%>
-  <div class="form-group">
+    <div class="form-group">
+    <%= f.label :email, "Email Address" %>
+    <%= f.text_field :email, class: "form-control", placeholder: "youremail@email.com"  %>
+    </div>
 
-        <div class = "form-group">
-          <%=f.label :customer_name, "Name"%><br>
-           <%=f.text_field :customer_name%>
-        </div>
+    <div class="form-group">
+    <%= f.label :address, "Shipping Address" %>
+    <%= f.text_field :address, class: "form-control", placeholder: "Shipping Address"  %>
+    </div>
 
-        <div class = "form-group">
-          <%=f.label :email, "Email Adress"%><br>
-          <%=f.text_field :email%>
-        </div>
+    <div class="form-group">
+    <%= f.label :last_four_cc, "Card Number" %>
+    <%= f.number_field :last_four_cc, class: "form-control"  %>
+    </div>
 
-        <div class = "form-group">
-          <%=f.label :address, "Shipping Address"%><br>
-          <%=f.text_field :address%>
-        </div>
+    <div class="form-group">
+    <%= f.label :exp_date, "Expiration Date" %>
+    <%= f.number_field :exp_date, class: "form-control", placeholder: "01/25"  %>
+    </div>
 
-        <div class = "form-group">
-          <%=f.label :last_four_cc, "Credit Card Number"%><br>
-          <%=f.text_field :last_four_cc%>
-        </div>
+    <div class="form-group">
+    <%= f.label :cvv, "Security Code" %>
+    <%= f.number_field :cvv, class: "form-control" %>
+    </div>
 
-        <div class = "form-group">
-          <%=f.label :exp_date, "Credit Expiry Date"%><br>
-          <%=f.text_field :exp_date%>
-        </div>
+    <div class="form-group">
+    <%= f.label :zip, "Zip Code" %>
+    <%= f.number_field :zip, class: "form-control" %>
+    </div>
 
-        <div class = "form-group">
-          <%=f.label :cvv, "Secruity Code"%><br>
-        <%=f.text_field :cvv%>
-        </div>
-        
-        <div class = "form-group">
-          <%=f.label :zip, "Zip Code"%><br>
-          <%=f.text_field :zip%>
-        </div>
-        
-       
-   
-        <%=f.submit "Submit Order", class: "btn btn-primary"%>
-      
-      <%end%>
-      </section>
-      </body>
+    <div class="form-group">
+    <%= f.submit "Complete Order", class: "btn btn-light" %>
+    </div>
+
+  <% end %>
+            
+</section>
+                   
+                      </body>
