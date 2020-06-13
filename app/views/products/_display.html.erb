@@ -28,7 +28,7 @@
               <% if product.find_average_rating.nil? %>
                   <p> No review for this product yet!</p>
               <%else%>
-                <p>Rating:</p>
+                <p class="text-warning">
                     <% product.find_average_rating.times do  %>
                           ★
                     <%end%>

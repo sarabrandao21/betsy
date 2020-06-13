@@ -22,7 +22,7 @@
     <% if @product.find_average_rating.nil? %>
         <p> No review for this product yet! </p>
     <%else%>
-      <p>Rating:
+      <p class="text-warning">
           <% @product.find_average_rating.times do  %>
                 ★
           <%end%>
@@ -46,11 +46,13 @@
   </div>
 <div class='col-11 '>
 
-  <div id="products-reviews">
-    <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
-  </div>
-
-  <div id="products-reviews">
-    <%= render partial: 'reviews/new', locals: {review: @review}%>
+  <div id="products-reviews container">
+    <div class="row">
+    <section class='col-5'>
+      <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
+    </section>
+    <section class='col-7'>
+      <%= render partial: 'reviews/new', locals: {review: @review}%>
+    </section>
   </div>
 </div>
