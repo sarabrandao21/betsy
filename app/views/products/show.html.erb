@@ -8,6 +8,12 @@
     <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
     <p class="lead font-weight-bold">Categories</p><%= @product.categories.first.name %></p>
     <h5>$ <%= @product.price %></h5>
+    <p>
+      <%= @product.stock %> left in stock!
+      <% if @product.stock <= 10 %>
+        <span class="badge badge-pill badge-danger">Low in stock</span>
+      <% end %>
+    </p>
     <% if @product.find_average_rating.nil? %>
         <p> No review for this product yet! </p>
     <%else%>

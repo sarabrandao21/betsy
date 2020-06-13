@@ -1,4 +1,5 @@
 class MerchantsController < ApplicationController
+  before_action :find_merchant, only: [:dashboard]
   
   def index
     @merchants = Merchant.all
@@ -34,5 +35,14 @@ class MerchantsController < ApplicationController
     session[:merchant_id] = nil
     flash[:success] = "Successfully logged out"
     redirect_to root_path
+  end
+
+  def dashboard
+    if !(@login_merchant == Merchant.find_by(id: params[:id]))
+      flash[:error] = "Sorry you are not authorized to this page"
+      return redirect_to merchants_path 
+    else
+      @merchant = @login_merchant
+    end
   end
 end

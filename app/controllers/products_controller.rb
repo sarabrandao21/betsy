@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
       if @product.save
         puts "Saving"
         flash[:success] = "Successfully created #{@product.name}"
-        redirect_to products_path
+        redirect_to product_path(@product.id)
         return
       else
         # TODO: to fix the errors message to display properly

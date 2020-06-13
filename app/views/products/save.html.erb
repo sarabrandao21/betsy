@@ -1,0 +1,28 @@
+<div class="row products-list">
+  <% @products.each do |product| %>
+    <div class='col-lg-4 col-md-6 mb-4'>
+      <div class='card-product-grid'>
+        <%= image_tag product.image, alt: "product's image", class:'card-img-top products-imgs img-wrap'%>
+        <h4><%= link_to product.name, product_path(product) , class: 'card-title' %></h4>
+        <p><%= product.description %></p>
+        <h5>$ <%= product.price %></h5>
+        <p><%= product.stock %> left in stock!</p>
+        
+        <% if product.find_average_rating.nil? %>
+          <p> No review for this product yet!" </p>
+        <%else%>
+          <p>Rating:
+              <% product.find_average_rating.times do  %>
+                    ★
+              <%end%>
+              <% (5 - product.find_average_rating).times do%>
+                    ☆
+              <%end%>
+          </p>
+        <%end%>
+        
+        <%= link_to 'Add to cart', add_to_cart_path(product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
+      </div>
+    </div>
+  <% end %>
+</div>

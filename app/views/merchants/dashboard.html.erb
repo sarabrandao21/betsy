@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <h4>Come check out <%=@merchant.username%>'s merchandises</h4>
+
   <div class="card bg-light" style="width: 30rem;">
     <div class="row card-body">
       <div class="col-5">
@@ -10,8 +10,8 @@
         <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
         <ul>
           <li>Products: <%= @merchant.products.count %></li>
-          <li>Orders: </li>
-          <li>Rating: <%= @merchant.own_average_rating %></li>
+          <li>Orders: N/A</li>
+          <li>Rating: N/A</li>
         </ul>
       </div>
     </div>
@@ -35,12 +35,17 @@
               <td>$ <%= product.price%></td>            
               <td><%= product.stock %> left
                   <% if product.stock <= 10 %>
-                    <span class="badge badge-danger">Low in stock</span>
+                    <span class="badge badge-danger">
+                      <%= link_to "Time to Restock!", edit_product_path(product.id), class:"text-white"%>
+                    </span>
                   <% end %>
               </td>
               <td>
                 <% if product.find_average_rating.nil? %>
                     No review for this product yet!
+                    <span class="badge badge-info">
+                      <%= link_to "Time to a sales!", edit_product_path(product.id), class:"text-white"%>
+                    </span>
                 <%else%>
                       <% product.find_average_rating.times do  %>
                             ★
@@ -57,3 +62,4 @@
       <% end %>
     </tbody>
   </table>
+</div>
