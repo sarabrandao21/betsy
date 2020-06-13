@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: session[:order_id])
+
   end
 
   def edit
@@ -16,16 +17,16 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find_by(id: session[:order_id])
-    @order.card_status = "paid"
     if @order.update(order_params)
+     # @order.card_status = "paid"
       @order.save
       session.delete(:order_id)
-      #@order.qty
-      flash[:status] = :success
-      flash[:result_text] = "Your order has been submitted."
+      flash[:success] = "Your order has been submitted."
       redirect_to order_path(@order)
       return
+
     else
+      flash[:error] = "Try again."
       render :edit
       return
     end
@@ -76,7 +77,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    return params.require(:order).permit(:customer_name, :email, :address, :exp_date, :cvv, :zip, :last_four_cc)
+    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status )
   end
 end
 
