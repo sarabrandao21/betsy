@@ -35,6 +35,11 @@ class Product < ApplicationRecord
         return products[0...12]
     end
 
+    # def get_categories 
+    #     categories = self.categories.map { |category| category.name }
+    #     return categories
+    # end 
+
     def toggle_active_state
         if self.active?
             return false
