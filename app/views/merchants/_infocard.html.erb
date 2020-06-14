@@ -6,8 +6,8 @@
     <div class="col-5">
       <h3 class="text-info"> <%= @merchant.username %> </h3>
       <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
-        <p>Products: <%= @merchant.products.count %></p>
-        <p>Orders: <%= @merchant.find_total_order %> </p>
+        <p>Total Products: <%= @merchant.products.count %></p>
+        <p>Total Orders: <%= @merchant.find_total_order %> </p>
         <p>
           <%if @merchant.own_average_rating == 0 %>
             No Rating Yet

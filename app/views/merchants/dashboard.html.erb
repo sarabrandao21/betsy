@@ -29,7 +29,7 @@
                   <% if product.find_average_rating.nil? %>
                       No review for this product yet!
                       <span class="badge badge-info">
-                        <%= link_to "Time to a sales!", edit_product_path(product.id), class:"text-white"%>
+                        <%= link_to "Time to promote!", edit_product_path(product.id), class:"text-white"%>
                       </span>
                   <%else%>
                         <% product.find_average_rating.times do  %>
