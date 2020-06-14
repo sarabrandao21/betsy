@@ -2,7 +2,7 @@
 
   <%= render partial: 'infocard' %>
   <section class='product_list'>
-    <h2 class="mt-5"> Products:</h2>
+    <h2 class="mt-5"> All Items:</h2>
     <table class="table">
       <thead class="thead-light">
         <tr>
@@ -10,6 +10,8 @@
           <th scope="col">Price</th>
           <th scope="col">Stock</th>
           <th scope="col">Rating</th>
+          <th scope="col">Status</th>
+          <th scope="col">Change Status</th>
         </tr>
       </thead>
       <tbody>
@@ -39,6 +41,17 @@
                               ☆
                         <%end%>
                   <%end%>
+                </td>
+                <td>
+                  <%= product.active ? "Active ✔︎" : "Inactive ✕"%>
+                </td>
+                <td>
+                  <%= link_to "Set #{product.active ? "inactive" : "active"}", 
+                      toggle_active_path(product.id), 
+                      method: :patch,
+                      data: {confirm: "Are you sure to set the state to #{product.active ? "inactive" : "active"}"}, 
+                      class:"btn btn-outline-secondary"
+                  %>
                 </td>
               </tr>
           <% end %> 
