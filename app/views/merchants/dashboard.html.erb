@@ -1,50 +1,51 @@
-<div class="container mt-5">
+<div class="container mt-5 dashboard">
 
   <%= render partial: 'infocard' %>
-
-  <h2 class="mt-5"> Products:</h2>
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Stock</th>
-        <th scope="col">Rating</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @merchant.products.length > 0 %>
-        <% @merchant.products.each do |product| %>
-            <tr class="list-group-item-action">
-              <td><%= link_to product.name, product_path(product.id) %></td>
-              <td>$ <%= product.price%></td>            
-              <td><%= product.stock %> left
-                  <% if product.stock <= 10 %>
-                    <span class="badge badge-danger">
-                      <%= link_to "Time to Restock!", edit_product_path(product.id), class:"text-white"%>
-                    </span>
-                  <% end %>
-              </td>
-              <td>
-                <% if product.find_average_rating.nil? %>
-                    No review for this product yet!
-                    <span class="badge badge-info">
-                      <%= link_to "Time to a sales!", edit_product_path(product.id), class:"text-white"%>
-                    </span>
-                <%else%>
-                      <% product.find_average_rating.times do  %>
-                            ★
-                      <%end%>
-                      <% (5-product.find_average_rating).times do%>
-                            ☆
-                      <%end%>
-                <%end%>
-              </td>
-            </tr>
-        <% end %> 
-      <% else %>
-        <h5>No Products from <%=@merchant.username%> yet!</h5>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <section class='product_list'>
+    <h2 class="mt-5"> Products:</h2>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @merchant.products.length > 0 %>
+          <% @merchant.products.each do |product| %>
+              <tr class="list-group-item-action">
+                <td><%= link_to product.name, product_path(product.id) %></td>
+                <td>$ <%= product.price%></td>            
+                <td><%= product.stock %> left
+                    <% if product.stock <= 10 %>
+                      <span class="badge badge-danger">
+                        <%= link_to "Time to Restock!", edit_product_path(product.id), class:"text-white"%>
+                      </span>
+                    <% end %>
+                </td>
+                <td>
+                  <% if product.find_average_rating.nil? %>
+                      No review for this product yet!
+                      <span class="badge badge-info">
+                        <%= link_to "Time to a sales!", edit_product_path(product.id), class:"text-white"%>
+                      </span>
+                  <%else%>
+                        <% product.find_average_rating.times do  %>
+                              ★
+                        <%end%>
+                        <% (5-product.find_average_rating).times do%>
+                              ☆
+                        <%end%>
+                  <%end%>
+                </td>
+              </tr>
+          <% end %> 
+        <% else %>
+          <h5>No Products from <%=@merchant.username%> yet!</h5>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

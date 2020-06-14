@@ -1,18 +1,34 @@
 <div class="container">
   <div class="row card-body">
-    <div class="col-5">
+    <div class="col-2">
       <img src= <%= @merchant.avatar %> alt="" class="profile_pic img-fluid">
     </div>
-    <div class="col">
-      <h3 class="card-title"> <%= @merchant.username %> </h3>
+    <div class="col-5">
+      <h3 class="text-info"> <%= @merchant.username %> </h3>
       <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
         <p>Products: <%= @merchant.products.count %></p>
         <p>Orders: <%= @merchant.find_total_order %> </p>
-        <p>Rating:  <%= (@merchant.own_average_rating == 0) ? 'No Rating Yet' : "★" * @merchant.own_average_rating %></p>
-        <% if @merchant.own_average_rating >= 4 %>
-          <p><i class="fa fa-thumbs-o-up fa-2x"></i> 
-          <strong> Buyers are raving!</strong> This shop got an average rating of 4 or above. </p>
-        <% end %>
+        <p>
+          <%if @merchant.own_average_rating == 0 %>
+            No Rating Yet
+          <%else%> 
+           <p class="text-warning"> <%= "★" * @merchant.own_average_rating%></p>
+          <%end%> 
+        </p>
+    </div>
+      <div class="col-5">
+      <% if @merchant.own_average_rating >= 4 %>
+          <p>
+            <i class="fa fa-thumbs-o-up fa-2x text-primary"></i> 
+            <strong> Buyers are raving!</strong> This shop got an average rating of 4 or above. 
+          </p>
+      <% end %>
+      <p>
+        <strong>Got Question?</strong> Email our vendor
+        <%= mail_to @merchant.email%>
+          <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
+        </a>
+      </p>
     </div>
   </div>
 </div>
