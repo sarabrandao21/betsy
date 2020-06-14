@@ -5,6 +5,7 @@
     </div>
     <div class='col-sm'>
     <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
+    <p><small>sell by <%= link_to @product.merchant.username, merchant_path(@product.merchant_id)%></small></p>
     <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
     <p class="lead font-weight-bold">Categories</p>
     <p><% @product.categories.each do |category|%>
