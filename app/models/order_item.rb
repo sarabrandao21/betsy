@@ -11,4 +11,9 @@ class OrderItem < ApplicationRecord
     self.quantity = qty.to_i 
     self.save 
   end 
+
+  def total_price_qty 
+    total = self.product.price * self.quantity 
+    return total.round(2)
+  end 
 end
