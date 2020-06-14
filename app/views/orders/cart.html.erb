@@ -14,7 +14,9 @@
             <h3 class="card-title"> <%= order_item.product.name %> </h5>
             <h6 class="card-subtitle mb-2 text-muted"> Merchant: <%= order_item.product.merchant.username %></h6>
             <ul class="">
-              <li>How many?  <%= order_item.quantity %> </li>
+            
+              <%= render partial: 'orders/setquantity', locals: {order_item: order_item} %>
+              <li>Quantity: <%= order_item.quantity %> </li>
               <li>Price: <%= order_item.product.price %> </li>
               <li>Price Total: N/A (for now) </li>
             </ul>

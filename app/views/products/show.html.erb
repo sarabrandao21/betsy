@@ -31,8 +31,11 @@
           <%end%>
       </p>
     <%end%>
-        <%= render partial: 'products/addproduct' %>
-
+        
+    <%if @product.stock > 0 %>
+      <%= render partial: 'products/addproduct' %>
+    <% end %>
+    
     <% if session[:merchant_id] == @product.merchant_id %>
       <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
       <%= link_to "Set #{@product.active ? "inactive" : "active"}", 

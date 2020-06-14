@@ -6,17 +6,21 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
-    puts params
-    # order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
-    # order_item = OrderItem.new(order: order, product: @product)
+    order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
+    order_item = order.order_items.find_by(product_id: @product.id)
 
-    # if order_item.save
-    #   flash[:success] = "Successfully added #{@product.name} to your cart"
-    # else
-    #   flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
-    # end
 
-    # redirect_back(fallback_location: root_path)
+    if order_item 
+      order_item.increment_quantity(params[:quantity])
+    else 
+      order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
+    end 
+    if order_item.save
+      flash[:success] = "Successfully added #{@product.name} to your cart"
+    else
+      flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -37,7 +41,7 @@ class OrdersController < ApplicationController
   private
 
   def require_product
-    @product = Product.find_by(id: params[:id])
+    @product = Product.find_by(id: params[:product_id]) 
     if @product.nil?
       flash[:error] = "A problem occured. We couldn't find this product."
       redirect_back(fallback_location: root_path)
