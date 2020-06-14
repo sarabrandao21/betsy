@@ -19,7 +19,7 @@
               <td><%= link_to product.name, product_path(product.id) %></td>
               <td>$ <%= product.price%></td>            
               <td><%= product.stock %> left
-                  <% if product.stock <= 10 %>
+                  <% if product.stock < 10 %>
                     <span class="badge badge-danger">Low in stock</span>
                   <% end %>
               </td>
@@ -27,12 +27,12 @@
                 <% if product.find_average_rating.nil? %>
                     No review for this product yet!
                 <%else%>
-                      <% product.find_average_rating.times do  %>
-                            ★
-                      <%end%>
-                      <% (5-product.find_average_rating).times do%>
-                            ☆
-                      <%end%>
+                    <% product.find_average_rating.times do %>
+                          ★
+                    <%end%>
+                    <% (5-product.find_average_rating).times do%>
+                          ☆
+                    <%end%>
                 <%end%>
               </td>
             </tr>

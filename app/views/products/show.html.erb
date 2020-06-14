@@ -14,7 +14,7 @@
     <br>
     <h5>$ <%= @product.price %></h5>
     <p>
-      <%= @product.stock %> left in stock!
+      Current Stock: <%= @product.stock %>
       <% if @product.stock <= 10 %>
         <span class="badge badge-pill badge-danger">Low in stock</span>
       <% end %>

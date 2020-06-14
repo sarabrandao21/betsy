@@ -1,16 +1,18 @@
-<div class="card bg-light" style="width: 30rem;">
+<div class="container">
   <div class="row card-body">
     <div class="col-5">
-      <img src= <%= @merchant.avatar %> alt="" class="img-fluid">
+      <img src= <%= @merchant.avatar %> alt="" class="profile_pic img-fluid">
     </div>
     <div class="col">
-      <h1 class="card-title"> <%= @merchant.username %> </h5>
+      <h3 class="card-title"> <%= @merchant.username %> </h3>
       <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
-      <ul>
-        <li>Products: <%= @merchant.products.count %></li>
-        <li>Orders: <%= @merchant.find_total_order %> </li>
-        <li>Rating:  <%= (@merchant.own_average_rating == 0) ? 'No Rating Yet' : "★" * @merchant.own_average_rating %></li>
-      </ul>
+        <p>Products: <%= @merchant.products.count %></p>
+        <p>Orders: <%= @merchant.find_total_order %> </p>
+        <p>Rating:  <%= (@merchant.own_average_rating == 0) ? 'No Rating Yet' : "★" * @merchant.own_average_rating %></p>
+        <% if @merchant.own_average_rating >= 4 %>
+          <p><i class="fa fa-thumbs-o-up fa-2x"></i> 
+          <strong> Buyers are raving!</strong> This shop got an average rating of 4 or above. </p>
+        <% end %>
     </div>
   </div>
 </div>
