@@ -48,11 +48,11 @@
 
   <div id="products-reviews container">
     <div class="row">
-    <section class='col-5'>
+    <section class='col-4'>
       <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
     </section>
-    <section class='col-7'>
+    <%# <section class='col-8 review-form'> %>
       <%= render partial: 'reviews/new', locals: {review: @review}%>
-    </section>
+    <%# </section> %>
   </div>
 </div>

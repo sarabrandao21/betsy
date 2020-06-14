@@ -1,8 +1,8 @@
 <div class="review-container">
-  <h5><%=pluralize reviews.count ,"product review"%></h5>
+  <h5 class="text-category"><%=pluralize reviews.count ,"product review"%></h5>
   <section class='row-2'>
     <% reviews.each do |review|%>
-      <div class="col-6">
+      <div class="col">
         <div class='review card-body'>
           <div class="row">
             <div class="col-4">
