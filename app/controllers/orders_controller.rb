@@ -25,6 +25,8 @@ class OrdersController < ApplicationController
 
   def set_quantity 
     order_item = OrderItem.find_by(id: params[:order_item_id])
+    order_item.set_quantity(params[:quantity])
+    redirect_back(fallback_location: root_path)
   end 
 
   def destroy
