@@ -31,8 +31,8 @@
           <%end%>
       </p>
     <%end%>
-    
-    <%= link_to 'Add to cart', add_to_cart_path(@product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
+        <%= render partial: 'products/addproduct' %>
+
     <% if session[:merchant_id] == @product.merchant_id %>
       <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
       <%= link_to "Set #{@product.active ? "inactive" : "active"}", 

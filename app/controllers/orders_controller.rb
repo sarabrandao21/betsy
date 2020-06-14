@@ -6,16 +6,17 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
-    order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
-    order_item = OrderItem.new(order: order, product: @product)
+    puts params
+    # order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
+    # order_item = OrderItem.new(order: order, product: @product)
 
-    if order_item.save
-      flash[:success] = "Successfully added #{@product.name} to your cart"
-    else
-      flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
-    end
+    # if order_item.save
+    #   flash[:success] = "Successfully added #{@product.name} to your cart"
+    # else
+    #   flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
+    # end
 
-    redirect_back(fallback_location: root_path)
+    # redirect_back(fallback_location: root_path)
   end
 
   def destroy
