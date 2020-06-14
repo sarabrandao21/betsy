@@ -1,9 +1,16 @@
 <div class="container mt-5 dashboard">
-
   <%= render partial: 'infocard' %>
   <section class='product_list'>
     <h2 class="mt-5"> All Items:</h2>
     <table class="table">
+    <div class="input-group"> 
+      <span class="input-group-addon">Filter by Status  </span>
+      <select id="filter" class="check_boxes" >
+        <option selected>Product status</option>
+        <option value="1">Active</option>
+        <option value="2">Inactive</option>
+      </select>
+    </div>
       <thead class="thead-light">
         <tr>
           <th scope="col">Name</th>
@@ -14,51 +21,8 @@
           <th scope="col">Change Status</th>
         </tr>
       </thead>
-      <tbody>
-        <% if @merchant.products.length > 0 %>
-          <% @merchant.products.each do |product| %>
-              <tr class="list-group-item-action">
-                <td><%= link_to product.name, product_path(product.id) %></td>
-                <td>$ <%= product.price%></td>            
-                <td><%= product.stock %> left
-                    <% if product.stock <= 10 %>
-                      <span class="badge badge-danger">
-                        <%= link_to "Time to Restock!", edit_product_path(product.id), class:"text-white"%>
-                      </span>
-                    <% end %>
-                </td>
-                <td>
-                  <% if product.find_average_rating.nil? %>
-                      No review for this product yet!
-                      <span class="badge badge-info">
-                        <%= link_to "Time to promote!", edit_product_path(product.id), class:"text-white"%>
-                      </span>
-                  <%else%>
-                        <% product.find_average_rating.times do  %>
-                              ★
-                        <%end%>
-                        <% (5-product.find_average_rating).times do%>
-                              ☆
-                        <%end%>
-                  <%end%>
-                </td>
-                <td>
-                  <%= product.active ? "Active ✔︎" : "Inactive ✕"%>
-                </td>
-                <td>
-                  <%= link_to "Set #{product.active ? "inactive" : "active"}", 
-                      toggle_active_path(product.id), 
-                      method: :patch,
-                      data: {confirm: "Are you sure to set the state to #{product.active ? "inactive" : "active"}"}, 
-                      class:"btn btn-outline-secondary"
-                  %>
-                </td>
-              </tr>
-          <% end %> 
-        <% else %>
-          <h5>No Products from <%=@merchant.username%> yet!</h5>
-        <% end %>
-      </tbody>
-    </table>
+  <%= render partial: 'products/list' %>
+  </table>
   </div>
 </section>
+</div>
