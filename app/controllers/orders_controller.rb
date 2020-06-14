@@ -23,6 +23,10 @@ class OrdersController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def set_quantity 
+    order_item = OrderItem.find_by(id: params[:order_item_id])
+  end 
+
   def destroy
     @order = Order.find_by(id: params[:id])
 
