@@ -1,9 +1,6 @@
-<%= form_tag(set_quantity_path, { class: 'addproduct-form'}) do%>
+<%= form_tag(set_quantity_path(order_item.id), { class: 'addproduct-form'}) do%>
     <div class='form-group'>
-    <%= hidden_field_tag(:order_item_id, order_item.id)%>
-
     <%=label_tag(:quantity, 'Quantity' )%>
-    <%= select_tag(:quantity, options_for_select((1..(@product.stock).clamp(1,10)),order_item.quantity)) %>
+    <%= select_tag :quantity, options_for_select((1..(order_item.product.stock).clamp(1,10)),order_item.quantity), onchange: 'this.form.submit()' %>
     </div>
-    <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
 <% end %>
