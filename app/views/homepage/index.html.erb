@@ -1,23 +1,3 @@
-<%# SECTION %>
-<section class="section-name padding-y-sm">
-  <div class="container">
-    <header class="section-heading">
-      <a href="" class= "btn btn-outline-primary float-right">See all</a>
-      <h3 class= "section-title">Popular products</h3>
-    </header>
-    <%# sect-heading %>
-    <div class= "row">
-        <% @top_ten.each do |product|%>
-          <div class="col-md-3">
-          <div href="#" class="card card-product-grid">
-          <%= image_tag product.image, alt: "product's image", class: 'img-wrap' %>
-          <figcaption class="info-wrap">
-          <%= link_to product.name, product_path(product.id), class: "title" %>
-          <div class="price mt-1">$ <%= product.price%></div>
-        <%# price-wrap %>
-        </figcaption>
-        </div>
-        </div>
-    <%end%>
-  </div>
-  </section>
+<section class="homepage">
+  <%= render partial: "products/display" , locals: { product_list: @top_ten }%>
+</section>

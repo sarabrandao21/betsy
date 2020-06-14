@@ -6,8 +6,19 @@
     <div class='col-lg-6 col-xl-4 pt-4 order-1 orderlg-2 ml-lg-auto'>
     <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
     <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
-    <p class="lead font-weight-bold">Categories</p><%= @product.categories.first.name %></p>
+    <p class="lead font-weight-bold">Categories</p>
+    <p><% @product.categories.each do |category|%>
+        <span class="badge badge-secondary"><%= link_to category.name, category_path(category.id), class:"text-white" %></span>
+      <%end%>
+    </p>
+    <br>
     <h5>$ <%= @product.price %></h5>
+    <p>
+      <%= @product.stock %> left in stock!
+      <% if @product.stock <= 10 %>
+        <span class="badge badge-pill badge-danger">Low in stock</span>
+      <% end %>
+    </p>
     <% if @product.find_average_rating.nil? %>
         <p> No review for this product yet! </p>
     <%else%>

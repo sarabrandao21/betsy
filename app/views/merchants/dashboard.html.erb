@@ -1,5 +1,5 @@
-<div class="container mt-5 merchant-container">
-  <h4>Come check out <%=@merchant.username%>'s merchandises</h4>
+<div class="container mt-5">
+
   <%= render partial: 'infocard' %>
 
   <h2 class="mt-5"> Products:</h2>
@@ -20,12 +20,17 @@
               <td>$ <%= product.price%></td>            
               <td><%= product.stock %> left
                   <% if product.stock <= 10 %>
-                    <span class="badge badge-danger">Low in stock</span>
+                    <span class="badge badge-danger">
+                      <%= link_to "Time to Restock!", edit_product_path(product.id), class:"text-white"%>
+                    </span>
                   <% end %>
               </td>
               <td>
                 <% if product.find_average_rating.nil? %>
                     No review for this product yet!
+                    <span class="badge badge-info">
+                      <%= link_to "Time to a sales!", edit_product_path(product.id), class:"text-white"%>
+                    </span>
                 <%else%>
                       <% product.find_average_rating.times do  %>
                             ★
@@ -42,3 +47,4 @@
       <% end %>
     </tbody>
   </table>
+</div>

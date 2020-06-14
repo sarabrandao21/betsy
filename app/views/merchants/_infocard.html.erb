@@ -1,0 +1,16 @@
+<div class="card bg-light" style="width: 30rem;">
+  <div class="row card-body">
+    <div class="col-5">
+      <img src= <%= @merchant.avatar %> alt="" class="img-fluid">
+    </div>
+    <div class="col">
+      <h1 class="card-title"> <%= @merchant.username %> </h5>
+      <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
+      <ul>
+        <li>Products: <%= @merchant.products.count %></li>
+        <li>Orders: <%= @merchant.find_total_order %> </li>
+        <li>Rating:  <%= (@merchant.own_average_rating == 0) ? 'No Rating Yet' : "★" * @merchant.own_average_rating %></li>
+      </ul>
+    </div>
+  </div>
+</div>
