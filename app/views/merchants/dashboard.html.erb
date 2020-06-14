@@ -1,12 +1,60 @@
 <div class="container mt-5 dashboard">
   <%= render partial: 'infocard' %>
-  <section class='product_list'>
-    <h2 class="mt-5"> All Items:</h2>
+  <section class='order_list'>
+    <h2 class="mt-5"> Order list:</h2>
     <table class="table">
-    <div class="input-group"> 
-      <span class="input-group-addon">Filter by Status  </span>
+    <div class="filter-group float-right"> 
+      <span class="input-group-addon font-weight-bold">Filter by Status  </span>
       <select id="filter" class="check_boxes" >
-        <option selected>Product status</option>
+        <option selected>Show All</option>
+        <option value="1">Pending</option>
+        <option value="2">Paid</option>
+      </select>
+    </div>
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Product</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Order Status</th>
+          <th scope="col">Cancel Order</th>
+          <th scope="col">Complete Order</th>
+        </tr>
+      </thead>
+      <%= render partial: 'orders/list' %>
+    </table>
+    <section class='order_list'>
+    <h2 class="mt-5"> Order History:</h2>
+    <table class="table">
+    <div class="filter-group float-right"> 
+      <span class="input-group-addon font-weight-bold">Filter by Status  </span>
+      <select id="filter" class="check_boxes" >
+        <option selected>Show All</option>
+        <option value="3">Complete</option>
+        <option value="4">Cancelled</option>
+      </select>
+    </div>
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Product</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Order Status</th>
+          <th scope="col">Cancel Order</th>
+          <th scope="col">Complete Order</th>
+        </tr>
+      </thead>
+      <%= render partial: 'orders/list' %>
+    </table>
+    <section class='product_list'>
+    <h2 class="mt-5"> Item list:</h2>
+    <table class="table">
+    <div class="filter-group float-right"> 
+      <span class="input-group-addon font-weight-bold">Filter by Status  </span>
+      <select id="filter" class="check_boxes" >
+        <option selected>Show All</option>
         <option value="1">Active</option>
         <option value="2">Inactive</option>
       </select>
@@ -21,8 +69,10 @@
           <th scope="col">Change Status</th>
         </tr>
       </thead>
-  <%= render partial: 'products/list' %>
-  </table>
-  </div>
-</section>
+      <%= render partial: 'products/list' %>
+    </table>
+    </div>
+  </section>
+    </div>
+  </section>
 </div>
