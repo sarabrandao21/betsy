@@ -6,6 +6,7 @@
   <table class="table">
     <thead class="thead-light">
       <tr>
+        <th scope="col">Picture</th>
         <th scope="col">Name</th>
         <th scope="col">Price</th>
         <th scope="col">Stock</th>
@@ -16,23 +17,25 @@
       <% if @merchant.products.length > 0 %>
         <% @merchant.products.each do |product| %>
             <tr class="list-group-item-action">
+              <td><%= image_tag product.image,  class:'profile_pic' %></td>
               <td><%= link_to product.name, product_path(product.id) %></td>
               <td>$ <%= product.price%></td>            
               <td><%= product.stock %> left
-                  <% if product.stock < 10 %>
+                  <p><% if product.stock < 10 %>
                     <span class="badge badge-danger">Low in stock</span>
-                  <% end %>
+                  <% end %></p>
               </td>
               <td>
                 <% if product.find_average_rating.nil? %>
-                    No review for this product yet!
+                    There are no customer reviews yet.
                 <%else%>
+                    <p class='text-warning'>
                     <% product.find_average_rating.times do %>
                           ★
                     <%end%>
                     <% (5-product.find_average_rating).times do%>
                           ☆
-                    <%end%>
+                    <%end%></p>
                 <%end%>
               </td>
             </tr>

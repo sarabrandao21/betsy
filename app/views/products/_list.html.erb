@@ -2,21 +2,22 @@
   <% if @merchant.products.length > 0 %>
     <% @merchant.products.each do |product| %>
         <tr class="list-group-item-action">
+          <td><%= image_tag product.image,  class:'profile_pic' %></td>
           <td><%= link_to product.name, product_path(product.id) %></td>
           <td>$ <%= product.price%></td>            
           <td><%= product.stock %> left
               <% if product.stock <= 10 %>
-                <span class="badge badge-danger">
+                <p><span class="badge badge-danger">
                   <%= link_to "Time to Restock!", edit_product_path(product.id), class:"text-white"%>
-                </span>
+                </span></p>
               <% end %>
           </td>
           <td>
             <% if product.find_average_rating.nil? %>
                 No review for this product yet!
-                <span class="badge badge-info">
+                <p><span class="badge badge-info">
                   <%= link_to "Time to promote!", edit_product_path(product.id), class:"text-white"%>
-                </span>
+                </span></p>
             <%else%>
                   <% product.find_average_rating.times do  %>
                         ★
