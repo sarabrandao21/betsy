@@ -41,4 +41,14 @@ class Merchant < ApplicationRecord
 
     return orders.uniq.count      
   end
+
+  def find_all_order_items
+    items = []
+    order_items = self.order_items
+    order_items.each do |order_item|
+      items << order_item
+    end
+    return items
+  end
+  
 end

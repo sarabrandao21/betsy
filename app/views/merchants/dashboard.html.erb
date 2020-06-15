@@ -12,16 +12,17 @@
       </select>
     </div>
       <thead class="thead-light">
+      </thead>
         <tr>
           <th scope="col">Order ID</th>
           <th scope="col">Order Date</th>
           <th scope="col">Product</th>
+          <th scope="col">Item image</th>
+          <th scope="col">Item price</th>
           <th scope="col">Qty</th>
+          <th scope="col">Revenue</th>
           <th scope="col">Order Status</th>
-          <th scope="col">Cancel Order</th>
-          <th scope="col">Complete Order</th>
         </tr>
-      </thead>
       <%= render partial: 'orders/list' %>
     </table>
     <section class='order_list'>
@@ -40,10 +41,12 @@
           <th scope="col">Order ID</th>
           <th scope="col">Order Date</th>
           <th scope="col">Product</th>
+          <th scope="col">Item image</th>
+          <th scope="col">Item price</th>
           <th scope="col">Qty</th>
-          <th scope="col">Order Status</th>
+          <th scope="col">Revenue</th>
           <th scope="col">Cancel Order</th>
-          <th scope="col">Complete Order</th>
+          <th scope="col">Mark Shipped/Complete</th>
         </tr>
       </thead>
       <%= render partial: 'orders/list' %>

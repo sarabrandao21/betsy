@@ -46,8 +46,9 @@ class MerchantsController < ApplicationController
     else
       @merchant = @login_merchant
     end
-      @merchant_products = @merchant.products 
-      
+    
+    @merchant_products = @merchant.products 
+    @merhcant_order_items = @merchant.find_all_order_items
       # adding filter options
       if params[:status]
         if params[:status] == 'Active'
