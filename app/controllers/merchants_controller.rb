@@ -47,8 +47,9 @@ class MerchantsController < ApplicationController
       @merchant = @login_merchant
     end
       @merchant_products = @merchant.products 
+      
+      # adding filter options
       if params[:status]
-        # raise
         if params[:status] == 'Active'
           @selected_status = true
           @merchant_products = @merchant.products.where(active: @selected_status)

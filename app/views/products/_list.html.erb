@@ -19,12 +19,14 @@
                   <%= link_to "Time to promote!", edit_product_path(product.id), class:"text-white"%>
                 </span></p>
             <%else%>
+                <span class='text-warning'>
                   <% product.find_average_rating.times do  %>
                         ★
                   <%end%>
                   <% (5-product.find_average_rating).times do%>
                         ☆
                   <%end%>
+                </span>
             <%end%>
           </td>
           <td>
@@ -41,7 +43,10 @@
         </tr>
     <% end %> 
   <% else %>
-    <h5>No Products from <%=@merchant.username%> yet!</h5>
+    <% if params[:status] %>
+        <td class='text-warning'>No Products from <%=@merchant.username%> for <%= params[:status]%> status </td>
+    <% else %>
+        <td>No Products from <%=@merchant.username%></td>
+    <% end %>
   <% end %>
 </tbody>
- 

@@ -14,8 +14,8 @@
       </tr>
     </thead>
     <tbody>
-      <% if @merchant.products.length > 0 %>
-        <% @merchant.products.each do |product| %>
+      <% if @merchant.products.where(active: true).length > 0 %>
+        <% @merchant.products.where(active: true).each do |product| %>
             <tr class="list-group-item-action">
               <td><%= image_tag product.image,  class:'profile_pic' %></td>
               <td><%= link_to product.name, product_path(product.id) %></td>
