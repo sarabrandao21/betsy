@@ -17,16 +17,17 @@ CSV.foreach(merchant_file, headers: true, header_converters: :symbol, converters
   Merchant.create!(data)
 end
 
+
 product_file = Rails.root.join("db", "product_seeds.csv")
 product_failures = []
 CSV.foreach(product_file, headers: true, header_converters: :symbol, converters: :all) do |row|
-    data = Hash[row.headers.zip(row.fields)]
-    puts data
-    
-    product = Product.new(data)
-
-    successful = product.save
-   
+  data = Hash[row.headers.zip(row.fields)]
+  puts data
+  
+  product = Product.new(data)
+  
+  successful = product.save
+  
   
   if !successful
     product_failures << product
@@ -41,7 +42,7 @@ categories_products = Rails.root.join("db", "categories_products.csv")
 CSV.foreach(categories_products, :headers => true, header_converters: :symbol, converters: :all) do |row|
   product = Product.find_by(id: row[:product_id])
   category = Category.find_by(id: row[:category_id])
-
+  
   if category && product 
     product.category_ids = product.category_ids << category.id
     successful = product.save
@@ -53,4 +54,12 @@ CSV.foreach(categories_products, :headers => true, header_converters: :symbol, c
   else
     # puts "Added a category to product: #{product.inspect}"
   end
+end
+
+reviews_file = Rails.root.join("db", "reviews_seeds.csv")
+
+CSV.foreach(reviews_file, headers: true, header_converters: :symbol, converters: :all) do |row|
+  data = Hash[row.headers.zip(row.fields)]
+  puts data
+  Review.create!(data)
 end

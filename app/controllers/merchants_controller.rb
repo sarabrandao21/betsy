@@ -38,11 +38,28 @@ class MerchantsController < ApplicationController
   end
 
   def dashboard
+    @order_status = ['select status',"All", "Active", "Inactive"]
+
     if !(@login_merchant == Merchant.find_by(id: params[:id]))
       flash[:error] = "Sorry you are not authorized to this page"
       return redirect_to merchants_path 
     else
       @merchant = @login_merchant
     end
+    
+    @merchant_products = @merchant.products 
+
+      # adding filter options
+      if params[:status]
+        if params[:status] == 'Active'
+          @selected_status = true
+          @merchant_products = @merchant.products.where(active: @selected_status)
+        elsif params[:status] == 'Inactive'
+          @selected_status = false
+          @merchant_products = @merchant.products.where(active: @selected_status)
+        elsif params[:status] == "All"
+          @merchant_products = @merchant.products 
+        end
+      end
   end
 end

@@ -1,50 +1,86 @@
-<div class="container mt-5">
-
+<div class="container mt-5 dashboard">
   <%= render partial: 'infocard' %>
-
-  <h2 class="mt-5"> Products:</h2>
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Stock</th>
-        <th scope="col">Rating</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @merchant.products.length > 0 %>
-        <% @merchant.products.each do |product| %>
-            <tr class="list-group-item-action">
-              <td><%= link_to product.name, product_path(product.id) %></td>
-              <td>$ <%= product.price%></td>            
-              <td><%= product.stock %> left
-                  <% if product.stock <= 10 %>
-                    <span class="badge badge-danger">
-                      <%= link_to "Time to Restock!", edit_product_path(product.id), class:"text-white"%>
-                    </span>
-                  <% end %>
-              </td>
-              <td>
-                <% if product.find_average_rating.nil? %>
-                    No review for this product yet!
-                    <span class="badge badge-info">
-                      <%= link_to "Time to a sales!", edit_product_path(product.id), class:"text-white"%>
-                    </span>
-                <%else%>
-                      <% product.find_average_rating.times do  %>
-                            ★
-                      <%end%>
-                      <% (5-product.find_average_rating).times do%>
-                            ☆
-                      <%end%>
-                <%end%>
-              </td>
-            </tr>
-        <% end %> 
-      <% else %>
-        <h5>No Products from <%=@merchant.username%> yet!</h5>
-      <% end %>
-    </tbody>
-  </table>
+  <section class='order_list'>
+    <h2 class="mt-5"> Order list:</h2>
+    <p>Total Pending & Paid Order Revenue: </p>
+    <p>Total Pending & Paid Order Count: <%= @merchant.find_all_order_items("Pending").count %></p>
+    <table class="table">
+    <div class="filter-group float-right"> 
+      <span class="input-group-addon font-weight-bold">Filter by Status  </span>
+      <select id="filter" class="check_boxes" >
+        <option selected>Show All</option>
+        <option value="1">Pending</option>
+        <option value="2">Paid</option>
+      </select>
+    </div>
+      <thead class="thead-light">
+      </thead>
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Product</th>
+          <th scope="col">Item image</th>
+          <th scope="col">Item price</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Revenue</th>
+          <th scope="col">Order Status</th>
+        </tr>
+      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Pending")}%>
+    </table>
+    <section class='order_list'>
+    <h2 class="mt-5"> Order History:</h2>
+    <p>Total Completed Order Revenue: </p>
+    <p>Total Completed Order Count: <%= @merchant.find_all_order_items("Completed").count %></p>
+    <table class="table">
+    <div class="filter-group float-right"> 
+      <span class="input-group-addon font-weight-bold">Filter by Status  </span>
+      <select id="filter" class="check_boxes" >
+        <option selected>Show All</option>
+        <option value="3">Complete</option>
+        <option value="4">Cancelled</option>
+      </select>
+    </div>
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Product</th>
+          <th scope="col">Item image</th>
+          <th scope="col">Item price</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Revenue</th>
+          <th scope="col">Cancel Order</th>
+          <th scope="col">Mark Shipped/Complete</th>
+        </tr>
+      </thead>
+      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Completed")}%>
+    </table>
+    <section class='product_list'>
+    <h2 > Item list:</h2>
+    <%# refernce from https://forum.upcase.com/t/how-to-implement-filtering-for-my-rails-app/2834 %>
+      <div class="filter-group filter-order float-right"> 
+        <%= form_tag(dashboard_path, :method => "get") do %>
+          <span class="input-group-addon font-weight-bold">Filter by Status  </span>
+          <%= select_tag 'status', options_for_select(@order_status, @selected_status), {onchange: "this.form.submit();", prompt: @prompt} %>
+        <% end %>
+      </div>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Product Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Status</th>
+          <th scope="col">Change Status</th>
+          <th scope="col">Edit Product</th>
+        </tr>
+      </thead>
+      <%= render partial: 'products/list' %>
+    </table>
+    </div>
+  </section>
+    </div>
+  </section>
 </div>

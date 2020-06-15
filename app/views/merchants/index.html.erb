@@ -5,7 +5,8 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">Name</th>
-        <th scope="col">Products #</th>
+        <th scope="col">Products</th> 
+        <%# active products %>
         <th scope="col">Rating</th>
       </tr>
     </thead>
@@ -13,10 +14,24 @@
       <% @merchants.each do |merchant| %>
           <tr class="list-group-item-action">
             <td> <%= link_to merchant.username, merchant_path(merchant) %> </td>
-            <td> <%= merchant.products.count %> </td>
-            <td> <%= (merchant.own_average_rating > 0) ? merchant.own_average_rating : 'no rating yet'%> </td>
+            <td> <%= merchant.products.where(active: true).count %> </td>
+            <td> <% if merchant.own_average_rating > 0 %>
+                  <span class='text-warning'>
+                    <% merchant.own_average_rating.times do  %>
+                      ★
+                    <%end%>
+                    <% (5-merchant.own_average_rating).times do%>
+                      ☆
+                    <%end%>
+                  </span>
+                <% else %>
+                  no rating availiable
+                <% end %>
+            </td>
           </tr>
       <% end %> 
     </tbody>
   </table>
 </div>
+
+ 
