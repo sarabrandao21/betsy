@@ -49,16 +49,15 @@
       <%= render partial: 'orders/list' %>
     </table>
     <section class='product_list'>
-    <h2 class="mt-5"> Item list:</h2>
+    <h2 > Item list:</h2>
+    <%# refernce from https://forum.upcase.com/t/how-to-implement-filtering-for-my-rails-app/2834 %>
+      <div class="filter-group filter-order float-right"> 
+        <%= form_tag(dashboard_path, :method => "get") do %>
+          <span class="input-group-addon font-weight-bold">Filter by Status  </span>
+          <%= select_tag 'status', options_for_select(@order_status, @selected_status), {onchange: "this.form.submit();", prompt: @prompt} %>
+        <% end %>
+      </div>
     <table class="table">
-    <div class="filter-group float-right"> 
-      <span class="input-group-addon font-weight-bold">Filter by Status  </span>
-      <select id="filter" class="check_boxes" >
-        <option selected>Show All</option>
-        <option value="1">Active</option>
-        <option value="2">Inactive</option>
-      </select>
-    </div>
       <thead class="thead-light">
         <tr>
           <th scope="col">Product Image</th>

@@ -1,6 +1,6 @@
 <tbody>
-  <% if @merchant.products.length > 0 %>
-    <% @merchant.products.each do |product| %>
+  <% if @merchant_products.length > 0 %>
+    <% @merchant_products.each do |product| %>
         <tr class="list-group-item-action">
           <td><%= image_tag product.image,  class:'profile_pic' %></td>
           <td><%= link_to product.name, product_path(product.id) %></td>
