@@ -1,7 +1,10 @@
 require "test_helper"
 
 describe Order do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe "subtotal" do 
+  end 
+  describe "taxes" do 
+  end 
+  describe "purchase_total" do 
+  end 
 end
