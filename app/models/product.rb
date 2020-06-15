@@ -12,6 +12,11 @@ class Product < ApplicationRecord
     validates :stock, presence: true,
                     numericality: { greater_than_or_equal_to: 0 }
 
+
+    def self.active_sort_by_added
+        return Product.where(active: true).order(id: :desc)
+    end
+
     def self.active_products
         products = Product.where(active: true)
         favorite_products = []

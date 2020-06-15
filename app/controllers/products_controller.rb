@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   before_action :find_merchant, only: [:new, :create, :edit, :update, :toggle_active]
   
   def index
-    @products = Product.active_products
+    @products = Product.active_sort_by_added
   end
 
   def show
