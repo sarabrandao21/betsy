@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :require_product, only: [:add_to_cart]
+  
 
   def cart
     @order = Order.find_by(id: session[:order_id])
@@ -22,10 +23,10 @@ class OrdersController < ApplicationController
      # @order.card_status = "paid"
       @order.save
       session.delete(:order_id)
+
       flash[:success] = "Your order has been submitted."
       redirect_to order_path(@order)
       return
-
     else
       flash[:error] = "Try again."
       render :edit
@@ -65,6 +66,7 @@ class OrdersController < ApplicationController
 
   def order_params
     return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status )
+  end
 
   def require_product
     @product = Product.find_by(id: params[:id])
