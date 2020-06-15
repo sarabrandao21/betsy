@@ -2,6 +2,8 @@
   <%= render partial: 'infocard' %>
   <section class='order_list'>
     <h2 class="mt-5"> Order list:</h2>
+    <p>Total Pending & Paid Order Revenue: </p>
+    <p>Total Pending & Paid Order Count: <%= @merchant.find_all_order_items("Pending").count %></p>
     <table class="table">
     <div class="filter-group float-right"> 
       <span class="input-group-addon font-weight-bold">Filter by Status  </span>
@@ -27,6 +29,8 @@
     </table>
     <section class='order_list'>
     <h2 class="mt-5"> Order History:</h2>
+    <p>Total Completed Order Revenue: </p>
+    <p>Total Completed Order Count: <%= @merchant.find_all_order_items("Completed").count %></p>
     <table class="table">
     <div class="filter-group float-right"> 
       <span class="input-group-addon font-weight-bold">Filter by Status  </span>
@@ -49,7 +53,7 @@
           <th scope="col">Mark Shipped/Complete</th>
         </tr>
       </thead>
-      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Paid")}%>
+      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Completed")}%>
     </table>
     <section class='product_list'>
     <h2 > Item list:</h2>

@@ -61,5 +61,6 @@ class Merchant < ApplicationRecord
     end
     return items
   end
+
   
 end
