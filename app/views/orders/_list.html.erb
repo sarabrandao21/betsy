@@ -15,10 +15,6 @@
         </tr>
     <% end %> 
   <% else %>
-    <% if params[:status] %>
-        <td class='text-warning'>No Products from <%=@merchant.username%> for <%= params[:status]%> status </td>
-    <% else %>
-        <td>No Products from <%=@merchant.username%></td>
-    <% end %>
+    <td>No order yet ... </td>
   <% end %>
 </tbody>
