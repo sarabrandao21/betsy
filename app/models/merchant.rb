@@ -50,5 +50,16 @@ class Merchant < ApplicationRecord
     end
     return items
   end
+
+  def find_all_order_items(status)
+    items = []
+    order_items = self.order_items
+    order_items.each do |order_item|
+      if order_item.status == status 
+        items << order_item
+      end
+    end
+    return items
+  end
   
 end

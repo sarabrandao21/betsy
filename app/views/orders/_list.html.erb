@@ -1,6 +1,6 @@
 <tbody>
-  <% if @merhcant_order_items.length > 0 %>
-    <% @merhcant_order_items.each do |item| %>
+  <% if merchant_orders.length > 0 %>
+    <% merchant_orders.each do |item| %>
         <% order_item = Product.find_by(id: item.product_id)%>
         <tr class="list-group-item-action">
           <td><%= item.order_id %></td>
