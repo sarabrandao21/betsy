@@ -21,14 +21,14 @@
           <% if product_list == @products%>
           <p>
             <%= product.stock %> left in stock!
-            <% if product.stock <= 10 %>
+            <% if product.stock < 10 %>
               <span class="badge badge-info">Low in stock</span>
             <% end %>
           </p>
               <% if product.find_average_rating.nil? %>
                   <p> No review for this product yet!</p>
               <%else%>
-                <p>Rating:</p>
+                <p class="text-warning">
                     <% product.find_average_rating.times do  %>
                           ★
                     <%end%>

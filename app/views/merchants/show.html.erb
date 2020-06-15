@@ -1,11 +1,12 @@
 <div class="container mt-5 merchant-container">
-  <h4>Come check out <%=@merchant.username%>'s merchandises</h4>
+  <h4>Come Check Out <%=@merchant.username%>'s Merchandises</h4>
   <%= render partial: 'infocard' %>
 
   <h2 class="mt-5"> Products:</h2>
   <table class="table">
     <thead class="thead-light">
       <tr>
+        <th scope="col">Picture</th>
         <th scope="col">Name</th>
         <th scope="col">Price</th>
         <th scope="col">Stock</th>
@@ -13,26 +14,28 @@
       </tr>
     </thead>
     <tbody>
-      <% if @merchant.products.length > 0 %>
-        <% @merchant.products.each do |product| %>
+      <% if @merchant.products.where(active: true).length > 0 %>
+        <% @merchant.products.where(active: true).each do |product| %>
             <tr class="list-group-item-action">
+              <td><%= image_tag product.image,  class:'profile_pic' %></td>
               <td><%= link_to product.name, product_path(product.id) %></td>
               <td>$ <%= product.price%></td>            
               <td><%= product.stock %> left
-                  <% if product.stock <= 10 %>
+                  <p><% if product.stock < 10 %>
                     <span class="badge badge-danger">Low in stock</span>
-                  <% end %>
+                  <% end %></p>
               </td>
               <td>
                 <% if product.find_average_rating.nil? %>
-                    No review for this product yet!
+                    There are no customer reviews yet.
                 <%else%>
-                      <% product.find_average_rating.times do  %>
-                            ★
-                      <%end%>
-                      <% (5-product.find_average_rating).times do%>
-                            ☆
-                      <%end%>
+                    <p class='text-warning'>
+                    <% product.find_average_rating.times do %>
+                          ★
+                    <%end%>
+                    <% (5-product.find_average_rating).times do%>
+                          ☆
+                    <%end%></p>
                 <%end%>
               </td>
             </tr>

@@ -1,10 +1,11 @@
-<div class="row product-item">
-  <div class='card h-100'>
-    <div class='col-lg-6 col-xl-7 '>
+<div class="product-display">
+  <div class='row product-item'>
+    <div class='col-sm'>
       <%= image_tag @product.image, alt: "product's image", class:'img-fluid product-img'%>
     </div>
-    <div class='col-lg-6 col-xl-4 pt-4 order-1 orderlg-2 ml-lg-auto'>
+    <div class='col-sm'>
     <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
+    <p><small>sell by <%= link_to @product.merchant.username, merchant_path(@product.merchant_id)%></small></p>
     <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
     <p class="lead font-weight-bold">Categories</p>
     <p><% @product.categories.each do |category|%>
@@ -14,7 +15,7 @@
     <br>
     <h5>$ <%= @product.price %></h5>
     <p>
-      <%= @product.stock %> left in stock!
+      Current Stock: <%= @product.stock %>
       <% if @product.stock <= 10 %>
         <span class="badge badge-pill badge-danger">Low in stock</span>
       <% end %>
@@ -22,7 +23,7 @@
     <% if @product.find_average_rating.nil? %>
         <p> No review for this product yet! </p>
     <%else%>
-      <p>Rating:
+      <p class="text-warning">
           <% @product.find_average_rating.times do  %>
                 ★
           <%end%>
@@ -49,11 +50,13 @@
   </div>
 <div class='col-11 '>
 
-  <div id="products-reviews">
-    <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
-  </div>
-
-  <div id="products-reviews">
-    <%= render partial: 'reviews/new', locals: {review: @review}%>
+  <div id="products-reviews container">
+    <div class="row">
+    <section class='col-4'>
+      <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
+    </section>
+    <%# <section class='col-8 review-form'> %>
+      <%= render partial: 'reviews/new', locals: {review: @review}%>
+    <%# </section> %>
   </div>
 </div>

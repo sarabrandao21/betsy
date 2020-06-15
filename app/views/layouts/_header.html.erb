@@ -38,7 +38,7 @@
               Portal
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Dashboard", merchant_path(session[:merchant_id]), class: "dropdown-item" %>
+              <%= link_to "Dashboard", dashboard_path(session[:merchant_id]), class: "dropdown-item" %>
               <%= link_to "Add Product", new_product_path, class: "dropdown-item" %>
             </div>
           </li>
