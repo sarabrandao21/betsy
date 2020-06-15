@@ -73,6 +73,10 @@ describe OrdersController do
     end
   end
 
+  describe "set_quantity" do 
+    
+  end 
+
   describe "destroy" do
     it "destroys the Order instance and redirects to root" do
       order = orders(:nataliyas_order)
