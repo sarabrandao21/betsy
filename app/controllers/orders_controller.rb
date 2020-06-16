@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
   def find_order(id:)
     order = Order.find_by(id: id)
     if order.nil?
-      flash[:error] = "A problem occured. We couldn't find your cart."
+      flash[:error] = "A problem occured. We couldn't find your order."
       redirect_back(fallback_location: root_path)
     end
     return order
