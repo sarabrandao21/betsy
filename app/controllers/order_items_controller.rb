@@ -33,7 +33,7 @@ class OrderItemsController < ApplicationController
 
   def mark_cancel
     @order_item.change_status('Cancelled')
-    flash[:success] = "Item successfully marked Cancelled'"
+    flash[:success] = "Item successfully marked Cancelled"
     redirect_to dashboard_path
   end
 
