@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create, :destroy]
   get "/cart", to: "orders#cart", as: "cart"
+  get "/confirmation", to: "orders#confirmation", as: "confirmation"
 
   
   resources :merchants, only: [:index, :show]
