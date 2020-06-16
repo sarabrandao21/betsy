@@ -24,6 +24,7 @@
           <%= link_to cart_path, class: "nav-link app-header__nav__item", style: "color: orange; font-size: 1.3rem; padding: 0.2rem;" do %>
             <i class="fa fa-shopping-cart"  style="font-size:24px;color:lavender"></i>
             <% if session[:order_id] %>
+              <%#TODO: to fix this cart badge %>
               <span class="cart-badge"><%= Order.find_by(id: session[:order_id]).order_items.count  %></span>
             <% end %>
           <% end %>
@@ -38,7 +39,7 @@
               Portal
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Dashboard", dashboard_path(session[:merchant_id]), class: "dropdown-item" %>
+              <%= link_to "Dashboard", dashboard_path, class: "dropdown-item" %>
               <%= link_to "Add Product", new_product_path, class: "dropdown-item" %>
             </div>
           </li>

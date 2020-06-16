@@ -78,3 +78,19 @@ dumbells:
   stock: 20
   rating: 2
   merchant: sara
+healthysnack:
+  name: healthy snack
+  description: a box of healthy snack
+  price: 20
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 12
+  rating: 2
+  merchant: shonda
+healthybeans:
+  name: healthy beans
+  description: a box of healthy beans
+  price: 20
+  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+  stock: 1
+  rating: 2
+  merchant: shonda

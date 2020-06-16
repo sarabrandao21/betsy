@@ -1,0 +1,13 @@
+one:
+  comment: Very tasty and healthy drink!
+  product: juice
+  reviewer: Sara
+  rating: 5
+two: 
+  product: yogamat
+  reviewer: Chris
+  rating: 5
+three: 
+  product: tennisshoes
+  reviewer: Joseph
+  rating: 2

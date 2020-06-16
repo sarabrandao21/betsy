@@ -39,16 +39,14 @@ describe ProductsController do
   describe "create" do
     it "creates a product with valid data for a real category" do
       perform_login(merchants(:sara))
-      new_product = { product: { name: "Yoga socks", merchant_id: merchants(:sharon).id, price: 20, stock: 20 } }
+      new_product = { product: { name: "Yoga socks",  price: 20, stock: 20 } }
 
       expect {
         post products_path, params: new_product
       }.must_change "Product.count", 1
 
-      new_product_id = Product.find_by(name: "Yoga socks").id
-
       must_respond_with :redirect
-      must_redirect_to products_path
+      must_redirect_to product_path(Product.find_by(name: "Yoga socks"))
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
@@ -100,9 +98,8 @@ describe ProductsController do
     end
 
     it "redirect for a bogus product ID" do
-      bogus_id = existing_product.id
-      existing_product.destroy
-
+      bogus_id = -1
+    
       get edit_product_path(bogus_id)
 
       must_redirect_to products_path
@@ -112,7 +109,7 @@ describe ProductsController do
   describe "update" do
     it "succeeds for valid data and an extant product ID" do
       # product = Product.create!(name: 'Carrot Juice', merchant: merchants(:sharon))
-      product = products(:juice)
+      product = products(:healthysnack)
   
       # binding.pry
       update_hash = {
@@ -121,7 +118,7 @@ describe ProductsController do
         }
       }
       
-      expect(product.name).must_equal "Fresh Juice"
+      expect(product.name).must_equal "healthy snack"
 
       expect { 
           patch product_path(product.id), params: update_hash
@@ -145,14 +142,43 @@ describe ProductsController do
     end
 
     it "must redirect for a bogus product ID" do
-      bogus_id = existing_product.id
-      existing_product.destroy
-
+      bogus_id = -1
       put product_path(bogus_id), params: { product: { name: "yoga mat" } }
 
       must_redirect_to products_path
     end
   end
+
+  describe "toggle_active" do
+      it "will toggle active/inactive status for a product that has more than 1 stock" do
+        product = products(:yogamat)
+        
+        # default true for active status for each prodcuts
+        expect(product.active).must_equal true
+        expect{patch toggle_active_path(product.id)}.wont_change 'Product.count'
+        product.reload
+        # toggle from active to inactive
+        expect(product.active).must_equal false
+
+        expect{patch toggle_active_path(product.id)}.wont_change 'Product.count'
+        product.reload
+        # toggle back to active
+        expect(product.active).must_equal true
+      end
+      
+      it "won't toggle inactive to active if the stock is less than 1" do
+        product = products(:healthybeans)
+
+        patch product_path(product.id), params: {product: {stock: 0}}
+        product.reload
+        expect(product.active).must_equal false # 0 inventory will turn active status to false
+        expect{patch toggle_active_path(product.id)}.wont_change 'Product.count'
+        product.reload
+        expect(product.active).must_equal false 
+        # it won't allow 0 inventory product to change to active until being restocked
+      end
+  end
+
 
   # TODO: to add toggle_active test!!!!!
   # describe "destroy" do
