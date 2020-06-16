@@ -14,7 +14,7 @@
           </td>
           <td>
             <% if product.find_average_rating.nil? %>
-                No review for this product yet!
+                no review on file
                 <p><span class="badge badge-info">
                   <%= link_to "Time to promote!", edit_product_path(product.id), class:"text-white"%>
                 </span></p>
@@ -33,16 +33,16 @@
             <%= product.active ? "Active ✔︎" : "Inactive ✕"%>
           </td>
           <td>
-            <%= link_to "Set #{product.active ? "inactive" : "active"}", 
+            <%= link_to "#{product.active ? "Inactivate" : "Activate"}", 
                 toggle_active_path(product.id), 
                 method: :patch,
                 data: {confirm: "Are you sure to set the state to #{product.active ? "inactive" : "active"}"}, 
-                class:"btn btn-outline-secondary btn-sm"
+                class:"btn btn-outline-secondary btn-xs"
             %>
           </td>
           <td>
             <%= link_to "Edit", edit_product_path(product.id),
-                class:"btn btn-outline-secondary btn-sm"
+                class:"btn btn-outline-secondary btn-xs"
             %>
           </td>
         </tr>
