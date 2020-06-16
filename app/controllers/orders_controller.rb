@@ -18,6 +18,10 @@ class OrdersController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def confirmation
+    @order = find_order(id: session[:order_id])
+  end
+
   def destroy
     @order = Order.find_by(id: params[:id])
 
