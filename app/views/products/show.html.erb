@@ -32,8 +32,11 @@
           <%end%>
       </p>
     <%end%>
+        
+    <%if @product.stock > 0 %>
+      <%= render partial: 'products/addproduct' %>
+    <% end %>
     
-    <%= link_to 'Add to cart', add_to_cart_path(@product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
     <% if session[:merchant_id] == @product.merchant_id %>
       <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
       <%= link_to "Set #{@product.active ? "inactive" : "active"}", 
@@ -50,7 +53,7 @@
   <div id="products-reviews container">
     <div class="row">
     <section class='col-4'>
-      <%= render partial: 'products/reviews', locals: {reviews: @product.reviews}%>
+      <%= render partial: 'reviews/reviews', locals: {reviews: @product.reviews}%>
     </section>
     <%# <section class='col-8 review-form'> %>
       <%= render partial: 'reviews/new', locals: {review: @review}%>
