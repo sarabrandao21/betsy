@@ -66,17 +66,23 @@ class Product < ApplicationRecord
         return (total_rating.sum.to_f/(total_rating.length)).round()
     end
 
-    # model method to use when product is added to cart
+    # model method to use when product is purchased?
     def deduct_inventory(num)
         self.stock -= num
         self.save
     end 
 
-    # model method to use when a cart is removed
+    # model method to use when an order is cancel?
     def restock_inventory(num)
         self.stock += num
         self.save
     end
 
+    def check_out_of_stock
+        if self.stock == 0
+            self.active = false
+        end
+        self.save
+    end
     
 end

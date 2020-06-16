@@ -13,10 +13,10 @@
           <td>revenue<%# item.total_price_qty %></td>
           <td><%= item.status %></td>
           <% if merchant_orders == @merchant.find_all_order_items("Paid") %>
-            <td><%= link_to "Cancel", edit_product_path(order_item.id),
+            <td><%= link_to "Cancel", '',
                 class:"btn btn-outline-secondary btn-xs"
             %><td>
-            <td><%= link_to "Shipped", edit_product_path(order_item.id),
+            <td><%= link_to "Shipped", '',
                 class:"btn btn-outline-secondary btn-xs"
             %></td>
           <%end%>

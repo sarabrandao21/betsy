@@ -53,9 +53,10 @@ class ProductsController < ApplicationController
       return
     end
   end
-
+  
   def update
     if @product.update(product_params)
+      @product.check_out_of_stock
       flash[:success] = "Successfully updated #{@product.name}"
       redirect_to product_path(@product.id)
     else
