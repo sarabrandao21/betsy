@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
         redirect_to cart_path
       end
     end
+    session[:order_id] = nil
   end
 
   def destroy
