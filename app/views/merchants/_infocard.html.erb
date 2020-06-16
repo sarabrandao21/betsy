@@ -8,7 +8,7 @@
       <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
         <p>Total Products: <%= @merchant.products.count %></p>
         <p>Total Orders: <%= @merchant.find_total_order %> </p>
-        <p>Total Revenue: <%#= TODO: add total revenue %> </p>
+        <p>Total Revenue: $ <%= @merchant.total_revenue %> </p>
         <p> 
           <%if @merchant.own_average_rating == 0 %>
             No Rating Yet

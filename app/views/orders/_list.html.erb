@@ -9,8 +9,7 @@
           <td><%= image_tag order_item.image,  class:'profile_pic' %></td>
           <td>$ <%= order_item.price%></td>            
           <td><%= item.quantity %></td>
-          <%# TODO: add up the order total %>
-          <td>revenue<%# item.total_price_qty %></td>
+          <td>$ <%= item.total_price_qty %></td>
           <td><%= item.status %></td>
           <% if merchant_orders == @merchant.find_all_order_items("Paid") %>
             <td><%= link_to "Cancel", '',

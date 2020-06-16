@@ -62,5 +62,31 @@ class Merchant < ApplicationRecord
     return items
   end
 
+  def total_revenue_by(status)
+    items_revenue = []
+    items = self.order_items.where(status: status)
+    if items.length > 0
+      items.each do |item|
+        if item.status == status
+          items_revenue << item.total_price_qty 
+        end
+      end
+      return items_revenue.sum
+    else
+      return 0
+    end
+  end
   
+  def total_revenue
+    items_revenue = []
+    items = self.order_items
+    if items.length > 0
+      items.each do |item|
+          items_revenue << item.total_price_qty
+      end
+      return items_revenue.sum
+    else
+      return 0
+    end
+  end
 end
