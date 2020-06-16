@@ -20,10 +20,13 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = find_order(id: session[:order_id])
-    @order.order_items.each do |order_item|
-      if order_item.status == "pending"
-        flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
-        redirect_to cart_path
+    if @order
+      @order.order_items.each do |order_item|
+        if order_item.status == "pending"
+          flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
+          redirect_to cart_path
+          return
+        end
       end
     end
     session[:order_id] = nil
@@ -58,7 +61,7 @@ class OrdersController < ApplicationController
     order = Order.find_by(id: id)
     if order.nil?
       flash[:error] = "A problem occured. We couldn't find your cart."
-      return redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path)
     end
     return order
   end
