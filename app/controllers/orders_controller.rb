@@ -20,12 +20,11 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find_by(id: session[:order_id])
     if @order.update(order_params)
-     # @order.card_status = "paid"
+     @order.card_status = "paid"
       @order.save
       session.delete(:order_id)
-
       flash[:success] = "Your order has been submitted."
-      redirect_to order_path(@order)
+      redirect_to order_path(@order.id)
       return
     else
       flash[:error] = "Try again."
