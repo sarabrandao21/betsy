@@ -20,6 +20,12 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = find_order(id: session[:order_id])
+    @order.order_items.each do |order_item|
+      if order_item.status == "pending"
+        flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
+        redirect_to cart_path
+      end
+    end
   end
 
   def destroy
