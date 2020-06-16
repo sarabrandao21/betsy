@@ -55,15 +55,25 @@ describe OrdersController do
     end
 
     it "doesn't create a new instance of OrderItem if there are not enough products in stock" do
-      #TODO
+      product = products(:dumbells)
+      
+      expect{post add_to_cart_path(product)}.wont_change "OrderItem.count"
     end
 
     it "increases quantity of existing OrderItem when adding more of the same product to the cart" do
-      #TODO
+      product = products(:yogamat)
+      get cart_path      
+      post add_to_cart_path({ id: product.id, quantity: 5})
+      order_item = Order.find_by(id: session[:order_id]).order_items.find_by(product_id: product.id)
+      expect(order_item.quantity).must_equal 5
     end
 
     it "won't increase quantity if there is not enough stock after adding more copies of product" do
-      #TODO
+      product = products(:dumbells)
+      get cart_path      
+      post add_to_cart_path({ id: product.id, quantity: 5})
+      order_item = Order.find_by(id: session[:order_id]).order_items.find_by(product_id: product.id)
+      expect(order_item).must_equal nil 
     end
 
     it "redirects to root_path" do
@@ -74,6 +84,7 @@ describe OrdersController do
   end
 
   describe "set_quantity" do 
+  
     
   end 
 

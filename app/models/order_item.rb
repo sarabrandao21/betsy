@@ -13,7 +13,7 @@ class OrderItem < ApplicationRecord
   end 
 
   def total_price_qty 
-    total = self.product.price * self.quantity 
+    total = self.product.price * self.quantity.to_i
     return total.round(2)
   end 
 end
