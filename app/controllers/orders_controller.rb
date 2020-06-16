@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
     order_item = order.order_items.find_by(product_id: @product.id) 
     puts params[:quantity]
     
-    if order_item && @product.stock >= 1 
+    if order_item && @product.stock >= params[:quantity].to_i
       order_item.increment_quantity(params[:quantity])
     elsif @product.stock >= 1
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
@@ -30,7 +30,13 @@ class OrdersController < ApplicationController
 
   def set_quantity 
     order_item = OrderItem.find_by(id: params[:order_item_id])
-    order_item.set_quantity(params[:quantity])
+    if order_item.product.stock >= params[:quantity].to_i
+      order_item.set_quantity(params[:quantity])
+    else 
+      flash[:error] = "Unable to add #{order_item.product.name} to your cart: we just have #{order_item.product.stock}"
+      redirect_back(fallback_location: root_path)
+      return 
+    end 
     redirect_back(fallback_location: root_path)
   end 
 
