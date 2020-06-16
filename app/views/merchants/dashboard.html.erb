@@ -2,8 +2,9 @@
   <%= render partial: 'infocard' %>
   <section class='order_list'>
     <h2 class="mt-5"> Order List:</h2>
-    <p>Total Paid Order Item Revenue: </p>
-    <p>Total Paid Order Item Count: <%= @merchant.find_all_order_items("Paid").count %></p>
+    <h5>Paid Orders</h5>
+    <p> Revenue: </p>
+    <p> Count: <%= @merchant.find_all_order_items("Paid").count %></p>
     <table class="table">
       <thead>
         <tr>
@@ -21,19 +22,13 @@
       </thead>
       <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Paid")}%>
     </table>
+  </section>
     <section class='order_list'>
     <h2 class="mt-5"> Order History:</h2>
-    <p>Total Completed Order Revenue: </p>
-    <p>Total Completed Order Count: <%= @merchant.find_all_order_items("Completed").count %></p>
+    <h5>Completed Orders: </h5>
+    <p>Revenue: </p>
+    <p>Count: <%= @merchant.find_all_order_items("Completed").count %></p>
     <table class="table">
-    <div class="filter-group float-right"> 
-      <span class="input-group-addon font-weight-bold">Filter by Status  </span>
-      <select id="filter" class="check_boxes" >
-        <option selected>Show All</option>
-        <option value="3">Complete</option>
-        <option value="4">Cancelled</option>
-      </select>
-    </div>
       <thead >
         <tr>
           <th scope="col">Order ID</th>
@@ -48,6 +43,24 @@
       </thead>
       <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Completed")}%>
     </table>
+    <h5>Cancelled Orders: </h5>
+    <p>Count: <%= @merchant.find_all_order_items("Cancelled").count %></p>
+    <table class="table">
+      <thead >
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Product</th>
+          <th scope="col">Item image</th>
+          <th scope="col">Item price</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Revenue</th>
+          <th scope="col">Order Status</th>
+        </tr>
+      </thead>
+      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Cancelled")}%>
+    </table>
+    </section>
     <section class='product_list'>
     <div class= 'product-info row'>
       <div class='col-6'>
