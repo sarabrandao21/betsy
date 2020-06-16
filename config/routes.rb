@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "/cart", to: "orders#cart", as: "cart"
 
   post '/cart/:order_item_id/set-quantity', to: "orders#set_quantity", as: "set_quantity"
-
+  patch '/order_items/:id/mark_complete', to: "order_items#mark_complete", as: "mark_complete"
   
   resources :merchants, only: [:index, :show]
   get "/dashboard", to: 'merchants#dashboard', as: 'dashboard'

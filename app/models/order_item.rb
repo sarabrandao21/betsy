@@ -15,5 +15,10 @@ class OrderItem < ApplicationRecord
   def total_price_qty 
     total = self.product.price * self.quantity.to_i
     return total.round(2)
-  end 
+  end
+  
+  def change_status(status)
+    self.status = status
+    self.save      
+  end
 end

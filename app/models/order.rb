@@ -32,5 +32,4 @@ class Order < ApplicationRecord
       order_item.save
     end
   end
-
 end

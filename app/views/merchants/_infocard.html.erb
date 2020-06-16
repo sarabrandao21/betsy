@@ -5,7 +5,7 @@
     </div>
     <div class="col-5">
       <h3 class="text-info"> <%= @merchant.username %> </h3>
-      <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%d/%m/%y") %></h6>
+      <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%m/%d/%y") %></h6>
         <p>Total Products: <%= @merchant.products.count %></p>
         <p>Total Orders: <%= @merchant.find_total_order %> </p>
         <p>Total Revenue: $ <%= @merchant.total_revenue %> </p>
