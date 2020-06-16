@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
       @order.save
       session.delete(:order_id)
       flash[:success] = "Your order has been submitted."
-      redirect_to order_path(@order.id)
+      redirect_to cart_path
       return
     else
       flash[:error] = "Try again."

@@ -48,7 +48,7 @@ describe ProductsController do
       new_product_id = Product.find_by(name: "Yoga socks").id
 
       must_respond_with :redirect
-      must_redirect_to products_path
+      must_redirect_to product_path
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
