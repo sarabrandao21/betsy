@@ -73,6 +73,20 @@ describe OrdersController do
     end
   end
 
+  describe "confirmation" do
+    it "responds with success if session[:order_id] matches the existing order and sets it to nil" do
+
+    end
+
+    it "redirects to root if session[:order_id] is nil" do
+      get confirmation_path
+      must_redirect_to root_path 
+    end
+
+    it "redirects to cart if the order status is pending" do
+    end
+  end
+
   describe "destroy" do
     it "destroys the Order instance and redirects to root" do
       order = orders(:nataliyas_order)
