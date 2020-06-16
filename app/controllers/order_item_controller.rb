@@ -6,14 +6,14 @@ class OrderItemController < ApplicationController
     new_product_id = params["product_id"]
     if session [:order_id]==nil || session[:order_id] == false || !session[:order_id]
       @order = Order.create(cart_status: "pending")
-      session[:order_id] = @order.:id 
+      session[:order_id] = @order.id 
     else
       @order = Order.find_by(id:session[:order_id])
   end
     
       @order.order_items << OrderItem.create(
       quantity: new_quantity,
-      product_id: new_product_id
+      product_id: new_product_id,
       order_id: order.id
     )
   end 
