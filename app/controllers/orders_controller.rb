@@ -8,7 +8,6 @@ class OrdersController < ApplicationController
   def add_to_cart
     order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
     order_item = order.order_items.find_by(product_id: @product.id) 
-    puts params[:quantity]
     
     if order_item && @product.stock >= params[:quantity].to_i
       order_item.increment_quantity(params[:quantity])
