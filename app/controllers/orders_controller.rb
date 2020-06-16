@@ -20,7 +20,8 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find_by(id: session[:order_id])
     if @order.update(order_params)
-     @order.card_status = "paid"
+      @order.card_status = "paid"
+      @order.mark_paid
       @order.save
       session.delete(:order_id)
       flash[:success] = "Your order has been submitted."
@@ -39,6 +40,7 @@ class OrdersController < ApplicationController
     
     if order_item && @product.stock >= params[:quantity].to_i
       order_item.increment_quantity(params[:quantity])
+      order_item.status = "Pending"
     elsif @product.stock >= 1
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
     else 
@@ -46,7 +48,7 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
       return 
     end 
-     
+    
     if order_item.save
       flash[:success] = "Successfully added #{@product.name} to your cart"
     else
