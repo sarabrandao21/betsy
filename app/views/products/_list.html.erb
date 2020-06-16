@@ -14,7 +14,7 @@
           </td>
           <td>
             <% if product.find_average_rating.nil? %>
-                no review on file
+                no review...
                 <p><span class="badge badge-info">
                   <%= link_to "Time to promote!", edit_product_path(product.id), class:"text-white"%>
                 </span></p>

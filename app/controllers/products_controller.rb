@@ -30,6 +30,7 @@ class ProductsController < ApplicationController
 
       if @product.save
         puts "Saving"
+        @product.check_out_of_stock
         flash[:success] = "Successfully created #{@product.name}"
         redirect_to product_path(@product.id)
         return
@@ -66,9 +67,14 @@ class ProductsController < ApplicationController
   end
 
   def toggle_active
-    @product.update(active: @product.toggle_active_state)
-    flash[:success] = "Successfully set #{@product.name}'s status to #{@product.active ? "active" : "inactive"} "
-    redirect_to product_path(@product.id)
+    if @product.stock > 0
+      @product.update(active: @product.toggle_active_state)
+      flash[:success] = "Successfully set #{@product.name}'s status to #{@product.active ? "active" : "inactive"} "
+      redirect_to product_path(@product.id)
+    else
+      flash[:error] = "Add some stock in order to set Product to Active State!"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   
