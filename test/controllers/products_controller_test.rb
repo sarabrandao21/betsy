@@ -46,7 +46,9 @@ describe ProductsController do
       }.must_change "Product.count", 1
 
       must_respond_with :redirect
+
       must_redirect_to product_path(Product.find_by(name: "Yoga socks"))
+
     end
 
     it "renders bad_request and does not update the DB for bogus data" do

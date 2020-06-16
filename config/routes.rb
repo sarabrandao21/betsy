@@ -10,9 +10,15 @@ Rails.application.routes.draw do
   
   resources :categories
 
-  resources :orders, only: [:create, :destroy]
+  resources :orders, only: [:create, :destroy, :edit, :update] do
+    resources :order_items, only: [:update, :destroy]
+  end    
+
+  resources :order_items, only: [:create]
   get "/cart", to: "orders#cart", as: "cart"
+
   post '/cart/:order_item_id/set-quantity', to: "orders#set_quantity", as: "set_quantity"
+
   
   resources :merchants, only: [:index, :show]
   get "/dashboard", to: 'merchants#dashboard', as: 'dashboard'

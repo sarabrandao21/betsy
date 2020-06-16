@@ -1,7 +1,11 @@
 require "test_helper"
 
 describe OrdersController do
-
+  # before do 
+  #   new_order_item = {product_id: products(:juice).id, quantity:3}
+  #   post order_items_path, new_order_item
+  #   @new_order_item = Order.last
+  # end
   describe "cart" do
     it "responds with success if session[:order_id] matches the existing order" do
       product = products(:yogamat)
@@ -150,5 +154,29 @@ describe OrdersController do
       must_respond_with :not_found
     end
   end
+
+
+  describe "edit" do
+    before do 
+      @order = orders(:sandy)
+    end
+    
+    it "completes order if given valid params" do
+      get edit_order_path(@order.id)
+      must_respond_with :success
+    end
+
+    it "responds with a bad request when order ID is NOT valid" do
+      get edit_order_path(-1)
+
+      must_respond_with :redirect
+    end
+
+    it "completes order when given a valid order params" do
+      
+    end
+  end
+
+
 
 end

@@ -1,8 +1,36 @@
 class OrdersController < ApplicationController
   before_action :require_product, only: [:add_to_cart]
+  
 
   def cart
     @order = Order.find_by(id: session[:order_id])
+
+  end
+
+  def edit
+    if params[:order_id]
+      @order = Order.find_by(id: params[:order_id])
+    elsif params[:id]
+      @order = Order.find_by(id: params[:id])
+    elsif session[:order_id] && session[:order_id] != nil
+      @order = Order.find_by(id: session[:order_id])
+    end 
+  end
+
+  def update
+    @order = Order.find_by(id: session[:order_id])
+    if @order.update(order_params)
+     @order.card_status = "paid"
+      @order.save
+      session.delete(:order_id)
+      flash[:success] = "Your order has been submitted."
+      redirect_to cart_path
+      return
+    else
+      flash[:error] = "Try again."
+      render :edit
+      return
+    end
   end
 
   def add_to_cart
@@ -56,6 +84,10 @@ class OrdersController < ApplicationController
 
   private
 
+  def order_params
+    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status )
+  end
+
   def require_product
     @product = Product.find_by(id: params[:id]) 
     if @product.nil?
@@ -81,5 +113,8 @@ class OrdersController < ApplicationController
     order.reload
     session[:order_id] = order.id
     return order
+
   end
 end
+
+

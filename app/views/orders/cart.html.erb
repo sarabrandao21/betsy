@@ -22,16 +22,18 @@
             <%= link_to "Remove", root_path, class: "btn btn-outline-danger" %>
           </div>
         </div>
-      </div>
+      </div>  
     <% end %>
-  
+
     <div class="mt-5 mb-5">
+
       <h5>Subtotal: $<%=@order.subtotal%></h5>
       <h5>Taxes: $<%=@order.taxes%></h5>
       <h5>Total: $<%=@order.purchase_total%></h5>
+
     </div>
     
-    <%= link_to "Checkout", root_path, class: "btn btn-outline-primary" %>
+    <%= link_to "Checkout", edit_order_path(@order), class: "btn btn-outline-primary" %>
     <%= link_to "Empty Cart", order_path(@order), method: :delete, data: {confirm: "Empty your cart?"}, class: "btn btn-outline-danger" %>
   <% end %>
 </div>
