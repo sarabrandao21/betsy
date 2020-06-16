@@ -15,6 +15,7 @@ describe Review do
 
       expect(review.valid?).must_equal false
       expect(review.errors.messages).must_include :reviewer
+      expect(review.errors.messages[:reviewer]).must_equal ["can't be blank"]
     end
 
     it 'will only accept rating of a range of 1 to 5' do
@@ -22,6 +23,7 @@ describe Review do
 
       expect(review.valid?).must_equal false
       expect(review.errors.messages).must_include :rating
+      expect(review.errors.messages[:rating]).must_equal ["must be greater than 0"]
     end
 
     it 'will only accept rating of a range of 1 to 5' do
@@ -29,6 +31,7 @@ describe Review do
 
       expect(review.valid?).must_equal false
       expect(review.errors.messages).must_include :rating
+      expect(review.errors.messages[:rating]).must_equal ["must be less than 6"]
     end
 
     it 'require a product' do
@@ -36,6 +39,7 @@ describe Review do
 
       expect(review.valid?).must_equal false
       expect(review.errors.messages).must_include :product
+      expect(review.errors.messages[:product]).must_equal ["must exist"]
     end
   end
 end
