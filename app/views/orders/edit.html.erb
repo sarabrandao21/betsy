@@ -6,7 +6,7 @@
       <ul>
         <% @order.errors.each do |column, message|%>
         <li>
-          <strong><%= column.capitalize %></strong><%= message%>
+          <strong><%= column.capitalize %> </strong> <%= message%>
         </li>
         <% end %>
       </ul>
@@ -53,16 +53,16 @@
                    <div class="row">
                 <div class="col-md-3 mb-3">
                   <%= f.label :cvv, "Security Code" %>
-                  <%= f.number_field :cvv, class: "form-control", placeholder: "123" %>
+                  <%= f.text_field :cvv, class: "form-control", placeholder: "123" %>
                 </div>
                 <div class="col-md-3 mb-3">
                   <%= f.label :exp_date, "Expiration Date" %>
-                  <%= f.number_field :exp_date, class: "form-control", placeholder: "01/25"  %>
+                  <%= f.text_field :exp_date, class: "form-control", placeholder: "01/25"  %>
                 </div>
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <%= f.label :zip, "Zip Code" %>
-                    <%= f.number_field :zip, class: "form-control", placeholder: "00000" %>
+                    <%= f.text_field :zip, class: "form-control", placeholder: "00000" %>
                   </div>
                 </div>
                 
