@@ -1,7 +1,4 @@
 require "test_helper"
 
-describe OrderItemController do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+describe OrderItemsController do
 end

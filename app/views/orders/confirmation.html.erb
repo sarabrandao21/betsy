@@ -1,0 +1,41 @@
+<div class="container mt-5 mb-5">
+  <h1>Thank you!</h1>
+  <div class="">
+    <p>Please, save the following information for your records:</p>
+    <ul>
+    <li>Order Number: <%= @order.id %></li>
+    <li>Submitted on: <%= @order.created_at.strftime("%d/%m/%y") %></li>
+    <li>Payment method: Credit Card #### #### #### <%= @order.last_four_cc %> (<%= @order.customer_name %>)</li>
+    <li>Shipping address: <%= @order.address %>, <%= @order.zip %></li>
+    </ul>
+  </div>
+
+  <h1>Your order:</h1>
+    <% @order.order_items.each do |order_item| %>
+      <div class="card bg-light mb-3">
+        <div class="row card-body">
+          <div class="col-3">
+            <img src= <%= order_item.product.image %> alt="" class="img-fluid">
+          </div>
+          <div class="col">
+            <h3 class="card-title"> <%= order_item.product.name %> </h5>
+            <h6 class="card-subtitle mb-2 text-muted"> Merchant: <%= order_item.product.merchant.username %></h6>
+            <ul class="">
+              <li>Quantity: <%= order_item.quantity %> </li>
+              <li>Price: $<%= order_item.product.price %> </li>
+              <li>Price Total: $<%= order_item.total_price_qty %> </li>
+            </ul>
+            <%= link_to "Create a review", product_path(order_item.product), class: "btn btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  
+    <div class="mt-5 mb-5">
+      <h5>Subtotal: $<%=@order.subtotal%> </h5>
+      <h5>Taxes: $<%=@order.taxes%> </h5>
+      <h5>Total: $<%=@order.purchase_total%> </h5>
+    </div>
+    
+    <%= link_to "Back to Well Etsy", root_path, class: "btn btn-outline-primary" %>
+</div>

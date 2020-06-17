@@ -58,6 +58,7 @@ describe OrdersController do
       product = products(:dumbells)
       
       expect{post add_to_cart_path(product)}.wont_change "OrderItem.count"
+      
     end
 
     it "increases quantity of existing OrderItem when adding more of the same product to the cart" do
@@ -82,6 +83,35 @@ describe OrdersController do
       product = products(:yogamat)
       post add_to_cart_path(product)
       must_redirect_to root_path
+    end
+  end
+
+  describe "confirmation" do
+    it "responds with success if session[:order_id] matches the existing order and sets it to nil" do
+      product = products(:yogamat)
+      post add_to_cart_path(product)
+      order_item = Order.find_by(id: session[:order_id]).order_items[0]
+      order_item.status = "Paid"
+      order_item.save
+
+      get confirmation_path
+      must_respond_with :success
+      assert_nil session[:order_id]
+    end
+
+    it "redirects to root if session[:order_id] is nil" do
+      get confirmation_path
+      must_redirect_to root_path 
+    end
+
+    it "redirects to cart if the order status is pending" do
+      product = products(:yogamat)
+      post add_to_cart_path(product)
+      order_item = Order.find_by(id: session[:order_id]).order_items[0]
+
+      expect(order_item.status).must_equal "Pending"
+      get confirmation_path
+      must_redirect_to cart_path
     end
   end
 

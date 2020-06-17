@@ -40,7 +40,10 @@
                   <span class="notify-badge">HOT ITEM</span>
                 <% end %>
               <%end%>
-              <%= link_to 'Add to cart', add_to_cart_path(product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
+              <%= form_tag(add_to_cart_path(product.id), { class: 'addproduct-form'}) do%>
+                <%=hidden_field_tag(:quantity, 1 )%>
+              <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+              <% end %>
           <% end %>
           </figcaption>
         </div>

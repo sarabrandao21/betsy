@@ -26,6 +26,7 @@ class Order < ApplicationRecord
     return total = (self.subtotal() + self.taxes()).round(2)
   end 
 
+
   def decrement_stock
     self.order_items.each do |item|
       item.product.stock -= item.quantity 
@@ -33,4 +34,12 @@ class Order < ApplicationRecord
     end
   end 
 
+
+  def mark_paid
+    self.order_items.each do |order_item|
+      order_item.status = "Paid"
+      Product.find_by(id: order_item.product_id).deduct_inventory(order_item.quantity)
+      order_item.save
+    end
+  end
 end
