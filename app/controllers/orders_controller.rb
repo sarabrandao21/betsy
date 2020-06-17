@@ -23,9 +23,8 @@ class OrdersController < ApplicationController
       @order.card_status = "paid"
       @order.mark_paid
       @order.save
-      session.delete(:order_id)
       flash[:success] = "Your order has been submitted."
-      redirect_to cart_path
+      redirect_to confirmation_path
       return
     else
       flash[:error] = "Try again."
@@ -42,7 +41,6 @@ class OrdersController < ApplicationController
     if order_item 
       if order_item.check_quantity_cart(params[:quantity], @product.stock)
         order_item.increment_quantity(params[:quantity])
-        order_item.status = "Pending"
       else 
         flash[:error] = "Unable to add #{@product.name} to your cart: Not enough in stock"
         redirect_back(fallback_location: root_path)
@@ -55,6 +53,8 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
       return 
     end 
+
+    order_item.status = "Pending"
     
     if order_item.save
       flash[:success] = "Successfully added #{@product.name} to your cart"
@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
     @order = find_order(id: session[:order_id])
     if @order
       @order.order_items.each do |order_item|
-        if order_item.status == "pending"
+        if order_item.status == "Pending"
           flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
           redirect_to cart_path
           return
