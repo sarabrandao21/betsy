@@ -37,11 +37,18 @@ class OrdersController < ApplicationController
   def add_to_cart
     order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
     order_item = order.order_items.find_by(product_id: @product.id) 
-    
-    if order_item && @product.stock >= params[:quantity].to_i && order_item.check_quantity_cart(params[:quantity])
-      order_item.increment_quantity(params[:quantity])
-      order_item.status = "Pending"
-    elsif order_item.nil? && params[:quantity].to_i  <= 10 && @product.stock >= params[:quantity].to_i
+    up_to_ten_quantity = params[:quantity].to_i <= 10
+
+    if order_item 
+      if order_item.check_quantity_cart(params[:quantity], @product.stock)
+        order_item.increment_quantity(params[:quantity])
+        order_item.status = "Pending"
+      else 
+        flash[:error] = "Unable to add #{@product.name} to your cart: Not enough in stock"
+        redirect_back(fallback_location: root_path)
+        return 
+      end 
+    elsif order_item.nil? && up_to_ten_quantity && @product.stock >= params[:quantity].to_i
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
     else 
       flash[:error] = "Unable to add #{@product.name} to your cart: max 10 items per product"
