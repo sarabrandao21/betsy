@@ -62,17 +62,17 @@ class Product < ApplicationRecord
                 total_rating << reviews.rating
             end
         end
-        # to get the digits not to round up?
+
         return (total_rating.sum.to_f/(total_rating.length)).round()
     end
 
-    # model method to use when product is purchased?
+    # model method to use when product is purchased, once people paid
     def deduct_inventory(num)
         self.stock -= num
         self.save
     end 
 
-    # model method to use when an order is cancel?
+    # model method to use when an order is cancel
     def restock_inventory(num)
         self.stock += num
         self.save

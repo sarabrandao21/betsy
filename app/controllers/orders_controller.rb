@@ -28,7 +28,8 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find_by(id: session[:order_id])
     if @order.update(order_params)
-     @order.card_status = "paid"
+      @order.card_status = "paid"
+      @order.mark_paid
       @order.save
       session.delete(:order_id)
       flash[:success] = "Your order has been submitted."
@@ -47,6 +48,7 @@ class OrdersController < ApplicationController
     
     if order_item && @product.stock >= params[:quantity].to_i
       order_item.increment_quantity(params[:quantity])
+      order_item.status = "Pending"
     elsif @product.stock >= 1
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
     else 
@@ -54,7 +56,7 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
       return 
     end 
-     
+    
     if order_item.save
       flash[:success] = "Successfully added #{@product.name} to your cart"
     else
@@ -62,6 +64,20 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
     redirect_back(fallback_location: root_path)
+  end
+
+  def confirmation
+    @order = find_order(id: session[:order_id])
+    if @order
+      @order.order_items.each do |order_item|
+        if order_item.status == "pending"
+          flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
+          redirect_to cart_path
+          return
+        end
+      end
+    end
+    session[:order_id] = nil
   end
 
   def set_quantity 
@@ -94,7 +110,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status )
+    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status)
   end
 
   def require_product
@@ -108,8 +124,8 @@ class OrdersController < ApplicationController
   def find_order(id:)
     order = Order.find_by(id: id)
     if order.nil?
-      flash[:error] = "A problem occured. We couldn't find your cart."
-      return redirect_back(fallback_location: root_path)
+      flash[:error] = "A problem occured. We couldn't find your order."
+      redirect_back(fallback_location: root_path)
     end
     return order
   end

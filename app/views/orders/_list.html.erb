@@ -1,22 +1,21 @@
 <tbody>
   <% if merchant_orders.length > 0 %>
     <% merchant_orders.each do |item| %>
-        <% order_item = Product.find_by(id: item.product_id)%>
+        <% product = Product.find_by(id: item.product_id)%>
         <tr class="list-group-item-action">
           <td><%= item.order_id %></td>
-          <td><%= order_item.created_at.strftime( "%B %e, %Y")%></td>
-          <td><%= link_to order_item.name, product_path(order_item.id) %></td>
-          <td><%= image_tag order_item.image,  class:'profile_pic' %></td>
-          <td>$ <%= order_item.price%></td>            
+          <td><%= product.created_at.strftime( "%B %e, %Y")%></td>
+          <td><%= link_to product.name, product_path(product.id) %></td>
+          <td><%= image_tag product.image,  class:'profile_pic' %></td>
+          <td>$ <%= product.price%></td>            
           <td><%= item.quantity %></td>
-          <%# TODO: add up the order total %>
-          <td>revenue<%# item.total_price_qty %></td>
+          <td>$ <%= item.total_price_qty %></td>
           <td><%= item.status %></td>
           <% if merchant_orders == @merchant.find_all_order_items("Paid") %>
-            <td><%= link_to "Cancel", '',
+            <td><%= link_to "Cancel", mark_cancel_path(item.id), method: :patch,
                 class:"btn btn-outline-secondary btn-xs"
             %><td>
-            <td><%= link_to "Shipped", '',
+            <td><%= link_to "✓", mark_complete_path(item.id), method: :patch,
                 class:"btn btn-outline-secondary btn-xs"
             %></td>
           <%end%>
