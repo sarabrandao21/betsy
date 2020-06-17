@@ -4,6 +4,7 @@
   <table class="table">
     <thead >
       <tr>
+        <th scope="col">Profile Picture</th>
         <th scope="col">Name</th>
         <th scope="col">Products</th> 
         <%# active products %>
@@ -13,6 +14,7 @@
     <tbody>
       <% @merchants.each do |merchant| %>
           <tr class="list-group-item-action">
+            <td><img src= <%= merchant.avatar %> alt="" class="profile_pic img-fluid"></td>
             <td> <%= link_to merchant.username, merchant_path(merchant) %> </td>
             <td> <%= merchant.products.where(active: true).count %> </td>
             <td> <% if merchant.own_average_rating > 0 %>

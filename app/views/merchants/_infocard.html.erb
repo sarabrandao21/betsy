@@ -1,24 +1,26 @@
 <div class="container">
   <div class="row card-body">
-    <div class="col-2">
-      <img src= <%= @merchant.avatar %> alt="" class="profile_pic img-fluid">
+    <div class="col-4">
+      <img src= <%= merchant.avatar %> alt="" class="merchant_pic img-fluid">
     </div>
-    <div class="col-5">
-      <h3 class="text-info"> <%= @merchant.username %> </h3>
-      <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= @merchant.created_at.strftime("%m/%d/%y") %></h6>
-        <p>Total Products: <%= @merchant.products.count %></p>
-        <p>Total Orders: <%= @merchant.find_total_order %> </p>
-        <p>Total Revenue: $ <%= @merchant.total_revenue %> </p>
+    <div class="col-3">
+      <h3 class="text-info"> <%= merchant.username %> </h3>
+      <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= merchant.created_at.strftime("%m/%d/%y") %></h6>
+        <p>Total Products: <%= merchant.products.count %></p>
+        <p>Total Items Sold: <%= merchant.find_order_items%> </p>
+        <% if merchant == @dashboard_merchant %>
+          <p>Total Revenue: $ <%= merchant.total_revenue %> </p>
+        <% end %>
         <p> 
-          <%if @merchant.own_average_rating == 0 %>
+          <%if merchant.own_average_rating == 0 %>
             No Rating Yet
           <%else%> 
-           <p class="text-warning"> <%= "★" * @merchant.own_average_rating%></p>
+           <p class="text-warning"> <%= "★" * merchant.own_average_rating%></p>
           <%end%> 
         </p>
     </div>
       <div class="col-5">
-      <% if @merchant.own_average_rating >= 4 %>
+      <% if merchant.own_average_rating >= 4 %>
           <p>
             <i class="fa fa-thumbs-o-up fa-2x text-primary"></i> 
             <strong>Buyers are raving!</strong> This shop got an average rating of 4 or above. 
@@ -26,7 +28,7 @@
       <% end %>
       <p>
         <strong>Got Question?</strong> Email our vendor.
-        <%= mail_to @merchant.email%>
+        <%= mail_to merchant.email%>
           <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
         </a>
       </p>

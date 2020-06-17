@@ -35,4 +35,12 @@ class Order < ApplicationRecord
       order_item.save
     end
   end
+
+  def all_cart_items
+    cart_qty = []
+    self.order_items.each do |order_item|
+      cart_qty << order_item.quantity
+    end
+    return cart_qty.sum
+  end
 end
