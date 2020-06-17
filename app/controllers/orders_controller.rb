@@ -9,20 +9,12 @@ class OrdersController < ApplicationController
 
   def edit
     if params[:order_id]
-      puts "params order_id: #{params[:order_id]}"
       @order = Order.find_by(id: params[:order_id])
     elsif params[:id]
       @order = Order.find_by(id: params[:id])
-      puts "params id: #{params[:id]}"
     elsif session[:order_id] && session[:order_id] != nil
-      puts "session order_id and session order_id not nil: #{session[:order_id]}"
       @order = Order.find_by(id: session[:order_id])
-    end
-    if @order.nil? 
-      flash[:error] = "Couldn't edit this order!"
-      render :edit, status: :bad_request
-      return 
-    end  
+    end 
   end
 
   def update
@@ -46,13 +38,13 @@ class OrdersController < ApplicationController
     order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
     order_item = order.order_items.find_by(product_id: @product.id) 
     
-    if order_item && @product.stock >= params[:quantity].to_i
+    if order_item && @product.stock >= params[:quantity].to_i && order_item.check_quantity_cart(params[:quantity])
       order_item.increment_quantity(params[:quantity])
       order_item.status = "Pending"
-    elsif @product.stock >= 1
+    elsif order_item.nil? && params[:quantity].to_i  <= 10 && @product.stock >= params[:quantity].to_i
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
     else 
-      flash[:error] = "Unable to add #{@product.name} to your cart: sold out"
+      flash[:error] = "Unable to add #{@product.name} to your cart: max 10 items per product"
       redirect_back(fallback_location: root_path)
       return 
     end 
@@ -61,7 +53,6 @@ class OrdersController < ApplicationController
       flash[:success] = "Successfully added #{@product.name} to your cart"
     else
       flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
-      redirect_back(fallback_location: root_path)
     end
     redirect_back(fallback_location: root_path)
   end
