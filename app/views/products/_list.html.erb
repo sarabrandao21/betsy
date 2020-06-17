@@ -49,9 +49,9 @@
     <% end %> 
   <% else %>
     <% if params[:status] %>
-        <td class='text-warning'>No Products from <%=@merchant.username%> for <%= params[:status]%> status </td>
+        <td class='text-warning'>No Products from <%= @dashboard_merchant.username%> for <%= params[:status]%> status </td>
     <% else %>
-        <td>No Products from <%=@merchant.username%></td>
+        <td>No Products from <%= @dashboard_merchant.username%></td>
     <% end %>
   <% end %>
 </tbody>

@@ -29,12 +29,14 @@ class OrderItemsController < ApplicationController
     @order_item.change_status('Completed')
     flash[:success] = "Item successfully marked shipped"
     redirect_to dashboard_path
+    return
   end
 
   def mark_cancel
     @order_item.change_status('Cancelled')
     flash[:success] = "Item successfully marked Cancelled"
     redirect_to dashboard_path
+    return
   end
 
 

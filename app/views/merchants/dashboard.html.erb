@@ -1,10 +1,10 @@
 <div class="container mt-5 dashboard">
-  <%= render partial: 'infocard' %>
+  <%= render partial: 'infocard', locals: {merchant: @dashboard_merchant} %>
   <section class='order_list'>
     <h2 class="mt-5"> Order List:</h2>
     <h5>Paid Orders</h5>
-    <p> Revenue: $<%=@merchant.total_revenue_by("Paid") %></p>
-    <p> Count: <%= @merchant.find_all_order_items("Paid").count %></p>
+    <p> Revenue: $<%=  @dashboard_merchant.total_revenue_by("Paid") %></p>
+    <p> Count: <%=  @dashboard_merchant.find_all_order_items("Paid").count %></p>
     <table class="table">
       <thead>
         <tr>
@@ -20,14 +20,14 @@
           <th scope="col">Mark Shipped</th>
         </tr>
       </thead>
-      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Paid")}%>
+      <%= render partial: 'orders/list', locals: { merchant_orders:  @dashboard_merchant.find_all_order_items("Paid")}%>
     </table>
   </section>
     <section class='order_list'>
     <h2 class="mt-5"> Order History:</h2>
     <h5>Completed Orders: </h5>
-    <p>Revenue: $<%=@merchant.total_revenue_by("Completed")%> </p>
-    <p>Count: <%= @merchant.find_all_order_items("Completed").count %></p>
+    <p>Revenue: $<%= @dashboard_merchant.total_revenue_by("Completed")%> </p>
+    <p>Count: <%=  @dashboard_merchant.find_all_order_items("Completed").count %></p>
     <table class="table">
       <thead >
         <tr>
@@ -41,10 +41,10 @@
           <th scope="col">Order Status</th>
         </tr>
       </thead>
-      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Completed")}%>
+      <%= render partial: 'orders/list', locals: { merchant_orders:  @dashboard_merchant.find_all_order_items("Completed")}%>
     </table>
     <h5>Cancelled Orders: </h5>
-    <p>Count: <%= @merchant.find_all_order_items("Cancelled").count %></p>
+    <p>Count: <%=  @dashboard_merchant.find_all_order_items("Cancelled").count %></p>
     <table class="table">
       <thead >
         <tr>
@@ -58,15 +58,15 @@
           <th scope="col">Order Status</th>
         </tr>
       </thead>
-      <%= render partial: 'orders/list', locals: { merchant_orders: @merchant.find_all_order_items("Cancelled")}%>
+      <%= render partial: 'orders/list', locals: { merchant_orders:  @dashboard_merchant.find_all_order_items("Cancelled")}%>
     </table>
     </section>
     <section class='product_list'>
     <div class= 'product-info row'>
       <div class='col-6'>
         <h2 > Item list:</h2>
-        <p>Total Active Item Count : <%= @merchant.products.where(active: true).count %></p>
-        <p>Total Inactive Item Count: <%= @merchant.products.where(active: false).count %></p>
+        <p>Total Active Item Count : <%=  @dashboard_merchant.products.where(active: true).count %></p>
+        <p>Total Inactive Item Count: <%=  @dashboard_merchant.products.where(active: false).count %></p>
         <%# refernce from https://forum.upcase.com/t/how-to-implement-filtering-for-my-rails-app/2834 %>
       </div>
       <div class="filter-group filter-order float-right col-6"> 
