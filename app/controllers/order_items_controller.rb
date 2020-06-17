@@ -1,9 +1,5 @@
 class OrderItemsController < ApplicationController
-<<<<<<< HEAD:app/controllers/order_items_controller.rb
   before_action :find_order_item, except: [:create ]
-=======
-  before_action :find_order_item, except: [:create]
->>>>>>> master:app/controllers/order_items_controller.rb
   
   def create
     new_quantity = params["quantity"]
