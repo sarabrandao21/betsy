@@ -25,7 +25,7 @@
             <i class="fa fa-shopping-cart"  style="font-size:24px;color:lavender"></i>
             <% if session[:order_id] %>
               <%#TODO: to fix this cart badge %>
-              <span class="cart-badge"><%= Order.find_by(id: session[:order_id]).order_items.count  %></span>
+              <span class="cart-badge"><%= Order.find_by(id: session[:order_id]).all_cart_items %></span>
             <% end %>
           <% end %>
         </li>

@@ -4,17 +4,17 @@
     <h5 class="title">Review this product</h5>
     <p>Share your thoughts with other customers</p>
     </div>
-    <div class='form-group'>
+    <div class='form-group required'>
       <%=f.label :reviewer_name%>
       <%= f.text_field :reviewer, value: @review.reviewer%>
     </div>
-    <div class='form-group'>
+    <div class='form-group required'>
       <%=f.label :rating%>
       <%= f.select :rating,[5,4,3,2,1], {}, value: @review.rating%>
     </div>
     <div class='form-group'>
       <%=f.label :comment%>
-      <%= f.text_area :comment, placeholder: 'Your Comment goes here', class: 'form-control'%>
+      <%= f.text_area :comment, placeholder: 'Optional Comment', class: 'form-control'%>
     </div>
     <%=f.submit "Submit review", class: 'btn btn-success mt-3'%>
   <% end %>

@@ -11,7 +11,7 @@
           <td><%= item.quantity %></td>
           <td>$ <%= item.total_price_qty %></td>
           <td><%= item.status %></td>
-          <% if merchant_orders == @merchant.find_all_order_items("Paid") %>
+          <% if merchant_orders ==  @dashboard_merchant.find_all_order_items("Paid") %>
             <td><%= link_to "Cancel", mark_cancel_path(item.id), method: :patch,
                 class:"btn btn-outline-secondary btn-xs"
             %><td>
