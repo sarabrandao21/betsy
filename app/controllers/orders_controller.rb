@@ -40,7 +40,6 @@ class OrdersController < ApplicationController
     
     if order_item && @product.stock >= params[:quantity].to_i
       order_item.increment_quantity(params[:quantity])
-      order_item.status = "Pending"
     elsif @product.stock >= 1
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
     else 
@@ -48,6 +47,8 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
       return 
     end 
+
+    order_item.status = "Pending"
     
     if order_item.save
       flash[:success] = "Successfully added #{@product.name} to your cart"
@@ -61,7 +62,8 @@ class OrdersController < ApplicationController
     @order = find_order(id: session[:order_id])
     if @order
       @order.order_items.each do |order_item|
-        if order_item.status == "pending"
+
+        if order_item.status == "Pending"
           flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
           redirect_to cart_path
           return
