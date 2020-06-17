@@ -10,6 +10,10 @@ class ProductsController < ApplicationController
 
   def show
     @review = Review.new
+    if @product.active == false
+      flash[:error] = "The product is not active!"
+      redirect_to products_path
+    end
   end
 
   def new

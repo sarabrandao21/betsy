@@ -15,5 +15,13 @@ class OrderItem < ApplicationRecord
   def total_price_qty 
     total = self.product.price * self.quantity.to_i
     return total.round(2)
-  end 
+  end
+  
+  def change_status(status)
+    self.status = status
+    if status == 'Cancelled'
+      Product.find_by(id: self.product_id).restock_inventory(self.quantity)
+    end
+    self.save      
+  end
 end

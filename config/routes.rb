@@ -19,8 +19,9 @@ Rails.application.routes.draw do
   get "/confirmation", to: "orders#confirmation", as: "confirmation"
 
   post '/cart/:order_item_id/set-quantity', to: "orders#set_quantity", as: "set_quantity"
+  patch '/order_items/:id/mark_complete', to: "order_items#mark_complete", as: "mark_complete"
+  patch '/order_items/:id/mark_cancel', to: "order_items#mark_cancel", as: "mark_cancel"
 
-  
   resources :merchants, only: [:index, :show]
   get "/dashboard", to: 'merchants#dashboard', as: 'dashboard'
 
