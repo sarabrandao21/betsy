@@ -23,9 +23,8 @@ class OrdersController < ApplicationController
       @order.card_status = "paid"
       @order.mark_paid
       @order.save
-      session.delete(:order_id)
       flash[:success] = "Your order has been submitted."
-      redirect_to cart_path
+      redirect_to confirmation_path
       return
     else
       flash[:error] = "Try again."
@@ -62,7 +61,6 @@ class OrdersController < ApplicationController
     @order = find_order(id: session[:order_id])
     if @order
       @order.order_items.each do |order_item|
-
         if order_item.status == "Pending"
           flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
           redirect_to cart_path
