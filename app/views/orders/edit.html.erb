@@ -1,7 +1,8 @@
 <body>
-<% if @order.errors.any? %>
+<% if @order && @order.errors.any? %>
+
   <section class="alert alert-danger">
-    <h1>You have not selected any orders</h1>
+    <h1>You have not selected any order items</h1>
       <ul>
         <% @order.errors.each do |column, message|%>
         <li>
