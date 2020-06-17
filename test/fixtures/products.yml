@@ -6,6 +6,7 @@ yogamat:
   stock: 50
   rating: 5
   merchant: sharon
+  active: true
 juice:
   name: Fresh Juice
   description: 100% fresh fruit juice

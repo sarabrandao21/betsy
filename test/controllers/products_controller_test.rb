@@ -59,20 +59,21 @@ describe ProductsController do
         post products_path, params: bad_product
       }.wont_change "Product.count"
 
+      expect(flash[:error]).must_equal "Couldn't create product!"
       must_respond_with :bad_request
     end
 
-    # TODO : update once we have categories!!!!!!!!!
-    # it "renders 400 bad_request for bogus categories" do
-    #   INVALID_CATEGORIES.each do |category|
-    #     invalid_product = { product: { name: "Invalid product", category: category } }
+    it "won't create new product is no merchant is log in" do
 
-    #     expect { post products_path, params: invalid_product }.wont_change "product.count"
+      new_product = { product: { name: "Yoga socks",  price: 20, stock: 20 } }
 
-    #     expect(product.find_by(name: "Invalid product", category: category)).must_be_nil
-    #     must_respond_with :bad_request
-    #   end
-    # end
+      expect {
+        post products_path, params: new_product
+      }.wont_change "Product.count"
+
+      expect(flash[:error]).must_equal "You must log in to add product!"
+      must_redirect_to products_path
+    end
   end
 
   describe "show" do
@@ -86,7 +87,17 @@ describe ProductsController do
       destroyed_id = -1
 
       get product_path(destroyed_id)
+      expect(flash[:notice]).must_equal"Product not found!😢"
+      must_redirect_to products_path
+    end
 
+
+    it "redirect for a bogus product ID" do
+      product = products(:chips)
+      product.update(active: false)
+
+      get product_path(product.id)
+      expect(flash[:error]).must_equal "#{product.name} is not active!"
       must_redirect_to products_path
     end
   end
@@ -97,6 +108,22 @@ describe ProductsController do
       get edit_product_path(existing_product.id)
 
       must_respond_with :success
+    end
+
+    it "won't let merchant to edit products that are not belong to that merchant" do
+      perform_login(merchants(:sara))
+      get edit_product_path(existing_product.id)
+
+      expect(flash[:error]).must_equal "You are not authorized to edit this product #{existing_product.name}'!"
+      must_redirect_to products_path
+    end
+
+
+    it "cannot edit a product if not login " do
+      get edit_product_path(existing_product.id)
+
+      expect(flash[:error]).must_equal "You are not authorized to edit this product #{existing_product.name}'!"
+      must_redirect_to products_path
     end
 
     it "redirect for a bogus product ID" do

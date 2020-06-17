@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
   def show
     @review = Review.new
     if @product.active == false
-      flash[:error] = "#{@product.name}' is not active!"
+      flash[:error] = "#{@product.name} is not active!"
       redirect_to products_path
     end
   end
@@ -39,13 +39,11 @@ class ProductsController < ApplicationController
         redirect_to product_path(@product.id)
         return
       else
-        # TODO: to fix the errors message to display properly
         flash[:error] = "Couldn't create product!"
-        # flash[:messages] = @product.errors.messages
         render :new, status: :bad_request
       end
     else
-      flash[:error] = "Couldn't create product!"
+      flash[:error] = "You must log in to add product!"
       redirect_to products_path
       return
     end
