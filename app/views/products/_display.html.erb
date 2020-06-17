@@ -13,7 +13,9 @@
           <div href="#" class="card card-product-grid">
           <%= image_tag product.image, alt: "product's image", class: 'img-fluid' %>
           <figcaption class="info-wrap">
-          <%= link_to product.name, product_path(product.id), class: "card-title" %>
+            <div style="text-align:center;">
+              <%= link_to product.name, product_path(product.id), class: "card-title" %>
+            </div>
           <% if product_list == @products%>
             <p><%= truncate product.description, length: 50 %></p>
           <% end %>
@@ -42,7 +44,9 @@
               <%end%>
               <%= form_tag(add_to_cart_path(product.id), { class: 'addproduct-form'}) do%>
                 <%=hidden_field_tag(:quantity, 1 )%>
-              <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+              <div style="text-align:center;">
+                <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+              </div>
               <% end %>
           <% end %>
           </figcaption>

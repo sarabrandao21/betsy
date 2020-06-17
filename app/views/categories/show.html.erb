@@ -11,7 +11,9 @@
                 <div href="#" class="card card-product-grid">
                     <%= image_tag product.image, alt: "product's image", class: 'img-fluid' %>
                     <figcaption class="info-wrap">
-                        <%= link_to product.name, product_path(product.id), class: "card-title" %>
+                        <div style="text-align:center;">
+                          <%= link_to product.name, product_path(product.id), class: "card-title" %>
+                        </div>
                         
                         <p><%= truncate product.description, length: 50 %></p>
                   
@@ -38,7 +40,9 @@
                             <span class="notify-badge">HOT ITEM</span>
                           <% end %>
                         <%end%>
-                        <%= link_to 'Add to cart', add_to_cart_path(product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
+                        <div style="text-align:center;">
+                          <%= link_to 'Add to cart', add_to_cart_path(product.id), method: :create, class:'btn btn-outline-secondary btn-sm'%>
+                        </div>
                     </figcaption>
                 </div>
             </div>
