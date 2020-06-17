@@ -62,6 +62,7 @@ describe OrdersController do
       product = products(:dumbells)
       
       expect{post add_to_cart_path(product)}.wont_change "OrderItem.count"
+      
     end
 
     it "increases quantity of existing OrderItem when adding more of the same product to the cart" do
@@ -203,6 +204,9 @@ describe OrdersController do
 
     it "completes order when given a valid order params" do
       
+      # get cart_path
+      # puts " *************8#{params}"
+      # get edit_order_path(session[:order_id])
     end
   end
 end
