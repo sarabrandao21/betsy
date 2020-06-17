@@ -82,7 +82,9 @@ class Merchant < ApplicationRecord
     items = self.order_items
     if items.length > 0
       items.each do |item|
+        if item.status != "Cancelled"
           items_revenue << item.total_price_qty
+        end
       end
       return items_revenue.sum
     else
