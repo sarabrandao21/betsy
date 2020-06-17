@@ -18,9 +18,7 @@
             </div>
           <% if product_list == @products%>
             <p><%= truncate product.description, length: 50 %></p>
-          <% end %>
-          <div class="price mt-0">$ <%= product.price%></div>
-          <% if product_list == @products%>
+          <div class="price mt-2">$ <%= product.price%></div>
           <p class="mb-0">
             <%= product.stock %> left in stock!
             <% if product.stock < 10 %>
@@ -48,6 +46,9 @@
                 <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
               </div>
               <% end %>
+
+          <% else %>
+            <div class="mt-2 float-right">$ <%= product.price%></div>
           <% end %>
           </figcaption>
         </div>
