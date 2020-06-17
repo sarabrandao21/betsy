@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :order_items, only: [:create]
   get "/cart", to: "orders#cart", as: "cart"
+  get "/confirmation", to: "orders#confirmation", as: "confirmation"
 
   post '/cart/:order_item_id/set-quantity', to: "orders#set_quantity", as: "set_quantity"
 

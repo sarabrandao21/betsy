@@ -55,6 +55,20 @@ class OrdersController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def confirmation
+    @order = find_order(id: session[:order_id])
+    if @order
+      @order.order_items.each do |order_item|
+        if order_item.status == "pending"
+          flash[:error] = "You haven't completed the order yet. Please proceed to checkout."
+          redirect_to cart_path
+          return
+        end
+      end
+    end
+    session[:order_id] = nil
+  end
+
   def set_quantity 
     order_item = OrderItem.find_by(id: params[:order_item_id])
     if order_item.product.stock >= params[:quantity].to_i
@@ -99,8 +113,8 @@ class OrdersController < ApplicationController
   def find_order(id:)
     order = Order.find_by(id: id)
     if order.nil?
-      flash[:error] = "A problem occured. We couldn't find your cart."
-      return redirect_back(fallback_location: root_path)
+      flash[:error] = "A problem occured. We couldn't find your order."
+      redirect_back(fallback_location: root_path)
     end
     return order
   end
