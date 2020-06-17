@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row card-body">
-    <div class="col-2">
-      <img src= <%= merchant.avatar %> alt="" class="profile_pic img-fluid">
+    <div class="col-4">
+      <img src= <%= merchant.avatar %> alt="" class="merchant_pic img-fluid">
     </div>
-    <div class="col-5">
+    <div class="col-3">
       <h3 class="text-info"> <%= merchant.username %> </h3>
       <h6 class="card-subtitle mb-2 text-muted">On bEtsy since: <%= merchant.created_at.strftime("%m/%d/%y") %></h6>
         <p>Total Products: <%= merchant.products.count %></p>
