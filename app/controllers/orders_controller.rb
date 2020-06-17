@@ -1,20 +1,57 @@
 class OrdersController < ApplicationController
   before_action :require_product, only: [:add_to_cart]
+  
 
   def cart
     @order = Order.find_by(id: session[:order_id])
+
+  end
+
+  def edit
+    if params[:order_id]
+      @order = Order.find_by(id: params[:order_id])
+    elsif params[:id]
+      @order = Order.find_by(id: params[:id])
+    elsif session[:order_id] && session[:order_id] != nil
+      @order = Order.find_by(id: session[:order_id])
+    end 
+  end
+
+  def update
+    @order = Order.find_by(id: session[:order_id])
+    if @order.update(order_params)
+     @order.card_status = "paid"
+      @order.save
+      session.delete(:order_id)
+      flash[:success] = "Your order has been submitted."
+      redirect_to cart_path
+      return
+    else
+      flash[:error] = "Try again."
+      render :edit
+      return
+    end
   end
 
   def add_to_cart
     order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
-    order_item = OrderItem.new(order: order, product: @product)
-
+    order_item = order.order_items.find_by(product_id: @product.id) 
+    
+    if order_item && @product.stock >= params[:quantity].to_i
+      order_item.increment_quantity(params[:quantity])
+    elsif @product.stock >= 1
+      order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
+    else 
+      flash[:error] = "Unable to add #{@product.name} to your cart: sold out"
+      redirect_back(fallback_location: root_path)
+      return 
+    end 
+     
     if order_item.save
       flash[:success] = "Successfully added #{@product.name} to your cart"
     else
       flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
     end
-
     redirect_back(fallback_location: root_path)
   end
 
@@ -31,6 +68,18 @@ class OrdersController < ApplicationController
     end
     session[:order_id] = nil
   end
+
+  def set_quantity 
+    order_item = OrderItem.find_by(id: params[:order_item_id])
+    if order_item.product.stock >= params[:quantity].to_i
+      order_item.set_quantity(params[:quantity])
+    else 
+      flash[:error] = "Unable to add #{order_item.product.name} to your cart: we just have #{order_item.product.stock}"
+      redirect_back(fallback_location: root_path)
+      return 
+    end 
+    redirect_back(fallback_location: root_path)
+  end 
 
   def destroy
     @order = Order.find_by(id: params[:id])
@@ -49,8 +98,12 @@ class OrdersController < ApplicationController
 
   private
 
+  def order_params
+    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status )
+  end
+
   def require_product
-    @product = Product.find_by(id: params[:id])
+    @product = Product.find_by(id: params[:id]) 
     if @product.nil?
       flash[:error] = "A problem occured. We couldn't find this product."
       redirect_back(fallback_location: root_path)
@@ -74,5 +127,8 @@ class OrdersController < ApplicationController
     order.reload
     session[:order_id] = order.id
     return order
+
   end
 end
+
+

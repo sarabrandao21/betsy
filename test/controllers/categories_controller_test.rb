@@ -2,6 +2,7 @@ require "test_helper"
 
 describe CategoriesController do
   let(:new_category) { categories(:yoga) }
+  
   describe "index" do
     it "succeeds when there are categories" do
       get categories_path

@@ -1,0 +1,9 @@
+<%= form_tag(add_to_cart_path, { class: 'addproduct-form'}) do%>
+    <div class='form-group'>
+    <%= hidden_field_tag(:product_id, @product.id)%>
+
+    <%=label_tag(:quantity, 'Quantity' )%>
+    <%= select_tag(:quantity, options_for_select((1..(@product.stock).clamp(1,10)))) %>
+    </div>
+    <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+<% end %>

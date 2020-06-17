@@ -1,0 +1,6 @@
+<%= form_tag(set_quantity_path(order_item.id), { class: 'addproduct-form'}) do%>
+    <div class='form-group'>
+    <%=label_tag(:quantity, 'Quantity' )%>
+    <%= select_tag :quantity, options_for_select((1..(order_item.product.stock).clamp(1,10)),order_item.quantity), onchange: 'this.form.submit()' %>
+    </div>
+<% end %>

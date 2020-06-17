@@ -1,3 +1,334 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+// order form
+.container {
+   width: 100%;
+   padding-right: 15px;
+   padding-left: 15px;
+   margin-right: auto;
+   margin-left: auto;
+}
+.fadeIn {
+   -webkit-animation-name: fadeIn;
+   animation-name: fadeIn;
+}
+
+.text-center {
+   text-align: center!important;
+}
+.row {
+   display: -ms-flexbox;
+   display: flex;
+   -ms-flex-wrap: wrap;
+   flex-wrap: wrap;
+   margin-right: -15px;
+   margin-left: -15px;
+}
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+   position: relative;
+   width: 100%;
+   padding-right: 15px;
+   padding-left: 15px;
+}
+.mb-0, .my-0 {
+   margin-bottom: 0 !important;
+   margin-top: 0 !important;
+}
+.mb-3, .my-3 {
+   margin-bottom: 1rem!important;
+}
+.mb-5, .my-5 {
+   margin-bottom: 3rem!important;
+   margin-top: 3rem!important;
+}
+.mb-4, .my-4 {
+   margin-bottom: 1.5rem!important;
+}
+// Your Cart 
+.list-group .list-group-item:first-child {
+   border-top-left-radius: .125rem;
+   border-top-right-radius: .125rem;
+}
+.list-group-item+.list-group-item {
+   border-top-width: 0;
+}
+.list-group-item {
+   position: relative;
+   display: block;
+   padding: .75rem 1.25rem;
+   background-color: #fff;
+   border: 1px solid rgba(0,0,0,.125);
+}
+.justify-content-between {
+   -ms-flex-pack: justify!important;
+   justify-content: space-between!important;
+}
+.d-flex {
+   display: -ms-flexbox!important;
+   display: flex!important;
+}
+
+li {
+   display: list-item;
+   text-align: -webkit-match-parent;
+}
+ul {
+   list-style-type: disc;
+}
+.align-items-center {
+   -ms-flex-align: center!important;
+   align-items: center!important;
+}
+
+// cart-badge
+
+//  Order Form - card
+.card {
+   font-weight: 400;
+   border: 0;
+   -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+.card {
+   position: relative;
+   display: -ms-flexbox;
+   display: flex;
+   -ms-flex-direction: column;
+   flex-direction: column;
+   min-width: 0;
+   word-wrap: break-word;
+   background-color: #fff;
+   background-clip: border-box;
+   border: 1px solid rgba(0,0,0,.125);
+   border-radius: .25rem;
+}
+.card .md-form label {
+   font-weight: 300;
+}
+.card-body {
+   -ms-flex: 1 1 auto;
+   flex: 1 1 auto;
+   min-height: 1px;
+   padding: 1.25rem;
+}
+form {
+   display: block;
+   margin-top: 0em;
+}
+.mb-2, .my-2 {
+   margin-bottom: .5rem!important;
+}
+
+
+label {
+   display: inline-block;
+   margin-bottom: .5rem;
+}
+
+*, ::after, ::before {
+   box-sizing: border-box;
+}
+
+
+element.style {
+}
+.card .md-form label {
+    font-weight: 300;
+}
+.md-form>label {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+}
+.md-form label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1rem;
+    color: #757575;
+    cursor: text;
+    -webkit-transition: color .2s ease-out, -webkit-transform .2s ease-out;
+    transition: color .2s ease-out, -webkit-transform .2s ease-out;
+    transition: transform .2s ease-out, color .2s ease-out;
+    transition: transform .2s ease-out, color .2s ease-out, -webkit-transform .2s ease-out;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+user agent stylesheet
+label {
+    cursor: default;
+}
+.ordercard {
+    font-weight: 400;
+    border: 0;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+
+.h2, h2 {
+   font-size: 2rem;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+   margin-bottom: .5rem;
+   font-weight: 500;
+   line-height: 1.2;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   margin-top: 0;
+   margin-bottom: .5rem;
+}
+
+*, ::after, ::before {
+   box-sizing: border-box;
+}
+
+h2 {
+   display: block;
+   font-size: 1.5em;
+   margin-block-start: 0.83em;
+   margin-block-end: 0.83em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+   font-weight: bold;
+}
+h4 {
+   display: block;
+   margin-block-start: 1.33em;
+   margin-block-end: 1.33em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+   font-weight: bold;
+}
+.md-form input:not([type]), .md-form input[type="text"]:not(.browser-default), .md-form input[type="password"]:not(.browser-default), .md-form input[type="email"]:not(.browser-default), .md-form input[type="url"]:not(.browser-default), .md-form input[type="time"]:not(.browser-default), .md-form input[type="date"]:not(.browser-default), .md-form input[type="datetime"]:not(.browser-default), .md-form input[type="datetime-local"]:not(.browser-default), .md-form input[type="tel"]:not(.browser-default), .md-form input[type="number"]:not(.browser-default), .md-form input[type="search"]:not(.browser-default), .md-form input[type="phone"]:not(.browser-default), .md-form input[type="search-md"], .md-form textarea.md-textarea {
+   -webkit-box-sizing: content-box;
+   box-sizing: content-box;
+   background-color: transparent;
+   border: none;
+   border-bottom: 1px solid #ced4da;
+   border-radius: 0;
+   outline: none;
+   -webkit-box-shadow: none;
+   box-shadow: none;
+   -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+   transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+   transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+   transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+}
+
+.md-form .form-control {
+   -webkit-box-sizing: border-box !important;
+   box-sizing: border-box !important;  
+    height: auto;
+   padding: .6rem 0 .4rem 0;
+   margin: 0 0 .5rem 0;
+   background-color: transparent;
+   border-radius: 0;
+}
+
+.form-control {
+   display: block;
+   width: 100%;
+   height: calc(1.5em + .75rem + 2px);
+   padding: .375rem .75rem;
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1.5;
+   color: #495057;
+   background-color: #fff;
+   background-clip: padding-box;
+   border: 1px solid #ced4da;
+   border-radius: .25rem;
+   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+button, input {
+   overflow: visible;
+}
+button, input, optgroup, select, textarea {
+   margin: 0;
+   font-family: inherit;
+   font-size: inherit;
+   line-height: inherit;
+}
+
+.text-muted {
+   color: #6c757d!important;
+}
+.small, small {
+   font-size: 80%;
+   font-weight: 400;
+}
+ul {
+   display: block;
+   list-style-type: disc;
+   margin-block-start: 1em;
+   margin-block-end: 1em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+   padding-inline-start: 40px;
+}
+.md-form label.active {
+   -webkit-transform: translateY(-14px) scale(0.8);
+   transform: translateY(-14px) scale(0.8);
+}
+.md-form label.active {
+   font-size: 1rem;
+}
+.card .md-form label {
+   font-weight: 300;
+}
+.z-depth-1, .card.gradient-card:focus-within .card-image {
+   -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+}
+.input-group {
+   position: relative;
+   display: -ms-flexbox;
+   display: flex;
+   -ms-flex-wrap: wrap;
+   flex-wrap: wrap;
+   -ms-flex-align: stretch;
+   align-items: stretch;
+   width: 100%;
+}
+.pl-0, .px-0 {
+   padding-left: 0!important;
+}
+.input-group-text {
+   display: -ms-flexbox;
+   display: flex;
+   -ms-flex-align: center;
+   align-items: center;
+   padding: .375rem .75rem;
+   margin-bottom: 0;
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1.5;
+   color: #495057;
+   text-align: center;
+   white-space: nowrap;
+   background-color: #e9ecef;
+   border: 1px solid #ced4da;
+   border-radius: .25rem;
+}
