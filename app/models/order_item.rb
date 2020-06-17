@@ -19,6 +19,9 @@ class OrderItem < ApplicationRecord
   
   def change_status(status)
     self.status = status
+    if status == 'Cancelled'
+      Product.find_by(id: self.product_id).restock_inventory(self.quantity)
+    end
     self.save      
   end
 end
