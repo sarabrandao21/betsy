@@ -9,12 +9,20 @@ class OrdersController < ApplicationController
 
   def edit
     if params[:order_id]
+      puts "params order_id: #{params[:order_id]}"
       @order = Order.find_by(id: params[:order_id])
     elsif params[:id]
       @order = Order.find_by(id: params[:id])
+      puts "params id: #{params[:id]}"
     elsif session[:order_id] && session[:order_id] != nil
+      puts "session order_id and session order_id not nil: #{session[:order_id]}"
       @order = Order.find_by(id: session[:order_id])
-    end 
+    end
+    if @order.nil? 
+      flash[:error] = "Couldn't edit this order!"
+      render :edit, status: :bad_request
+      return 
+    end  
   end
 
   def update
@@ -51,6 +59,7 @@ class OrdersController < ApplicationController
       flash[:success] = "Successfully added #{@product.name} to your cart"
     else
       flash[:error] = "Unable to add #{@product.name} to your cart: #{order_item.errors.messages}"
+      redirect_back(fallback_location: root_path)
     end
     redirect_back(fallback_location: root_path)
   end

@@ -1,4 +1,4 @@
-class OrderItemController < ApplicationController
+class OrderItemsController < ApplicationController
   before_action :find_order_item, except: [:create ]
   
   def create
@@ -9,7 +9,7 @@ class OrderItemController < ApplicationController
       session[:order_id] = @order.id 
     else
       @order = Order.find_by(id:session[:order_id])
-  end
+    end
     
       @order.order_items << OrderItem.create(
       quantity: new_quantity,
