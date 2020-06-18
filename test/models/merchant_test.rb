@@ -136,6 +136,7 @@ describe Merchant do
         
           merchant.order_items.each do |order_item|
             order_item.change_status("Completed")
+            p order_item
           end
         
           expect(merchant.total_revenue).must_equal 424
