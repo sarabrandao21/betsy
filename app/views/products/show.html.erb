@@ -9,6 +9,7 @@
       <div class="col">
         <h3 class="card-title"> Product Info: </h5>
         <h6 class="card-subtitle mt-4 mb-2 text-muted"><%= @product.description %></h6>
+        <h6 class="card-subtitle mt-4 mb-2 text-muted">Merchant: <%= link_to @product.merchant.username, merchant_path(@product.merchant_id)%></h6>
         <h5 class="mt-4 mb-1">Categories:</h4>
         <p class="mt-0">
           <% @product.categories.each do |category|%>
@@ -17,6 +18,7 @@
         </p>
 
         <h5 class="mt-4">$ <%= sprintf("%.2f",@product.price) %></h5>
+
         <p class="mt-4">
           Current Stock: <%= @product.stock %>
           <% if @product.stock <= 10 %>
