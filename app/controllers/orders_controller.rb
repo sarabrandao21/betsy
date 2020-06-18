@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :require_product, only: [:add_to_cart]
-  
+  before_action :find_merchant, only: [:show]
 
   def cart
     @order = Order.find_by(id: session[:order_id])
@@ -72,6 +72,10 @@ class OrdersController < ApplicationController
       end
     end
     session[:order_id] = nil
+  end
+
+  def show
+    @order = Order.find_by(id: params[:id])
   end
 
   def set_quantity 
