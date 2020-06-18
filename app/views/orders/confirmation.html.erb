@@ -21,7 +21,7 @@
             <h3 class="card-title"> <%= order_item.product.name %> </h5>
             <h6 class="card-subtitle mb-2 text-muted"> Merchant: <%= order_item.product.merchant.username %></h6>
             <ul class="">
-              <li>Quantity: <%= sprintf("%.2f",order_item.quantity) %> </li>
+              <li>Quantity: <%= order_item.quantity %> </li>
               <li>Price: $<%= sprintf("%.2f",order_item.product.price) %> </li>
               <li>Price Total: $<%= sprintf("%.2f",order_item.total_price_qty) %> </li>
             </ul>
@@ -33,7 +33,7 @@
   
     <div class="mt-5 mb-5">
       <h5>Subtotal: $<%=sprintf("%.2f",@order.subtotal)%> </h5>
-      <h5>Taxes: $<%=sprintf("%.2f",@order.taxe)s%> </h5>
+      <h5>Taxes: $<%=sprintf("%.2f",@order.taxes)%> </h5>
       <h5>Total: $<%=sprintf("%.2f",@order.purchase_total)%> </h5>
     </div>
     
