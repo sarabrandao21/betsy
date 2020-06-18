@@ -57,8 +57,6 @@ describe OrdersController do
     it "doesn't create a new instance of OrderItem if there are not enough products in stock" do
       product = products(:dumbells)
       expect{post add_to_cart_path({ id: product.id, quantity: 1})}.wont_change "OrderItem.count"
-
-      
     end
 
     it "increases quantity of existing OrderItem when adding more of the same product to the cart" do
@@ -142,10 +140,12 @@ describe OrdersController do
       order = Order.find_by(id: session[:order_id])
       order_item = order.order_items.find_by(product_id: product.id)
 
-      post set_quantity_path({id: order.id, order_item_id: order_item.id, quantity: 3})
+      post set_quantity_path({id: order.id, order_item_id: order_item.id, quantity: 13})
       order_item = order.order_items.find_by(product_id: product.id)
 
-      expect(order_item.quantity).must_equal 3
+      expect(order_item.quantity).must_equal 1
+      expect(flash[:error]).must_equal "Unable to add #{order_item.product.name} to your cart: we just have #{order_item.product.stock}"
+
       must_redirect_to root_path
     end 
     
@@ -207,7 +207,7 @@ describe OrdersController do
 
     it "responds with an error message if param is not valid" do
       product = products(:yogamat)
-      post add_to_cart_path(product)
+      post add_to_cart_path({ id: product.id, quantity: 5})
 
       order = Order.find_by(id: session[:order_id])
       assert_nil order.customer_name
@@ -239,94 +239,50 @@ describe OrdersController do
       assert_nil order.zip
       assert_nil order.exp_date
     end
-
-    it "process order with redirect" do
-      product = products(:yogamat)
-  
-      get cart_path      
-      post add_to_cart_path({ id: product.id, quantity: 5})
-    #  product = products(:yogamat)
-    #  post add_to_cart_path(product)
-
-    #  order_item = (Order.find_by(id: session[:order_id]).order_items[0])  
-
-    order = Order.find_by(id: session[:order_id])
-    
-      order_hash = {
-              order: {
-                customer_name: "Rose Gardner",
-                email: "rag@rag.com",
-                address: "100 Jerry Atrics Lane, Rhoda Booke,WA 98000",
-                last_four_cc: "9999",
-                cvv: "123",
-                zip: "99999",
-                exp_date: "01/25",
-              }
-            }
-
-    expect { patch order_path(order.id), params: order_hash }.wont_change "Order.count"
-
-
-    end
   end
 
   describe "update" do
-    it "updates order status to 'paid' and can reduce stock" do 
+    it "updates order info, sets status to 'paid' and reduces stock" do 
+      product = products(:yogamat)
+      post add_to_cart_path({id: product.id, quantity: 5})
+
+      order = Order.find_by(id: session[:order_id])
+      assert_nil order.customer_name
+      assert_nil order.email
+      assert_nil order.last_four_cc
+      assert_nil order.cvv
+      assert_nil order.address
+      assert_nil order.zip
+      assert_nil order.exp_date
+
       order_hash = {
         order: {
           customer_name: "Rose Gardner",
           email: "rag@rag.com",
-          address: "100 Jerry Atrics Lane,  Rhoda Booke,WA 98000",
+          address: "100 Jerry Atrics Lane, Rhoda Booke,WA 98000",
           last_four_cc: "9999",
           cvv: "123",
-          zip: "9999",
-          exp_date: "0125",
+          zip: "99999",
+          exp_date: "0125"
         }
       }
   
-      order_id = Order.last.id 
-      product_id = Product.last.id 
-      expect { patch order_path(order_id), params: order_hash }.wont_change "Order.count"
+      expect { patch order_path(session[:order_id]), params: order_hash }.wont_change "Order.count"
   
-      updated_order =  Order.find(order_id)
-      updated_product =  Product.find(product_id)
+      order = Order.find_by(id: session[:order_id])
+
+      expect(order.customer_name).must_equal "Rose Gardner"
+      expect(order.email).must_equal "rag@rag.com"
+      expect(order.last_four_cc).must_equal "9999"
+      expect(order.cvv).must_equal "123"
+      expect(order.address).must_equal "100 Jerry Atrics Lane, Rhoda Booke,WA 98000"
+      expect(order.zip).must_equal "99999"
+      expect(order.exp_date).must_equal "0125"
   
-      expect(updated_order.card_status).must_equal "paid"
-      expect(updated_product.stock).must_equal 7
-      # expect(session[:order_id]).must_be_nil
-    
-    end
-      
-    it " will display flash if error when completing order" do
-  
-    #   product = products(:yogamat)
-    
-    #   get cart_path      
-    #   post add_to_cart_path({ id: product.id, quantity: 5})
-    #  #  product = products(:yogamat)
-    #  #  post add_to_cart_path(product)
-  
-    #  #  order_item = (Order.find_by(id: session[:order_id]).order_items[0])  
-  
-    #  order = Order.find_by(id: session[:order_id])
-    
-    #    order_hash = {
-    #            order: {
-    #              customer_name: "Rose Gardner",
-    #              email: "rag@rag.com",
-    #              address: "100 Jerry Atrics Lane, Rhoda Booke,WA 98000",
-    #              last_four_cc: "9999",
-    #              cvv: "123",
-    #              zip: "9999",
-    #              exp_date: "01/25",
-    #            }
-    #          }
-  
-    #  expect { patch order_path(order.id), params: order_hash }.wont_change "Order.count"
-  
-    #   # invalid_order = @new_order.update(customer_name: "Pat Pending", email: "patty@pat.com", address: "30 battle RD, Monore, WA, 99999", cvv: "13", last_four_cc: "444", zip: "254", exp_date: "01")
-  
-    #   expect(order.errors.full_messages.to_sentence).must_include "Zip"
+      expect(order.order_items[0].status).must_equal "Paid"
+      expect(order.order_items[0].product.stock).must_equal 45
+
+      expect(flash[:success]).must_equal "Your order has been submitted."
     end
   end
 end
