@@ -75,12 +75,14 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(id: params[:id])
-    if @order.verify_merchant(@login_merchant) == false
-      flash[:error] = "You are not authorized to view this page."
-      redirect_back(fallback_location: root_path)
+    @order = find_order(id: params[:id])
+    if @order
+      if @order.verify_merchant(@login_merchant) == false
+        flash[:error] = "You are not authorized to view this page."
+        redirect_to dashboard_path
+        return
+      end
     end
-    return
   end
 
   def set_quantity 
