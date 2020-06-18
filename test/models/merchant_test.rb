@@ -89,7 +89,7 @@ describe Merchant do
           order_item.change_status("Completed")
         end
       
-        expect(merchant.find_all_order_items("Completed").length).must_equal 4
+        expect(merchant.find_all_order_items("Completed").length).must_equal 5
       end
 
       it 'will return the sum of order items of a merchant by paid status' do
@@ -99,7 +99,7 @@ describe Merchant do
           order_item.change_status("Paid")
         end
       
-        expect(merchant.find_all_order_items("Paid").length).must_equal 4
+        expect(merchant.find_all_order_items("Paid").length).must_equal 5
       end
     end
 
@@ -138,7 +138,7 @@ describe Merchant do
             order_item.change_status("Completed")
           end
         
-          expect(merchant.total_revenue).must_equal 424
+          expect(merchant.total_revenue).must_equal 624
         end
 
         it 'will caculate the total sum of revenue without the cancelled status' do
@@ -148,7 +148,7 @@ describe Merchant do
             order_item.change_status("Paid")
           end
         
-          expect(merchant.total_revenue).must_equal 424
+          expect(merchant.total_revenue).must_equal 624
         end
 
         it 'will return 0 if there is no order item from this merchant' do
