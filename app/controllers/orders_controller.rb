@@ -4,23 +4,17 @@ class OrdersController < ApplicationController
 
   def cart
     @order = Order.find_by(id: session[:order_id])
-
   end
 
   def edit
-    if params[:order_id]
-      @order = Order.find_by(id: params[:order_id])
-    elsif params[:id]
-      @order = Order.find_by(id: params[:id])
-    elsif session[:order_id] && session[:order_id] != nil
+    if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
     else 
-      redirect_back cart_path
+      redirect_back(fallback_location: cart_path)
     end 
   end
 
-  def update  
-
+  def update
     @order = Order.find_by(id: session[:order_id])
   
     if @order.update(order_params)

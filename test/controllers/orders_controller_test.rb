@@ -183,21 +183,16 @@ describe OrdersController do
   
   describe "edit" do 
     before do
-      @new_order = Order.create
       @order = orders(:sandy)
       @product = products(:juice) 
-      @new_order_item = {product_id:  @product.id, quantity: 3, order_id:@new_order}
     end
 
-    it "able to retrive order checkout form" do 
-      
+    it "able to retrive order checkout form" do    
       get edit_order_path(@order.id)
-
       must_respond_with :success
     end
 
-    it " can find order when in session" do
-
+    it "can find order when in session" do
       product = products(:yogamat)
       post add_to_cart_path(product)
       expect(session[:order_id]).wont_be_nil
@@ -208,35 +203,42 @@ describe OrdersController do
       must_respond_with :success
     end 
 
-    it "responds error message if param is not valid" do
+    it "responds with an error message if param is not valid" do
+      product = products(:yogamat)
+      post add_to_cart_path(product)
+
+      order = Order.find_by(id: session[:order_id])
+      assert_nil order.customer_name
+      assert_nil order.email
+      assert_nil order.last_four_cc
+      assert_nil order.cvv
+      assert_nil order.zip
+      assert_nil order.exp_date
+
       order_hash = {
         order: {
+          customer_name: "Rag Ragson",
           email: "rag@rag.com",
-          address: "100 Jerry Atrics Lane,  Rhoda Booke,WA 98000",
+          address: "100 Jerry Atrics Lane, Rhoda Booke,WA 98000",
           last_four_cc: "9999",
           cvv: "123",
           zip: "9999",
           exp_date: "0125",
         }
       }
-      order_id = Order.last.id
-      expect { patch orders_path(order_id), params: order_hash }.wont_change "Order.count"
-    
-    
-      
 
-      # if @order.update(order_params)
-  
-      #   @order.card_status = "paid"
-      #   @order.mark_paid
-      #   @order.save
-      #   flash[:success] = "Your order has been submitted."
-      #   redirect_to confirmation_path
-    
+      patch order_path(session[:order_id]), params: order_hash
 
+      order = Order.find_by(id: session[:order_id])
+      assert_nil order.customer_name
+      assert_nil order.email
+      assert_nil order.last_four_cc
+      assert_nil order.cvv
+      assert_nil order.zip
+      assert_nil order.exp_date
     end
 
-      it "process order with redirect" do
+    it "process order with redirect" do
       product = products(:yogamat)
   
       get cart_path      
@@ -262,29 +264,7 @@ describe OrdersController do
 
     expect { patch order_path(order.id), params: order_hash }.wont_change "Order.count"
 
-    # expect(order.customer_name).must_equal "Rose Gardner"
-    #  order_item.status = "Paid"
-    #  order_item.save
 
-    #  get confirmation_path
-    #  must_respond_with :success
-    #  assert_nil session[:order_id]
-    #  order_hash = {
-    #   order: {
-    #     customer_name: "Rose Gardner",
-    #     email: "rag@rag.com",
-    #     address: "100 Jerry Atrics Lane, Rhoda Booke,WA 98000",
-    #     last_four_cc: "9999",
-    #     cvv: "123",
-    #     zip: "99999",
-    #     exp_date: "01/25",
-    #   }
-    # }
-    # order = Order.last
-    # order_id = Order.last.id
-    # expect { patch order_path(order.id), params: order_hash }.wont_change "Order.count"
-    # order.reload
-    # expect(order.customer_name).must_equal "Rose Gardner"
     end
   end
 
