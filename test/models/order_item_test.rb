@@ -3,6 +3,39 @@ require "test_helper"
 describe OrderItem do
   let(:new_order_item) { order_items(:yogamat_orderitem) }
   let(:new_product) { products(:yogamat) }
+
+  describe "validation" do 
+    it "recieves error if quantity is not present" do
+      new_order_item.quantity = nil   
+    
+      expect(new_order_item.valid?).must_equal false
+      expect(new_order_item.errors.messages).must_include :quantity
+      expect(new_order_item.errors.messages[:quantity]).must_equal ["can't be blank", "is not a number"]
+    end
+    it "recieves error if PRICE when is less than zero" do
+      new_order_item.quantity = -1
+    
+      expect(new_order_item.valid?).must_equal false
+      expect(new_order_item.errors.messages).must_include :quantity
+      expect(new_order_item.errors.messages[:quantity]).must_equal ["must be greater than 0"]
+    end
+    
+    it "recieves error if PRICE when is less than zero" do
+      new_order_item.quantity = "STRING"
+    
+      expect(new_order_item.valid?).must_equal false
+      expect(new_order_item.errors.messages).must_include :quantity
+      expect(new_order_item.errors.messages[:quantity]).must_equal ["is not a number"]
+    end
+  end 
+
+  describe "relations" do 
+    it "" do 
+    end 
+
+    it "" do 
+    end 
+  end 
   describe "increament_quantity" do 
     it "increment quantity when user add quantity outside of cart" do 
       before_order_item = new_order_item.quantity
