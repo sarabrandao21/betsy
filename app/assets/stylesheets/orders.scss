@@ -83,7 +83,62 @@ ul {
 }
 
 // cart-badge
-
+.widget-header .notify {
+   position: absolute;
+   top: -3px;
+   right: -10px;
+}
+.notify {
+   position: absolute;
+   top: -4px;
+   right: -10px;
+   display: inline-block;
+   padding: .25em .6em;
+   font-size: 12px;
+   line-height: 1;
+   text-align: center;
+   border-radius: 3rem;
+   color: #fff;
+   background-color: #fa3434;
+}
+.badge-danger {
+   color: #fff;
+   background-color: #fa3434;
+}
+.badge-pill {
+   padding-right: 0.6em;
+   padding-left: 0.6em;
+   border-radius: 10rem;
+}
+.badge {
+   display: inline-block;
+   padding: 0.25em 0.4em;
+   font-size: 75%;
+   font-weight: 600;
+   line-height: 1;
+   text-align: center;
+   white-space: nowrap;
+   vertical-align: baseline;
+   border-radius: 0.37rem;
+   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+*, *::before, *::after {
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+}
+body {
+   margin: 0;
+   font-family: "Inter", Arial, "Helvetica Neue", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1.5;
+   color: #343a40;
+   text-align: left;
+   background-color: #fff;
+}
 //  Order Form - card
 .card {
    font-weight: 400;
@@ -145,22 +200,7 @@ element.style {
     overflow-y: hidden;
     text-overflow: ellipsis;
 }
-.md-form label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 1rem;
-    color: #757575;
-    cursor: text;
-    -webkit-transition: color .2s ease-out, -webkit-transform .2s ease-out;
-    transition: color .2s ease-out, -webkit-transform .2s ease-out;
-    transition: transform .2s ease-out, color .2s ease-out;
-    transition: transform .2s ease-out, color .2s ease-out, -webkit-transform .2s ease-out;
-    -webkit-transform: translateY(12px);
-    transform: translateY(12px);
-    -webkit-transform-origin: 0% 100%;
-    transform-origin: 0% 100%;
-}
+
 
 label {
     display: inline-block;

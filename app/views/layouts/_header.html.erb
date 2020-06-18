@@ -20,14 +20,14 @@
         <li class="nav-item">
           <%= link_to "By Merchant", merchants_path, class: "nav-link app-header__nav__item" %>
         </li>
-        <li class="nav-item">
-          <%= link_to cart_path, class: "nav-link app-header__nav__item", style: "color: orange; font-size: 1.3rem; padding: 0.2rem;" do %>
-            <i class="fa fa-shopping-cart"  style="font-size:24px;color:lavender"></i>
-            <% if session[:order_id] %>
-              <%#TODO: to fix this cart badge %>
-              <span class="cart-badge"><%= Order.find_by(id: session[:order_id]).all_cart_items %></span>
+        
+          <div class="widget-header mr-3"><%= link_to cart_path, class: "icon icon-sm rounded-circle border" do %>
+          <% if session[:order_id] %>
+          <i class="fa fa-shopping-cart"></i>  <span class="badge badge-pill badge-danger notify"><%= Order.find_by(id: session[:order_id]).all_cart_items %></span>
+           
             <% end %>
-          <% end %>
+          <% end %>   
+          </div>
         </li>
       </ul>
 

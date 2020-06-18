@@ -30,16 +30,16 @@
                     <div class="md-form mb-5">
                       <%= f.label :customer_name, "Name" %>
                       <%= f.text_field :customer_name, class: "form-control", placeholder: "Your Name"  %>
-                      <small class = "text-muted">Full name as displayed on card </small>
                     </div> 
+          
                   </div> 
                     <div class="col-md-6 mb-3">
                       <div class="md-form mb-5">
                         <%= f.label :email, "Email Address" %> 
                         <%= f.text_field :email, class: "form-control", placeholder: "youremail@email.com"  %>
-                      </div>
+                      </div> 
                     </div> 
-
+  
                       <div class="col-md-6 mb-3">
                         <%= f.label :last_four_cc, "Card Number" %>
                         <%= f.number_field :last_four_cc, class: "form-control", placeholder: "Credit Card number" %>
@@ -78,26 +78,37 @@
 <% end %>
               
           <div class="col-md mb-4">
-          <h4 class="d flex justify-content-between align-items-center mb-3">
+          <h4 class="d flex justify-content-between align-items-center mb-3">  
+           <% if session[:order_id] %>
             <span class="text-muted">Your cart</span>
-            <span class="badge badge-secondary badge-pill"> 
-              <% if session[:order_id] %><%= Order.find_by(id: session[:order_id]).order_items.count%></span> 
-              <% end %>
-              </h4>        
+         <span class="badge badge-secondary badge-pill"> 
+              <%= Order.find_by(id: session[:order_id]).order_items.count%></span> 
+            
+              </h4>    <% end %>      
       <%# Cart%>
           <ul class="list-group mb-3 z-depth-1"> <% @order.order_items.each do |order_item| %> 
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <h6 class="my-0"> <%=order_item.product.name %></h6>
-                <small class="text-muted"><%=order_item.product.description %>
+               
                 </small>
+                 <div> 
+                   <small class="badge badge-secondary badge-pill" ><strong>Quantity <%=order_item.quantity%> </small>
+                   <small class = "badge badge-secondary badge-pill"> Product Price </small>
+                   <span>$<%=order_item.product.price%><span>
+                </div>
               </div>
-                <span class="text-muted">$<%=order_item.product.price%>
-              </span>   
-                    <li class="list-group-item d-flex justify-content-between lh-condensed"> Quantity <%=order_item.quantity%>
+          <% end %>  
+              
+           </li>   
              <li class="list-group-item d-flex justify-content-between lh-condensed"> 
-              <span>Total(USD)</span>
-              <strong>$<%=order_item.total_price_qty() %></strong> 
-             </li>  <% end %> 
+              <span>Taxes(USD)</span>
+              <strong>$<%=@order.taxes%></strong> 
+             </li> 
+             <li class="list-group-item d-flex justify-content-between lh-condensed"> 
+              <span>Order Total(USD)</span>
+              <strong>$<%=@order.purchase_total%></strong> 
+             </li>  
+                
           </ul>    
  </body>
