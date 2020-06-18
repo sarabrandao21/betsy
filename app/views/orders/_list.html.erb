@@ -14,10 +14,10 @@
           <td><%= item.status %></td>
           <% if merchant_orders ==  @dashboard_merchant.find_all_order_items("Paid") %>
             <td><%= link_to "Cancel", mark_cancel_path(item.id), method: :patch,
-                class:"btn btn-outline-secondary btn-xs"
-            %><td>
+                class:"btn btn-outline-danger btn-xs"
+            %></td>
             <td><%= link_to "✓", mark_complete_path(item.id), method: :patch,
-                class:"btn btn-outline-secondary btn-xs"
+                class:"btn btn-outline-info btn-xs"
             %></td>
           <%end%>
         </tr>

@@ -36,10 +36,11 @@ h2 {
 }
 
 a {
-  color: #26A69A;
+  font-weight: 300;
+  color: rgb(44, 161, 196);
 
   &:hover {
-    color: #00796B;
+    color: rgb(8, 111, 143);
     text-decoration: none;
   }
 }
@@ -195,4 +196,13 @@ footer {
 .form-control{
   width:97%;
   float:left;
+}
+
+.review {
+  margin: 0;
+  padding: 0;
+}
+
+.review .card {
+  padding: 10px;
 }
