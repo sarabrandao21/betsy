@@ -5,5 +5,5 @@
     <%=label_tag(:quantity, 'Quantity' )%>
     <%= select_tag(:quantity, options_for_select((1..(@product.stock).clamp(1,10)))) %>
     </div>
-    <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+    <%=submit_tag "Add to cart", class: 'btn btn-outline-info btn-sm'%>
 <% end %>

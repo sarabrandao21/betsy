@@ -43,7 +43,7 @@
               <%= form_tag(add_to_cart_path(product.id), { class: 'addproduct-form'}) do%>
                 <%=hidden_field_tag(:quantity, 1 )%>
               <div style="text-align:center;">
-                <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+                <%=submit_tag "Add to cart", class: 'btn btn-outline-info btn-sm'%>
               </div>
               <% end %>
 

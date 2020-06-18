@@ -33,7 +33,7 @@
 
     </div>
     
-    <%= link_to "Checkout", edit_order_path(@order), class: "btn btn-outline-primary" %>
+    <%= link_to "Checkout", edit_order_path(@order), class: "btn btn-outline-info" %>
     <%= link_to "Empty Cart", order_path(@order), method: :delete, data: {confirm: "Empty your cart?"}, class: "btn btn-outline-danger" %>
   <% end %>
 </div>

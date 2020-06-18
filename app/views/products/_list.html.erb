@@ -37,12 +37,12 @@
                 toggle_active_path(product.id), 
                 method: :patch,
                 data: {confirm: "Are you sure to set the state to #{product.active ? "inactive" : "active"}"}, 
-                class:"btn btn-outline-secondary btn-xs"
+                class:"btn btn-outline-info btn-xs"
             %>
           </td>
           <td>
             <%= link_to "Edit", edit_product_path(product.id),
-                class:"btn btn-outline-secondary btn-xs"
+                class:"btn btn-outline-info btn-xs"
             %>
           </td>
         </tr>
