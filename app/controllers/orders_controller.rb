@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_product, only: [:add_to_cart, :update]
+  before_action :require_product, only: [:add_to_cart]
   
 
   def cart
@@ -20,16 +20,10 @@ class OrdersController < ApplicationController
   end
 
   def update  
-    # if @order.nil?
-    #   flash[:error] = "Unable to add "
-    #   redirect_back(fallback_location: root_path)
-    #   return 
-    # end
+
     @order = Order.find_by(id: session[:order_id])
   
     if @order.update(order_params)
-
-      @order.card_status = "paid"
       @order.mark_paid
       @order.save
       flash[:success] = "Your order has been submitted."
@@ -37,7 +31,7 @@ class OrdersController < ApplicationController
 
       return
     else
-      flash[:error] = @order.errors.full_messages
+      # flash[:error] = @order.errors.full_messages
       render :edit
     end
   end
@@ -117,7 +111,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status)
+    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip)
   end
 
   def require_product
