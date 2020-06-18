@@ -19,7 +19,7 @@
             <tr class="list-group-item-action">
               <td><%= image_tag product.image,  class:'profile_pic' %></td>
               <td><%= link_to product.name, product_path(product.id) %></td>
-              <td>$ <%= product.price%></td>            
+              <td>$ <%= sprintf("%.2f",product.price)%></td>            
               <td><%= product.stock %> left
                   <p><% if product.stock < 10 %>
                     <span class="badge badge-danger">Low in stock</span>

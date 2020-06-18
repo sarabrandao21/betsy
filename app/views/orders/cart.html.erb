@@ -16,8 +16,8 @@
             <ul class="">
             
               <%= render partial: 'orders/setquantity', locals: {order_item: order_item} %>
-              <li>Item Price: $<%= order_item.product.price %> </li>
-              <li>Price Total: $<%=order_item.total_price_qty() %> </li>
+              <li>Item Price: $<%= sprintf("%.2f",order_item.product.price) %> </li>
+              <li>Price Total: $<%=sprintf("%.2f",order_item.total_price_qty()) %> </li>
             </ul>
             <%= link_to "Remove", order_order_item_path(@order, order_item), method: :delete, class: "btn btn-outline-danger" %>
           </div>
@@ -27,9 +27,9 @@
 
     <div class="mt-5 mb-5">
 
-      <h5>Subtotal: $<%=@order.subtotal%></h5>
-      <h5>Taxes: $<%=@order.taxes%></h5>
-      <h5>Total: $<%=@order.purchase_total%></h5>
+      <h5>Subtotal: $<%=sprintf("%.2f",@order.subtotal)%></h5>
+      <h5>Taxes: $<%=sprintf("%.2f",@order.taxes)%></h5>
+      <h5>Total: $<%=sprintf("%.2f", @order.purchase_total)%></h5>
 
     </div>
     

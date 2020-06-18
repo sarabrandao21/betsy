@@ -3,7 +3,7 @@
     <%= hidden_field_tag(:product_id, @product.id)%>
 
     <%=label_tag(:quantity, 'Quantity' )%>
-    <%= select_tag(:quantity, options_for_select((1..(@product.stock).clamp(1,10)))) %>
+    <%= select_tag(:quantity, options_for_select((1..(@product.stock)))) %>
     </div>
     <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
 <% end %>

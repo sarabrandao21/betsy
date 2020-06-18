@@ -7,13 +7,15 @@
     <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
     <p><small>sell by <%= link_to @product.merchant.username, merchant_path(@product.merchant_id)%></small></p>
     <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
-    <p class="lead font-weight-bold">Categories</p>
-    <p><% @product.categories.each do |category|%>
-        <span class="badge badge-secondary"><%= link_to category.name, category_path(category.id), class:"text-white" %></span>
-      <%end%>
-    </p>
+    <%if @product.categories.length >= 1%>
+      <p class="lead font-weight-bold">Categories</p>
+      <p><% @product.categories.each do |category|%>
+          <span class="badge badge-secondary"><%= link_to category.name, category_path(category.id), class:"text-white" %></span>
+        <%end%>
+      </p>
+    <%end%>
     <br>
-    <h5>$ <%= @product.price %></h5>
+    <h5>$ <%= sprintf("%.2f",@product.price) %></h5>
     <p>
       Current Stock: <%= @product.stock %>
       <% if @product.stock <= 10 %>

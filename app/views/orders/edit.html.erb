@@ -92,9 +92,13 @@
                 <small class="text-muted"><%=order_item.product.description %>
                 </small>
               </div>
-                <span class="text-muted">$<%=order_item.product.price%>
-              </span>   
+
+                <span class="text-muted">$<%=sprintf("%.2f",order_item.product.price)%>
+               
+              </span>  <% end %> 
+            
                     <li class="list-group-item d-flex justify-content-between lh-condensed"> Quantity <%=order_item.quantity%>
+
              <li class="list-group-item d-flex justify-content-between lh-condensed"> 
               <span>Total(USD)</span>
               <strong>$<%=order_item.total_price_qty() %></strong> 

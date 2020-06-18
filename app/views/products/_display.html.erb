@@ -17,7 +17,7 @@
           <% if product_list == @products%>
             <p><%= truncate product.description, length: 50 %></p>
           <% end %>
-          <div class="price mt-1">$ <%= product.price%></div>
+          <div class="price mt-1">$ <%= sprintf("%.2f",product.price)%></div>
           <% if product_list == @products%>
           <p>
             <%= product.stock %> left in stock!
@@ -41,7 +41,7 @@
                 <% end %>
               <%end%>
               <%= form_tag(add_to_cart_path(product.id), { class: 'addproduct-form'}) do%>
-                <%=hidden_field_tag(:quantity, 1 )%>
+                <%=hidden_field_tag(:quantity, 1)%>
               <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
               <% end %>
           <% end %>
