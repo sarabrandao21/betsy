@@ -108,6 +108,7 @@ describe MerchantsController do
       sharon = merchants(:sharon)
       filter_params = {status: 'Active'}
       perform_login(sharon)
+      
       get dashboard_path, params: filter_params     
 
       must_respond_with :success

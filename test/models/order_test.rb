@@ -73,10 +73,10 @@ describe Order do
       end
 
       it 'will calculate the total amount of items in an order' do
-        # 5 yoga mat + 1 chip
-        order = orders(:sharon_order)
 
-        expect(order.all_cart_items).must_equal 6
+        order = orders(:nataliyas_order)
+
+        expect(order.all_cart_items).must_equal 9
       end
 
       it 'will return 0 if the cart order is empty' do

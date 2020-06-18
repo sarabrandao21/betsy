@@ -4,7 +4,7 @@
     <h2 class="mt-5"> Order List:</h2>
     <h5>Paid Orders</h5>
     <p> Revenue: $<%=  @dashboard_merchant.total_revenue_by("Paid") %></p>
-    <p> Count: <%=  @dashboard_merchant.find_all_order_items("Paid").count %></p>
+    <p> Order item Count: <%=  @dashboard_merchant.find_all_order_items("Paid").count %></p>
     <table class="table">
       <thead>
         <tr>
@@ -27,7 +27,7 @@
     <h2 class="mt-5"> Order History:</h2>
     <h5>Completed Orders: </h5>
     <p>Revenue: $<%= @dashboard_merchant.total_revenue_by("Completed")%> </p>
-    <p>Count: <%=  @dashboard_merchant.find_all_order_items("Completed").count %></p>
+    <p>Order Item Count: <%=  @dashboard_merchant.find_all_order_items("Completed").count %></p>
     <table class="table">
       <thead >
         <tr>
@@ -44,7 +44,7 @@
       <%= render partial: 'orders/list', locals: { merchant_orders:  @dashboard_merchant.find_all_order_items("Completed")}%>
     </table>
     <h5>Cancelled Orders: </h5>
-    <p>Count: <%=  @dashboard_merchant.find_all_order_items("Cancelled").count %></p>
+    <p>Order Item Count: <%=  @dashboard_merchant.find_all_order_items("Cancelled").count %></p>
     <table class="table">
       <thead >
         <tr>
