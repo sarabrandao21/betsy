@@ -2,6 +2,10 @@ class OrderItem < ApplicationRecord
   belongs_to :product
   belongs_to :order
 
+  validates :quantity, presence: true,
+                    numericality: { greater_than: 0 }
+
+
   def increment_quantity(qty) #product show page 
     self.quantity += qty.to_i 
     self.save 
