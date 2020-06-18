@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
         flash[:success] = "Thank you for your review on the product!"
         redirect_back fallback_location: root_path
       else
-        flash[:error] = "No review created. Please provide your name to add a review!"
+        flash[:error] = "No review created. Please provide all required fields to add a review!"
         redirect_back fallback_location: root_path
       end
     end

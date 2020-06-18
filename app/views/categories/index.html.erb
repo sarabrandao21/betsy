@@ -24,9 +24,12 @@
         </div>
         <% end %>
     </section>
-
+   
     <div style="text-align:center">
-        <%= link_to "Add a new category", new_category_path, class: "btn btn-info" %>
-        <%= link_to "All Products", products_path, class: "btn btn-info"%>
+      <%if session[:merchant_id]%>
+          <%= link_to "Add a new category", new_category_path, class: "btn btn-info" %>
+      <% end %>
+       <%= link_to "All Products", products_path, class: "btn btn-info"%>
     </div>
+
 </div>

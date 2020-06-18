@@ -17,7 +17,7 @@
                         
                         <p><%= truncate product.description, length: 50 %></p>
                   
-                        <div class="price mt-1">$ <%= product.price%></div>
+                        <div class="price mt-1">$ <%= sprintf("%.2f",product.price)%></div>
                   
                         <p class="mb-0">
                           <%= product.stock %> left in stock!
@@ -40,16 +40,24 @@
                             <span class="notify-badge">HOT ITEM</span>
                           <% end %>
                         <%end%>
-                        <div style="text-align:center;">
-                          <%= link_to 'Add to cart', add_to_cart_path(product.id), method: :create, class:'btn btn-outline-info btn-sm'%>
-                        </div>
-                    </figcaption>
+
+                      <div style="text-align:center;">
+                          <%= form_tag(add_to_cart_path(product.id), { class: 'addproduct-form'}) do%>
+                            <%=hidden_field_tag(:quantity, 1)%>
+                            <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+                          <% end %>
+                      </div>
+
+                  </figcaption>
                 </div>
             </div>
             <% end %>
             <%end%>
         </div>
-        <%= link_to "Back to Categories", categories_path, class: "btn btn-primary" %>
-        <%= link_to "All Products", products_path, class: "btn btn-primary" %>
-        <%= link_to "Add a new product", new_product_path, class: "btn btn-primary" %>
+        
+        <div style="text-align:center">
+          <%= link_to "Back to Categories", categories_path, class: "btn btn-info" %>
+          <%= link_to "All Products", products_path, class: "btn btn-info" %>
+          <%= link_to "Add a new product", new_product_path, class: "btn btn-info" %>
+        </div
 </section>

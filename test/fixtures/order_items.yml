@@ -6,3 +6,15 @@ juice_orderitem:
   product: juice
   order: nataliyas_order
   quantity: 2
+gear_orderitem:
+  product: yogamat
+  order: nataliyas_order
+  quantity: 4
+mat_orderitem:
+  product: yogamat
+  order: sharon_order
+  quantity: 5
+chips_orderitem:
+  product: chips
+  order: sharon_order
+  quantity: 1

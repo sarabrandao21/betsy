@@ -17,8 +17,14 @@
 
 @import "**/*";
 
+body {
+  min-height: 100vh;
+  display: flex; 
+  flex-flow: column;
+}
 main {
   padding: 2rem;
+  flex: 1 0 auto;
 }
 
 h1, h2, h3, h4, h5 {

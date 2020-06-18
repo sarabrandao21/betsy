@@ -22,8 +22,8 @@
             <h6 class="card-subtitle mb-2 text-muted"> Merchant: <%= order_item.product.merchant.username %></h6>
             <ul class="">
               <li>Quantity: <%= order_item.quantity %> </li>
-              <li>Price: $<%= order_item.product.price %> </li>
-              <li>Price Total: $<%= order_item.total_price_qty %> </li>
+              <li>Price: $<%= sprintf("%.2f",order_item.product.price) %> </li>
+              <li>Price Total: $<%= sprintf("%.2f",order_item.total_price_qty) %> </li>
             </ul>
             <%= link_to "Create a review", product_path(order_item.product), class: "btn btn-outline-primary" %>
           </div>
@@ -32,9 +32,9 @@
     <% end %>
   
     <div class="mt-5 mb-5">
-      <h5>Subtotal: $<%=@order.subtotal%> </h5>
-      <h5>Taxes: $<%=@order.taxes%> </h5>
-      <h5>Total: $<%=@order.purchase_total%> </h5>
+      <h5>Subtotal: $<%=sprintf("%.2f",@order.subtotal)%> </h5>
+      <h5>Taxes: $<%=sprintf("%.2f",@order.taxes)%> </h5>
+      <h5>Total: $<%=sprintf("%.2f",@order.purchase_total)%> </h5>
     </div>
     
     <%= link_to "Back to Well Etsy", root_path, class: "btn btn-outline-primary" %>

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_product, only: [:add_to_cart, :update]
+  before_action :require_product, only: [:add_to_cart]
   
 
   def cart
@@ -20,16 +20,10 @@ class OrdersController < ApplicationController
   end
 
   def update  
-    # if @order.nil?
-    #   flash[:error] = "Unable to add "
-    #   redirect_back(fallback_location: root_path)
-    #   return 
-    # end
+
     @order = Order.find_by(id: session[:order_id])
   
     if @order.update(order_params)
-
-      @order.card_status = "paid"
       @order.mark_paid
       @order.save
       flash[:success] = "Your order has been submitted."
@@ -37,7 +31,7 @@ class OrdersController < ApplicationController
 
       return
     else
-      flash[:error] = @order.errors.full_messages
+      # flash[:error] = @order.errors.full_messages
       render :edit
     end
   end
@@ -45,20 +39,13 @@ class OrdersController < ApplicationController
   def add_to_cart
     order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
     order_item = order.order_items.find_by(product_id: @product.id) 
-    up_to_ten_quantity = params[:quantity].to_i <= 10
 
-    if order_item 
-      if order_item.check_quantity_cart(params[:quantity], @product.stock)
-        order_item.increment_quantity(params[:quantity])
-      else 
-        flash[:error] = "Unable to add #{@product.name} to your cart: Not enough in stock"
-        redirect_back(fallback_location: root_path)
-        return 
-      end 
-    elsif order_item.nil? && up_to_ten_quantity && @product.stock >= params[:quantity].to_i
+    if order_item && order_item.check_quantity_cart(params[:quantity], @product.stock)
+      order_item.increment_quantity(params[:quantity])
+    elsif order_item.nil? && @product.stock >= params[:quantity].to_i 
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
     else 
-      flash[:error] = "Unable to add #{@product.name} to your cart: max 10 items per product"
+      flash[:error] = "Unable to add #{@product.name} to your cart: Not enough in stock"
       redirect_back(fallback_location: root_path)
       return 
     end 
@@ -117,7 +104,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status)
+    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip)
   end
 
   def require_product

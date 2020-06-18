@@ -11,7 +11,7 @@
           <%= image_tag product.image, alt: "product's image", class: 'img-wrap' %>
           <figcaption class="info-wrap">
           <%= link_to product.name, product_path(product.id), class: "title" %>
-          <div class="price mt-1">$ <%= product.price%></div>
+          <div class="price mt-1">$ <%= sprintf("%.2f",product.price)%></div>
         </figcaption>
         </div>
         </div>

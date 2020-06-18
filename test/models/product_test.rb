@@ -74,6 +74,7 @@ end
 
       it "return the top 12 popular products" do
         Product.create!(name: "WaterSport Gear", price: 150, merchant: merchants(:sharon), stock: 20)
+        expect(Product.last.name).must_equal "WaterSport Gear"
         top_products = Product.popular_products
         expect(top_products.length).must_equal 12
       end
@@ -98,5 +99,5 @@ end
   end 
 end
 
- 
+
 

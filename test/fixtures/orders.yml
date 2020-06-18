@@ -2,21 +2,13 @@ nataliyas_order:
   customer_name: Nataliya
 
 sandy:
-  customer_name: "Sandy Beech"
-  email: "sbeech@beech.com"
-  address: "123 Jerry Atrics, Al Kaholic,CT,00000"
-  exp_date: "0125"
-  last_four_cc: "4444"
-  cvv: "123"
-  zip: "000000"
-  card_status: "paid"
-
-blank:
-  customer_name: "Sandy Beech"
-  email: "sbeech@beech.com"
-  address: "123 Jerry Atrics, Al Kaholic,CT,00000"
-  exp_date: "0125"
-  last_four_cc: 
-  cvv: "123"
-  zip: "000000"
-  card_status: "paid"
+  customer_name: Sandy Beech
+  email: sbeech@beech.com
+  address: 123 Jerry Atrics, Al Kaholic,CT,00000"
+  exp_date: 0125
+  last_four_cc: 4444
+  cvv: 123
+  zip: 000000
+  
+sharon_order:
+  customer_name: Sharon

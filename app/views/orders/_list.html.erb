@@ -7,7 +7,7 @@
           <td><%= product.created_at.strftime( "%B %e, %Y")%></td>
           <td><%= link_to product.name, product_path(product.id) %></td>
           <td><%= image_tag product.image,  class:'profile_pic' %></td>
-          <td>$ <%= product.price%></td>            
+          <td>$ <%= sprintf("%.2f",product.price)%></td>            
           <td><%= item.quantity %></td>
           <td>$ <%= item.total_price_qty %></td>
           <td><%= item.status %></td>
