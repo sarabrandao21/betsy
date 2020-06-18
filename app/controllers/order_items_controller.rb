@@ -26,6 +26,7 @@ class OrderItemsController < ApplicationController
     flash[:success] = "Quantity adjusted"
     redirect_to order_path(session[:order_id])
   end 
+  
   def destroy
     @order_item.destroy
     flash.now[:success] = "Item deleted from your cart."

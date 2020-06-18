@@ -1,16 +1,17 @@
 <div class="container mt-5 mb-5">
-  <h1>Thank you!</h1>
+  <h1>Order Information:</h1>
   <div class="">
-    <p>Please, save the following information for your records:</p>
+    <p>Order and shipping details</p>
     <ul>
     <li>Order Number: <%= @order.id %></li>
+    <li>Customer Name: <%= @order.customer_name %></li>
     <li>Submitted on: <%= @order.created_at.strftime("%d/%m/%y") %></li>
-    <li>Payment method: Credit Card #### #### #### <%= @order.last_four_cc %> (<%= @order.customer_name %>)</li>
+    <li>Payment method: Credit Card #### #### #### <%= @order.last_four_cc %> </li>
     <li>Shipping address: <%= @order.address %>, <%= @order.zip %></li>
     </ul>
   </div>
 
-  <h1>Your order:</h1>
+  <h1>Order:</h1>
     <% @order.order_items.each do |order_item| %>
     <% if Product.find_by(id: order_item.product_id).merchant == @login_merchant %>
         <div class="card bg-light mb-3">
@@ -25,19 +26,17 @@
                 <li>Quantity: <%= order_item.quantity %> </li>
                 <li>Price: $<%= sprintf("%.2f",order_item.product.price) %> </li>
                 <li>Price Total: $<%= sprintf("%.2f",order_item.total_price_qty) %> </li>
+                <li>Order Item status: <%= order_item.status %> </li>
               </ul>
-              <%= link_to "Create a review", product_path(order_item.product), class: "btn btn-outline-primary" %>
+              <% if order_item.status == 'Paid'%>
+                <%= link_to "Mark Shipped", mark_complete_path(order_item.id), method: :patch, class: "btn btn-outline-primary" %>
+                <%= link_to "Cancel", mark_cancel_path(order_item.id), method: :patch, class:"btn btn-outline-primary" %>
+              <% end %>
             </div>
           </div>
         </div>
       <% end %>
     <% end %>  
-  
-    <div class="mt-5 mb-5">
-      <h5>Subtotal: $<%=sprintf("%.2f",@order.subtotal)%> </h5>
-      <h5>Taxes: $<%=sprintf("%.2f",@order.taxes)%> </h5>
-      <h5>Total: $<%=sprintf("%.2f",@order.purchase_total)%> </h5>
-    </div>
     
-    <%= link_to "Back to Well Etsy", root_path, class: "btn btn-outline-primary" %>
+    <%= link_to "Back to Dashboard", dashboard_path, class: "btn btn-outline-primary" %>
 </div>
