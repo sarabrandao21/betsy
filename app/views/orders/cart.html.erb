@@ -19,7 +19,7 @@
               <li>Item Price: $<%= order_item.product.price %> </li>
               <li>Price Total: $<%=order_item.total_price_qty() %> </li>
             </ul>
-            <%= link_to "Remove", root_path, class: "btn btn-outline-danger" %>
+            <%= link_to "Remove", order_order_item_path(@order, order_item), method: :delete, class: "btn btn-outline-danger" %>
           </div>
         </div>
       </div>  
