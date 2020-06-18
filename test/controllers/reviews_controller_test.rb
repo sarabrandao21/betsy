@@ -33,7 +33,7 @@ describe ReviewsController do
       
       expect{post reviews_path, params: review_params}.wont_change 'Review.count', 1
       must_respond_with :redirect
-      expect(flash[:error]).must_equal "Cannot create review...."
+      expect(flash[:error]).must_equal "No review created. Please provide all required fields to add a review!"
     end
 
     it "won't create a new review if the ratiing is not within range" do
@@ -47,7 +47,7 @@ describe ReviewsController do
       
       expect{post reviews_path, params: review_params}.wont_change 'Review.count', 1
       must_respond_with :redirect
-      expect(flash[:error]).must_equal "Cannot create review...."
+      expect(flash[:error]).must_equal "No review created. Please provide all required fields to add a review!"
     end
 
     it "won't let a logined merchant to review own product" do
