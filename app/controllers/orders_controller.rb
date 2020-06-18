@@ -76,7 +76,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
-    if @order.verify_merchant(@verify_merchant) == false
+    if @order.verify_merchant(@login_merchant) == false
       flash[:error] = "You are not authorized to view this page."
       redirect_back(fallback_location: root_path)
     end
