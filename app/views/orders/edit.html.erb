@@ -30,7 +30,7 @@
                     <div class="md-form mb-5">
                       <%= f.label :customer_name, "Name" %>
                       <%= f.text_field :customer_name, class: "form-control", placeholder: "Your Name"  %>
-                      <small class = "text-muted">Full name as displayed on card </small>
+                      
                     </div> 
                   </div> 
                     <div class="col-md-6 mb-3">
@@ -89,19 +89,23 @@
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <h6 class="my-0"> <%=order_item.product.name %></h6>
-                <small class="text-muted"><%=order_item.product.description %>
+              
+                <small class="badge badge-secondary badge-pill">Quantity <%=order_item.quantity%>
                 </small>
               </div>
 
-                <span class="text-muted">$<%=sprintf("%.2f",order_item.product.price)%>
+                <span class="text-muted">$<%=sprintf("%.2f",order_item.total_price_qty)%>
                
               </span>  
             
-                    <li class="list-group-item d-flex justify-content-between lh-condensed"> Quantity <%=order_item.quantity%>
-
+                    <% end %>  
+              <li class="list-group-item d-flex justify-content-between lh-condensed"> 
+              <span>Taxes(USD)</span>
+              <strong>$<%=sprintf("%.2f",@order.taxes)%></strong> 
+             </li> 
              <li class="list-group-item d-flex justify-content-between lh-condensed"> 
               <span>Total(USD)</span>
-              <strong>$<%=order_item.total_price_qty() %></strong> 
-             </li>  <% end %> 
+              <strong>$<%=sprintf("%.2f", @order.purchase_total)%></strong> 
+             </li> 
           </ul>    
  </body>
