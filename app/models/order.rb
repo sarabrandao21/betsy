@@ -41,4 +41,18 @@ class Order < ApplicationRecord
     end
     return cart_qty.sum
   end
+
+  def verify_merchant(login_merchant)
+    order_merchants = []
+    self.order_items.each do |order_item|
+      merchant = order_item.product.merchant
+      order_merchants << merchant
+    end
+
+    if order_merchants.include? (login_merchant)
+      return true
+    else 
+      return false
+    end
+  end
 end
