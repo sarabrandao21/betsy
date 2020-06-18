@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   root 'homepage#index'
   
   resources :categories
-
-  resources :orders, only: [:create, :destroy, :edit, :update] do
+  get 'order/:id', to: 'orders#show'
+  resources :orders, only: [:create, :destroy, :edit, :update, :show] do
     resources :order_items, only: [:update, :destroy]
   end    
-
+  
   resources :order_items, only: [:create]
   get "/cart", to: "orders#cart", as: "cart"
   get "/confirmation", to: "orders#confirmation", as: "confirmation"

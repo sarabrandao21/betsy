@@ -1,0 +1,42 @@
+<div class="container mt-5 mb-5">
+  <h1>Order Information:</h1>
+  <div class="">
+    <p>Order and shipping details</p>
+    <ul>
+    <li>Order Number: <%= @order.id %></li>
+    <li>Customer Name: <%= @order.customer_name %></li>
+    <li>Submitted on: <%= @order.created_at.strftime("%d/%m/%y") %></li>
+    <li>Payment method: Credit Card #### #### #### <%= @order.last_four_cc %> </li>
+    <li>Shipping address: <%= @order.address %>, <%= @order.zip %></li>
+    </ul>
+  </div>
+
+  <h1>Order:</h1>
+    <% @order.order_items.each do |order_item| %>
+    <% if Product.find_by(id: order_item.product_id).merchant == @login_merchant %>
+        <div class="card bg-light mb-3">
+          <div class="row card-body">
+            <div class="col-3">
+              <img src= <%= order_item.product.image %> alt="" class="img-fluid">
+            </div>
+            <div class="col">
+              <h3 class="card-title"> <%= order_item.product.name %> </h5>
+              <h6 class="card-subtitle mb-2 text-muted"> Merchant: <%= order_item.product.merchant.username %></h6>
+              <ul class="">
+                <li>Quantity: <%= order_item.quantity %> </li>
+                <li>Price: $<%= sprintf("%.2f",order_item.product.price) %> </li>
+                <li>Price Total: $<%= sprintf("%.2f",order_item.total_price_qty) %> </li>
+                <li>Order Item status: <%= order_item.status %> </li>
+              </ul>
+              <% if order_item.status == 'Paid'%>
+                <%= link_to "Mark Shipped", mark_complete_path(order_item.id), method: :patch, class: "btn btn-outline-primary" %>
+                <%= link_to "Cancel", mark_cancel_path(order_item.id), method: :patch, class:"btn btn-outline-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>  
+    
+    <%= link_to "Back to Dashboard", dashboard_path, class: "btn btn-outline-primary" %>
+</div>

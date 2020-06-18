@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :require_product, only: [:add_to_cart]
-  
+  before_action :find_merchant, only: [:show]
 
   def cart
     @order = Order.find_by(id: session[:order_id])
@@ -74,6 +74,17 @@ class OrdersController < ApplicationController
     session[:order_id] = nil
   end
 
+  def show
+    @order = find_order(id: params[:id])
+    if @order
+      if @order.verify_merchant(@login_merchant) == false
+        flash[:error] = "You are not authorized to view this page."
+        redirect_to dashboard_path
+        return
+      end
+    end
+  end
+
   def set_quantity 
     order_item = OrderItem.find_by(id: params[:order_item_id])
     if order_item.product.stock >= params[:quantity].to_i
@@ -133,7 +144,7 @@ class OrdersController < ApplicationController
     session[:order_id] = order.id
     return order
 
-  end
+  end  
 end
 
 

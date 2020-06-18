@@ -3,7 +3,8 @@
     <% merchant_orders.each do |item| %>
         <% product = Product.find_by(id: item.product_id)%>
         <tr class="list-group-item-action">
-          <td><%= item.order_id %></td>
+          <% order_id = item.order_id%>
+          <td><%= link_to item.order_id, order_path(order_id) %></td>
           <td><%= product.created_at.strftime( "%B %e, %Y")%></td>
           <td><%= link_to product.name, product_path(product.id) %></td>
           <td><%= image_tag product.image,  class:'profile_pic' %></td>
