@@ -85,5 +85,87 @@ describe Order do
         expect(order.all_cart_items).must_equal 0
       end
     end
+    describe "validations" do
+      before do 
+        @new_order = Order.new
+        @update_params ={
+        customer_name: "Sandy Beech",
+        email: "sbeech@beech.com",
+        address: "123 Jerry Atrics, Al Kaholic,CT,00000",
+        exp_date: "0125",
+        last_four_cc: "4444",
+        cvv: "123",
+        zip: "00000"}
+      end
+    it "when updated all fields are valid" do
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal true
+    end 
+
+    it "params invalid if order have no customer name present" do 
+     @update_params[:customer_name] = nil
+     @new_order.update(@update_params)
+     expect(@new_order.valid?).must_equal false
+     expect(@new_order.errors.messages).must_include :customer_name
+    end
+    it "params invalid if order have no address present" do 
+      @update_params[:address] = nil
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :address
+     end
+
+
+    it "params invalid if order have no email address name" do 
+      @update_params[:email] = nil
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :email
+     end
+
+     it "params invalid if order has no zip present" do 
+      @update_params[:zip] = nil
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :zip
+     end
+
+    it "params invalid if order has zip less than 5 digits customer name present" do 
+      @update_params[:zip] = "1234"
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :zip
+     end
+     it "params invalid if order no expiry date present" do 
+      @update_params[:exp_date] = nil
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :exp_date
+     end
+     it "params invalid if order does not have at least three digits in field for cvv" do 
+      @update_params[:cvv] = "12"
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :cvv
+     end
+     it "params invalid if order does not have cvv" do 
+      @update_params[:cvv] = nil
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :cvv
+     end
+     it "params invalid if order does not have at least four digits in field last four of cc number field" do 
+      @update_params[:last_four_cc] = "123"
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :last_four_cc
+     end
+     it "params invalid if order has no last four of cc number present" do 
+      @update_params[:last_four_cc] = nil
+      @new_order.update(@update_params)
+      expect(@new_order.valid?).must_equal false
+      expect(@new_order.errors.messages).must_include :last_four_cc
+     end
+  end
   end
 end
