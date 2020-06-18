@@ -187,12 +187,7 @@ describe OrdersController do
       @product = products(:juice) 
     end
 
-    it "able to retrive order checkout form" do    
-      get edit_order_path(@order.id)
-      must_respond_with :success
-    end
-
-    it "can find order when in session" do
+    it "able to retrive order checkout form for existing cart" do
       product = products(:yogamat)
       post add_to_cart_path(product)
       expect(session[:order_id]).wont_be_nil
@@ -201,7 +196,14 @@ describe OrdersController do
 
       get edit_order_path(order.id)
       must_respond_with :success
-    end 
+    end
+    
+    it "redirects to root_path if there is no existing cart" do
+      id = Order.first.id
+      get edit_order_path(id)
+      expect(flash[:error]).must_equal "A problem occured. We couldn't find your order."
+      must_redirect_to root_path
+    end
 
     it "responds with an error message if param is not valid" do
       product = products(:yogamat)

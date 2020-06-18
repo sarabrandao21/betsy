@@ -9,8 +9,9 @@ class OrdersController < ApplicationController
   def edit
     if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
-    else 
-      redirect_back(fallback_location: cart_path)
+    else
+      flash[:error] = "A problem occured. We couldn't find your order." 
+      redirect_to root_path
     end 
   end
 
