@@ -14,22 +14,25 @@ class OrdersController < ApplicationController
       @order = Order.find_by(id: params[:id])
     elsif session[:order_id] && session[:order_id] != nil
       @order = Order.find_by(id: session[:order_id])
+    else 
+      redirect_back cart_path
     end 
   end
 
-  def update
+  def update  
+
     @order = Order.find_by(id: session[:order_id])
+  
     if @order.update(order_params)
-      @order.card_status = "paid"
       @order.mark_paid
       @order.save
       flash[:success] = "Your order has been submitted."
       redirect_to confirmation_path
+
       return
     else
-      flash[:error] = "Try again."
+      # flash[:error] = @order.errors.full_messages
       render :edit
-      return
     end
   end
 
@@ -101,7 +104,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip, :card_status)
+    return params.require(:order).permit(:customer_name, :email, :address, :last_four_cc, :exp_date, :cvv, :zip)
   end
 
   def require_product

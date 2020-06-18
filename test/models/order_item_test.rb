@@ -48,4 +48,26 @@ describe OrderItem do
       expect(order_item.check_quantity_cart(params_user_qty, stock_product)).must_equal false  
     end 
   end 
+
+  describe 'change status' do
+    it 'will change status to complete' do
+      order_item = order_items(:chips_orderitem)
+      order_item.change_status("Completed")
+
+      expect(order_item.status).must_equal "Completed"
+    end
+
+    it 'will change status to cancelled and restock items back to inventory' do
+      order_item = order_items(:chips_orderitem)
+      product = Product.find_by(id: order_item.product_id)
+      original_stock = product.stock
+      
+      order_item.change_status("Cancelled")
+
+      product.reload
+      expect(order_item.status).must_equal "Cancelled"
+      expect(product.stock).must_equal original_stock + order_item.quantity
+    end
+  end
+
 end

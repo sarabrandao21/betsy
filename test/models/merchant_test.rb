@@ -50,4 +50,124 @@ describe Merchant do
     end
   end
 
+  describe 'custom methods' do
+    describe 'own_average_rating' do
+      it 'will find the average rating of the product average rating from a merchant' do
+        merchant = merchants(:sharon)
+        # her two products have review from yml - one average of 1 and one average of 5
+        
+        expect(merchant.own_average_rating).must_equal 3
+      end
+
+      it 'will return 0 if the merchant does not have any product average rating' do
+        merchant = merchants(:sara)
+        # her two products have review from yml - one average of 1 and one average of 5
+        
+        expect(merchant.own_average_rating).must_equal 0
+      end
+    end
+
+    describe 'find_total_order' do
+      it 'will return the total order of a merchant' do
+        merchant = merchants(:sharon)
+
+        expect(merchant.find_total_order).must_equal 2
+      end
+
+      it 'will return 0 if there is no order from a merchant' do
+        merchant = merchants(:sara)
+
+        expect(merchant.find_total_order).must_equal 0
+      end
+    end
+
+    describe 'find_all_order_items(status)' do
+      it 'will return the sum of order items of a merchant by completed status' do
+        merchant = merchants(:sharon)
+        
+        merchant.order_items.each do |order_item|
+          order_item.change_status("Completed")
+        end
+      
+        expect(merchant.find_all_order_items("Completed").length).must_equal 4
+      end
+
+      it 'will return the sum of order items of a merchant by paid status' do
+        merchant = merchants(:sharon)
+        
+        merchant.order_items.each do |order_item|
+          order_item.change_status("Paid")
+        end
+      
+        expect(merchant.find_all_order_items("Paid").length).must_equal 4
+      end
+    end
+
+    describe 'total_revenue_by(status)' do
+      it 'will calculate the total revenue of a merchant by order items by completed status' do
+        merchant = merchants(:sharon)
+        order_item = order_items(:yogamat_orderitem)
+
+        order_item.change_status('Completed')
+        # $ 50 x 3 yoga mat
+        expect(merchant.total_revenue_by('Completed')).must_equal 150
+      end
+
+      it 'will return 0 if a merchant doesnt have any order item' do
+        merchant = merchants(:sara)
+
+        merchant.order_items.must_equal []
+        expect(merchant.total_revenue_by('Completed')).must_equal 0
+      end
+
+      it 'will calculate the total revenue of a merchant by order items by completed status' do
+        merchant = merchants(:sharon)
+        order_item = order_items(:yogamat_orderitem)
+
+        order_item.change_status('Paid')
+        # $ 50 x 3 yoga mat
+        expect(merchant.total_revenue_by('Paid')).must_equal 150
+      end
+    end
+
+      describe 'total revenue' do
+        it 'will caculate the total sum of revenue without the cancelled status' do
+          merchant = merchants(:sharon)
+        
+          merchant.order_items.each do |order_item|
+            order_item.change_status("Completed")
+          end
+        
+          expect(merchant.total_revenue).must_equal 424
+        end
+
+        it 'will caculate the total sum of revenue without the cancelled status' do
+          merchant = merchants(:sharon)
+        
+          merchant.order_items.each do |order_item|
+            order_item.change_status("Paid")
+          end
+        
+          expect(merchant.total_revenue).must_equal 424
+        end
+
+        it 'will return 0 if there is no order item from this merchant' do
+          merchant = merchants(:sara)
+        
+          merchant.order_items.must_equal []
+        
+          expect(merchant.total_revenue).must_equal 0
+        end
+
+        it 'will return 0 if all order item is cancelled from this merchant' do
+          merchant = merchants(:sharon)
+        
+          merchant.order_items.each do |order_item|
+            order_item.change_status("Cancelled")
+          end
+        
+          expect(merchant.total_revenue).must_equal 0
+        end
+      end
+  end
 end

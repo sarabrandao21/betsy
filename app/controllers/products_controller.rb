@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
   def show
     @review = Review.new
     if @product.active == false
-      flash[:error] = "The product is not active!"
+      flash[:error] = "#{@product.name} is not active!"
       redirect_to products_path
     end
   end
@@ -39,13 +39,11 @@ class ProductsController < ApplicationController
         redirect_to product_path(@product.id)
         return
       else
-        # TODO: to fix the errors message to display properly
         flash[:error] = "Couldn't create product!"
-        # flash[:messages] = @product.errors.messages
         render :new, status: :bad_request
       end
     else
-      flash[:error] = "Couldn't create product!"
+      flash[:error] = "You must log in to add product!"
       redirect_to products_path
       return
     end
@@ -53,7 +51,7 @@ class ProductsController < ApplicationController
 
   def edit
     if !(@login_merchant == @product.merchant)
-      flash[:error] = "You are not authorized to edit this product!"
+      flash[:error] = "You are not authorized to edit this product #{@product.name}'!"
       redirect_to products_path
       return
     end
@@ -76,7 +74,7 @@ class ProductsController < ApplicationController
       flash[:success] = "Successfully set #{@product.name}'s status to #{@product.active ? "active" : "inactive"} "
       redirect_to product_path(@product.id)
     else
-      flash[:error] = "Add some stock in order to set Product to Active State!"
+      flash[:error] = "Add some stock in order to set #{@product.name} to Active State!"
       redirect_back(fallback_location: root_path)
     end
   end

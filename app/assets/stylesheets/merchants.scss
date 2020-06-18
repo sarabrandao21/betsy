@@ -25,3 +25,12 @@
   line-height: .5;
   border-radius: .2rem;
 }
+
+.merchant_pic {
+  width: auto;
+  height: auto;
+  background-image: url("path_to_your_profile.png");
+  background-position: -25px -20px;  
+  border-radius: 8%;
+  background-size: cover;
+}

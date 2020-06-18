@@ -187,3 +187,12 @@ footer {
 .review-form {
   padding: 0px;
 }
+// https://stackoverflow.com/questions/22954434/bootstrap-form-required-field
+.required:before {
+  content: "*";
+  padding-left:1%;
+}
+.form-control{
+  width:97%;
+  float:left;
+}
