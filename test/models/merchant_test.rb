@@ -139,7 +139,7 @@ describe Merchant do
             p order_item
           end
         
-          expect(merchant.total_revenue).must_equal 424
+          expect(merchant.total_revenue).must_equal 624
         end
 
         it 'will caculate the total sum of revenue without the cancelled status' do
@@ -149,7 +149,7 @@ describe Merchant do
             order_item.change_status("Paid")
           end
         
-          expect(merchant.total_revenue).must_equal 424
+          expect(merchant.total_revenue).must_equal 624
         end
 
         it 'will return 0 if there is no order item from this merchant' do
