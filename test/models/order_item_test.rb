@@ -26,6 +26,26 @@ describe OrderItem do
     end 
   end 
 
-  describe "" do 
+  describe "check_quantity_cart" do 
+    it "can check if quantity to add to order_item is in stock" do 
+      order_item = order_items(:gear_orderitem)
+      params_user_qty = 1
+      stock_product = 5 
+
+      order_item.quantity = 4
+      order_item.reload
+
+      expect(order_item.check_quantity_cart(params_user_qty, stock_product)).must_equal true 
+   
+    end 
+    it "wont add product if there is no stock" do 
+      order_item = order_items(:gear_orderitem)
+      params_user_qty = 3
+      stock_product = 5 
+
+      order_item.quantity = 4
+      order_item.reload
+      expect(order_item.check_quantity_cart(params_user_qty, stock_product)).must_equal false  
+    end 
   end 
 end

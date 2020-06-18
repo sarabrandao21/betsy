@@ -6,3 +6,7 @@ juice_orderitem:
   product: juice
   order: nataliyas_order
   quantity: 2
+gear_orderitem:
+  product: yogamat
+  order: nataliyas_order
+  quantity: 4
