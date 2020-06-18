@@ -89,7 +89,7 @@ describe Merchant do
           order_item.change_status("Completed")
         end
       
-        expect(merchant.find_all_order_items("Completed").length).must_equal 4
+        expect(merchant.find_all_order_items("Completed").length).must_equal 5
       end
 
       it 'will return the sum of order items of a merchant by paid status' do
@@ -99,7 +99,7 @@ describe Merchant do
           order_item.change_status("Paid")
         end
       
-        expect(merchant.find_all_order_items("Paid").length).must_equal 4
+        expect(merchant.find_all_order_items("Paid").length).must_equal 5
       end
     end
 
