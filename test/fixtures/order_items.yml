@@ -12,6 +12,6 @@ mat_orderitem:
   quantity: 5
 chips_orderitem:
   product: chips
-  order: sharon_order  
+  order: sharon_order
   quantity: 1
-  
+

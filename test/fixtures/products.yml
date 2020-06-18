@@ -54,14 +54,14 @@ tennisshoes:
   stock: 120
   rating: 5
   merchant: shonda
-yogurt:
-  name: Frozen Yogurt
-  description: Strawberry flavour
-  price: 50
-  image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
-  stock: 20
-  rating: 4
-  merchant: nataliya
+# yogurt:
+#   name: Frozen Yogurt
+#   description: Strawberry flavour
+#   price: 50
+#   image: https://i.etsystatic.com/12296253/r/il/920e9a/1725983397/il_1588xN.1725983397_87x1.jpg
+#   stock: 20
+#   rating: 4
+#   merchant: nataliya
 jump_rope:
   name: Rogue
   description: weighted jump rope

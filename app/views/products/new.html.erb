@@ -1,4 +1,17 @@
 <section>
+<% if @product.errors.any? %>
+  <section class="alert alert-danger">
+    <h1>Please check and try again</h1>
+      <ul>
+        <% @product.errors.each do |column, message|%>
+        <li>
+          <strong><%= column.capitalize %> </strong><%= message%>
+        </li>
+        <% end %>
+      </ul>
+  </section>
+<% end %>
+
   <h1 class="text-category">Add New Product</h1>
   <%= render partial: "form" , locals: { action_name: 'Add New Product' }%>
 </section>

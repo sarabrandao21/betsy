@@ -36,4 +36,54 @@ describe Order do
       expect(order.purchase_total).must_equal total
     end 
   end 
+
+
+  describe 'custom methods' do
+    describe 'mark_paid' do
+      it 'will change all order items from the order to paid' do
+        order = orders(:sharon_order)
+        order.mark_paid
+        
+        order.order_items.each do |order_item|
+          expect(order_item.status).must_equal "Paid"
+        end
+      end
+
+      it 'will go into each order_item products to deduct inventory' do
+        # yoga mat - original stock 50, order item qty 5
+        # chip - original stock 20 , order item qty 1
+        order = orders(:sharon_order)
+        order.mark_paid
+        
+        order.order_items.each do |order_item|
+          order_item.reload
+        end
+        
+        expect(products(:yogamat).stock).must_equal 45
+        expect(products(:chips).stock).must_equal 19      
+      end
+    end
+
+    describe 'all_cart_items' do
+      it 'will calculate the total amount of items in an order' do
+        # 5 yoga mat + 1 chip
+        order = orders(:sharon_order)
+
+        expect(order.all_cart_items).must_equal 6
+      end
+
+      it 'will calculate the total amount of items in an order' do
+        # 5 yoga mat + 1 chip
+        order = orders(:sharon_order)
+
+        expect(order.all_cart_items).must_equal 6
+      end
+
+      it 'will return 0 if the cart order is empty' do
+        order = Order.create!
+
+        expect(order.all_cart_items).must_equal 0
+      end
+    end
+  end
 end

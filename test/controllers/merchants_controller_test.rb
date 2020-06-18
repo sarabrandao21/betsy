@@ -86,4 +86,50 @@ describe MerchantsController do
     end
   end
 
+  
+  describe 'dashboard' do
+    it 'will let log in merchant to see their own merchant dashboard page' do
+      perform_login(merchants(:sharon))
+
+      get dashboard_path
+
+      must_respond_with :success
+
+    end
+
+    it 'will let log in merchant to see their own merchant dashboard page' do
+      get dashboard_path
+
+      must_redirect_to merchants_path 
+      expect(flash[:error]).must_equal "Sorry you are not authorized to this page"
+    end
+
+    it 'will let log in merchant to filter their items by status - Active' do
+      sharon = merchants(:sharon)
+      filter_params = {status: 'Active'}
+      perform_login(sharon)
+      get dashboard_path, params: filter_params     
+
+      must_respond_with :success
+    end
+
+    it 'will let log in merchant to filter their items by status - Inactive ' do
+      sharon = merchants(:sharon)
+      filter_params = {status: 'Inactive'}
+      perform_login(sharon)
+      get dashboard_path, params: filter_params     
+      
+      must_respond_with :success
+    end
+
+    it 'will let log in merchant to filter their items by status - All' do
+      sharon = merchants(:sharon)
+      filter_params = {status: 'All'}
+      perform_login(sharon)
+      get dashboard_path, params: filter_params     
+      
+      must_respond_with :success
+    end
+  end
+
 end

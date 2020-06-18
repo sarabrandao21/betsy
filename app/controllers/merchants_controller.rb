@@ -53,12 +53,12 @@ class MerchantsController < ApplicationController
       if params[:status]
         if params[:status] == 'Active'
           @selected_status = true
-          @merchant_products = @merchant.products.where(active: @selected_status)
+          @merchant_products = @dashboard_merchant.products.where(active: @selected_status)
         elsif params[:status] == 'Inactive'
           @selected_status = false
-          @merchant_products = @merchant.products.where(active: @selected_status)
+          @merchant_products = @dashboard_merchant.products.where(active: @selected_status)
         elsif params[:status] == "All"
-          @merchant_products = @merchant.products 
+          @merchant_products = @dashboard_merchant.products 
         end
       end
   end
