@@ -1,64 +1,66 @@
-<div class="product-display">
-  <div class='row product-item'>
-    <div class='col-sm'>
-      <%= image_tag @product.image, alt: "product's image", class:'img-fluid product-img'%>
-    </div>
-    <div class='col-sm'>
-    <h4><%= link_to @product.name, product_path(@product) , class: 'card-title' %></h4>
-    <p><small>sell by <%= link_to @product.merchant.username, merchant_path(@product.merchant_id)%></small></p>
-    <p class="lead font-weight-bold">Description</p><%= @product.description %></p>
-    <%if @product.categories.length >= 1%>
-      <p class="lead font-weight-bold">Categories</p>
-      <p><% @product.categories.each do |category|%>
-          <span class="badge badge-secondary"><%= link_to category.name, category_path(category.id), class:"text-white" %></span>
-        <%end%>
-      </p>
-    <%end%>
-    <br>
-    <h5>$ <%= sprintf("%.2f",@product.price) %></h5>
-    <p>
-      Current Stock: <%= @product.stock %>
-      <% if @product.stock <= 10 %>
-        <span class="badge badge-pill badge-danger">Low in stock</span>
-      <% end %>
-    </p>
-    <% if @product.find_average_rating.nil? %>
-        <p> No review for this product yet! </p>
-    <%else%>
-      <p class="text-warning">
-          <% @product.find_average_rating.times do  %>
-                ★
-          <%end%>
-          <% (5-@product.find_average_rating).times do%>
-                ☆
-          <%end%>
-      </p>
-    <%end%>
-        
-    <%if @product.stock > 0 %>
-      <%= render partial: 'products/addproduct' %>
-    <% end %>
-    
-    <% if session[:merchant_id] == @product.merchant_id %>
-      <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
-      <%= link_to "Set #{@product.active ? "inactive" : "active"}", 
-          toggle_active_path(@product.id), 
-          method: :patch,
-          data: {confirm: "Are you sure to set the state to #{@product.active ? "inactive" : "active"}"}, 
-          class:'btn btn-outline-danger btn-sm'
-      %>
-    <% end %>
-    </div>
-  </div>
-<div class='col-11 '>
+<div class="container mt-5 mb-5">
+  <h1><%= @product.name %></h1>
 
-  <div id="products-reviews container">
-    <div class="row">
-    <section class='col-4'>
-      <%= render partial: 'reviews/reviews', locals: {reviews: @product.reviews}%>
-    </section>
-    <%# <section class='col-8 review-form'> %>
-      <%= render partial: 'reviews/new', locals: {review: @review}%>
-    <%# </section> %>
+  <div class="card bg-light mb-3">
+    <div class="row card-body">
+      <div class="col-6">
+        <img src= <%= @product.image %> alt="" class="img-fluid">
+      </div>
+      <div class="col">
+        <h3 class="card-title"> Product Info: </h5>
+        <h6 class="card-subtitle mt-4 mb-2 text-muted"><%= @product.description %></h6>
+        <h5 class="mt-4 mb-1">Categories:</h4>
+        <p class="mt-0">
+          <% @product.categories.each do |category|%>
+            <span class="badge badge-secondary"><%= link_to category.name, category_path(category.id), class:"text-white" %></span>
+          <%end%>
+        </p>
+
+        <h5 class="mt-4">$ <%= sprintf("%.2f",@product.price) %></h5>
+        <p class="mt-4">
+          Current Stock: <%= @product.stock %>
+          <% if @product.stock <= 10 %>
+            <span class="badge badge-pill badge-danger">Low in stock</span>
+          <% end %>
+        </p>
+        <% if @product.find_average_rating.nil? %>
+            <p> No review for this product yet! </p>
+        <%else%>
+          <p class="text-warning">
+              <% @product.find_average_rating.times do  %>
+                    ★
+              <%end%>
+              <% (5-@product.find_average_rating).times do%>
+                    ☆
+              <%end%>
+          </p>
+        <%end%>
+
+        <%if @product.stock > 0 %>
+          <%= render partial: 'products/addproduct' %>
+        <% end %>
+        
+        <% if session[:merchant_id] == @product.merchant_id %>
+          <%= link_to 'Edit Product', edit_product_path(@product.id), class:'btn btn-outline-secondary btn-sm'%>
+          <%= link_to "Set #{@product.active ? "inactive" : "active"}", 
+              toggle_active_path(@product.id), 
+              method: :patch,
+              data: {confirm: "Are you sure to set the state to #{@product.active ? "inactive" : "active"}"}, 
+              class:'btn btn-outline-danger btn-sm'
+          %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>  
+
+  <h1 class="mt-5">Reviews:</h2>
+
+  <div class="card bg-light mb-3" style="background-image: url(<%= asset_path("water.jpg")%>); background-position: center; background-size: cover">
+    <div class="card-body">
+        <%= render partial: 'reviews/new', locals: {review: @review}%>
+        <%= render partial: 'reviews/reviews', locals: {reviews: @product.reviews}%> 
+    </div>
   </div>
+
 </div>
