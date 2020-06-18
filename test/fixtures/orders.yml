@@ -10,3 +10,7 @@ sandy:
   cvv: "123"
   zip: "000000"
   card_status: "paid"
+
+sharon_order:
+  customer_name: Sharon
+  
