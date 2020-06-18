@@ -5,7 +5,30 @@ describe Order do
   let(:drink_product) { products(:juice) }
   let(:y_order_item) { order_items(:yogamat_orderitem) }
   let(:j_order_item) { order_items(:juice_orderitem) }
+  let(:g_order_item) { order_items(:gear_orderitem)}
   let(:order) { orders(:nataliyas_order) }
+
+  describe "validation" do 
+    it "has at least one order item" do 
+      order.order_items = nil
+  
+      expect(order.valid?).must_equal false
+      expect(order.errors.messages).must_include :order_items
+      #expect(order.errors.messages[:order_items]).must_equal ["order items is too short (minimum is 1 character)"]
+    end 
+  end 
+  describe "relations" do 
+    it "can have many order_items" do 
+    #all orders belongs to Merchant Nataliya
+    test_order = order
+      test_order.order_items.each do |order_item|
+        order_item.quantity = 1
+        order_item.reload 
+      end 
+      test_order.reload
+      expect(test_order.order_items.length).must_equal 3
+    end 
+  end 
   describe "subtotal" do 
     it "calculates the subtotal of an order" do 
       yogamat_total = yoga_product.price *  y_order_item.quantity

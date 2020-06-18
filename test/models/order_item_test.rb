@@ -30,12 +30,12 @@ describe OrderItem do
   end 
 
   describe "relations" do 
-    it "a order_item has order" do
+    it "an order_item has order" do
       expect(new_order_item).must_respond_to :order
       expect(new_order_item.order).must_be_kind_of Order
     end
 
-    it "a order_item has product" do 
+    it "an order_item has product" do 
       expect(new_order_item).must_respond_to :product
       expect(new_order_item.product).must_be_kind_of Product
     end 
