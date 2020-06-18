@@ -25,4 +25,7 @@ describe OrderItem do
       expect(new_order_item.total_price_qty).must_equal total_price 
     end 
   end 
+
+  describe "" do 
+  end 
 end

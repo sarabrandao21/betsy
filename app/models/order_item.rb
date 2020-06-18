@@ -17,8 +17,7 @@ class OrderItem < ApplicationRecord
     return total.round(2)
   end
 
-  def check_quantity_cart(qty, stock_product)
-    puts "#{self.quantity}"
+  def check_quantity_cart(qty, stock_product) 
     new_quantity = self.quantity + qty.to_i
     return new_quantity <= stock_product ? true : false 
   end

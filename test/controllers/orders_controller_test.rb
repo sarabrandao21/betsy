@@ -60,8 +60,8 @@ describe OrdersController do
 
     it "doesn't create a new instance of OrderItem if there are not enough products in stock" do
       product = products(:dumbells)
-      
-      expect{post add_to_cart_path(product)}.wont_change "OrderItem.count"
+      expect{post add_to_cart_path({ id: product.id, quantity: 1})}.wont_change "OrderItem.count"
+
       
     end
 

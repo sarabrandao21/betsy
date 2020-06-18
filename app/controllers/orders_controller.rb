@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
 
     if order_item && order_item.check_quantity_cart(params[:quantity], @product.stock)
       order_item.increment_quantity(params[:quantity])
-    elsif order_item.nil? && params[:quantity].to_i <= @product.stock
+    elsif order_item.nil? && @product.stock >= params[:quantity].to_i 
       order_item = OrderItem.new(order: order, product: @product, quantity: params[:quantity])
     else 
       flash[:error] = "Unable to add #{@product.name} to your cart: Not enough in stock"
