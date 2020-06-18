@@ -18,9 +18,9 @@ class OrderItem < ApplicationRecord
   end
 
   def check_quantity_cart(qty, stock_product)
-    user_quantity = qty.to_i 
-    new_quantity = self.quantity + user_quantity
-    return new_quantity <= 10 && new_quantity <= stock_product ? true : false 
+    puts "#{self.quantity}"
+    new_quantity = self.quantity + qty.to_i
+    return new_quantity <= stock_product ? true : false 
   end
   
   def change_status(status)

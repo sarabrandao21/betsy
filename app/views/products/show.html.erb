@@ -13,7 +13,7 @@
       <%end%>
     </p>
     <br>
-    <h5>$ <%= @product.price %></h5>
+    <h5>$ <%= sprintf("%.2f",@product.price) %></h5>
     <p>
       Current Stock: <%= @product.stock %>
       <% if @product.stock <= 10 %>
