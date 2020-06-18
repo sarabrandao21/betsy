@@ -89,14 +89,15 @@
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <h6 class="my-0"> <%=order_item.product.name %></h6>
-                <small class="text-muted"><%=order_item.product.description %></small>
+                <small class="text-muted"><%=order_item.product.description %>
+                </small>
               </div>
                 <span class="text-muted">$<%=order_item.product.price%>
-               
-              </span>  <% end %> 
+              </span>   
+                    <li class="list-group-item d-flex justify-content-between lh-condensed"> Quantity <%=order_item.quantity%>
              <li class="list-group-item d-flex justify-content-between lh-condensed"> 
               <span>Total(USD)</span>
-              <strong>Price</strong> 
-              </li> 
+              <strong>$<%=order_item.total_price_qty() %></strong> 
+             </li>  <% end %> 
           </ul>    
  </body>
