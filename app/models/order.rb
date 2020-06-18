@@ -26,7 +26,14 @@ class Order < ApplicationRecord
     return total = (self.subtotal() + self.taxes()).round(2)
   end 
 
-  
+
+  def decrement_stock
+    self.order_items.each do |item|
+      item.product.stock -= item.quantity 
+      item.product.save 
+    end
+  end 
+
 
   def mark_paid
     self.order_items.each do |order_item|

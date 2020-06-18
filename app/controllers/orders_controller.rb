@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_product, only: [:add_to_cart]
+  before_action :require_product, only: [:add_to_cart, :update]
   
 
   def cart
@@ -14,22 +14,31 @@ class OrdersController < ApplicationController
       @order = Order.find_by(id: params[:id])
     elsif session[:order_id] && session[:order_id] != nil
       @order = Order.find_by(id: session[:order_id])
+    else 
+      redirect_back cart_path
     end 
   end
 
-  def update
+  def update  
+    # if @order.nil?
+    #   flash[:error] = "Unable to add "
+    #   redirect_back(fallback_location: root_path)
+    #   return 
+    # end
     @order = Order.find_by(id: session[:order_id])
+  
     if @order.update(order_params)
+
       @order.card_status = "paid"
       @order.mark_paid
       @order.save
       flash[:success] = "Your order has been submitted."
       redirect_to confirmation_path
+
       return
     else
-      flash[:error] = "Try again."
+      flash[:error] = @order.errors.full_messages
       render :edit
-      return
     end
   end
 

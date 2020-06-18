@@ -1,11 +1,7 @@
 require "test_helper"
 
 describe OrdersController do
-  # before do 
-  #   new_order_item = {product_id: products(:juice).id, quantity:3}
-  #   post order_items_path, new_order_item
-  #   @new_order_item = Order.last
-  # end
+ 
   describe "cart" do
     it "responds with success if session[:order_id] matches the existing order" do
       product = products(:yogamat)
@@ -186,27 +182,62 @@ describe OrdersController do
   end
 
 
-  describe "edit" do
-    before do 
+  describe "edit" do 
+    before do
+      @new_order = Order.create
       @order = orders(:sandy)
+      @product = products(:juice) 
+      @new_order_item = {product_id:  @product.id, quantity: 3, order_id:@new_order}
     end
-    
-    it "completes order if given valid params" do
+
+    it "completes order if given valid params" do 
+      
       get edit_order_path(@order.id)
       must_respond_with :success
     end
 
-    it "responds with a bad request when order ID is NOT valid" do
-      get edit_order_path(-1)
+    # it "responds with a bad request when order ID is NOT valid" do
+    #   get edit_order_path(Order.last.id + 100000)
 
-      must_respond_with :redirect
-    end
+    #   must_respond_with :redirect
+    # end
 
-    it "completes order when given a valid order params" do
-      
-      # get cart_path
-      # puts " *************8#{params}"
-      # get edit_order_path(session[:order_id])
-    end
+    # it "completes order when given a valid order params" do
+  
+    # end
   end
+
+  it "updates order status to 'paid' and can reduce stock" do 
+    order_hash = {
+      order: {
+        customer_name: "Rose Gardner",
+        email: "rag@rag.com",
+        address: "100 Jerry Atrics Lane,  Rhoda Booke,WA 98000",
+        last_four_cc: "9999",
+        cvv: "123",
+        zip: "9999",
+        exp_date: "0125",
+        card_status: "pending"
+      }
+    }
+
+    order_id = Order.last.id 
+    product_id = Product.last.id 
+    expect { patch order_path(order_id), params: order_hash }.wont_change "Order.count"
+
+    updated_order =  Order.find(order_id)
+    updated_product =  Product.find(product_id)
+
+    expect(updated_order.card_status).must_equal "paid"
+    expect(updated_product.stock).must_equal 7
+    # expect(session[:order_id]).must_be_nil
+  
+  end
+   
+  it " will display flash if error when completing order" do
+    invalid_order = @new_order.update(customer_name: "Pat Pending", email: "patty@pat.com", address: "30 battle RD, Monore, WA, 99999", cvv: "13", last_four_cc: "444", zip: "254", exp_date: "01")
+
+    expect(@new_order.errors.full_messages.to_sentence).must_include "Zip"
+  end
+
 end
