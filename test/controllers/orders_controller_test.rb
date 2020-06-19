@@ -285,4 +285,38 @@ describe OrdersController do
       expect(flash[:success]).must_equal "Your order has been submitted."
     end
   end
+
+
+  describe 'show' do
+    it 'will show the order page if that is sold from a login in merchant.' do
+
+      perform_login(merchants(:sharon))
+
+      get order_path(orders(:sharon_order).id)
+      must_respond_with :success
+    end
+
+    it 'will not show the login merchant an order page if it is not sold by merchant and redirect.' do
+      perform_login(merchants(:sara))
+
+      get order_path(orders(:sharon_order).id)
+      expect(flash[:error]).must_equal "You are not authorized to view this page."
+      must_redirect_to dashboard_path
+    end
+
+    it 'will not show the order pages to someone that is not log in' do
+
+      get order_path(orders(:sharon_order).id)
+      expect(flash[:error]).must_equal "You are not authorized to view this page."
+      must_redirect_to dashboard_path
+    end
+
+    it 'will not redirect to root path if the order is not valid' do
+      invalid_order_id = -1
+      get order_path(invalid_order_id)
+
+      expect(flash[:error]).must_equal "A problem occured. We couldn't find your order."
+      must_respond_with :redirect
+    end
+  end
 end

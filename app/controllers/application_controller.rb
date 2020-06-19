@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+  private 
 
   def find_merchant
     if session[:merchant_id]
