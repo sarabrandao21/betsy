@@ -4,18 +4,23 @@ class OrdersController < ApplicationController
 
   def cart
     @order = Order.find_by(id: session[:order_id])
+
   end
 
   def edit
-    if session[:order_id]
+    if params[:order_id]
+      @order = Order.find_by(id: params[:order_id])
+    elsif params[:id]
+      @order = Order.find_by(id: params[:id])
+    elsif session[:order_id] && session[:order_id] != nil
       @order = Order.find_by(id: session[:order_id])
-    else
-      flash[:error] = "A problem occured. We couldn't find your order." 
-      redirect_to root_path
+    else 
+      redirect_back cart_path
     end 
   end
 
-  def update
+  def update  
+
     @order = Order.find_by(id: session[:order_id])
   
     if @order.update(order_params)
@@ -135,10 +140,9 @@ class OrdersController < ApplicationController
     unless order.save
       flash[:error] = "Something went wrong: #{order.errors.messages}"
     end
-    order.reload
     session[:order_id] = order.id
+    order.reload
     return order
-
   end  
 end
 

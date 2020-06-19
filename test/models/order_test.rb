@@ -7,6 +7,19 @@ describe Order do
   let(:j_order_item) { order_items(:juice_orderitem) }
   let(:g_order_item) { order_items(:gear_orderitem) }
   let(:order) { orders(:nataliyas_order) }
+
+  describe "relations" do 
+    it "can have many order_items" do 
+    #all orders belongs to Merchant Nataliya
+    test_order = order
+      test_order.order_items.each do |order_item|
+        order_item.quantity = 1
+        order_item.reload 
+      end 
+      test_order.reload
+      expect(test_order.order_items.length).must_equal 3
+    end 
+  end 
   describe "subtotal" do 
     it "calculates the subtotal of an order" do 
       yogamat_total = yoga_product.price *  y_order_item.quantity
@@ -84,11 +97,11 @@ describe Order do
         expect(order.all_cart_items).must_equal 9
       end
 
-      it 'will return 0 if the cart order is empty' do
-        order = Order.create!
+      # it 'will return 0 if the cart order is empty' do
+      #   order = Order.create!
 
-        expect(order.all_cart_items).must_equal 0
-      end
+      #   expect(order.all_cart_items).must_equal 0
+      # end
     end
 
 
