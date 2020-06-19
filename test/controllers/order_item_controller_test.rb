@@ -3,9 +3,16 @@ require "test_helper"
 describe OrderItemsController do
     describe "destroy" do 
         it "can destroy order item" do 
-            order = orders(:nataliyas_order)
-            order_item = order_items(:gear_orderitem)
-            expect{delete order_order_item_path(order, order_item)}.must_differ "OrderItem.count", -1
+            product = products(:yogamat)
+            product_2 = products(:juice)
+            post add_to_cart_path({ id: product.id, quantity: 1})
+            post add_to_cart_path({ id: product_2.id, quantity: 1})
+
+            session_id = session[:order_id]
+            order = Order.find_by(id: session_id)
+            order_items_count = order.order_items.length
+
+            expect{delete order_order_item_path(order, order.order_items[0])}.must_differ "OrderItem.count", -1
             must_redirect_to cart_path
         end 
     end 

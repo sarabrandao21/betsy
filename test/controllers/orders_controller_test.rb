@@ -25,7 +25,7 @@ describe OrdersController do
       get product_path(product)
       assert_nil session[:order_id] 
 
-      expect{post add_to_cart_path(product)}.must_differ "Order.count", 1
+      expect{post add_to_cart_path({ id: product.id, quantity: 5})}.must_differ "Order.count", 1
 
       order = Order.find_by(id: session[:order_id])
       order_item = OrderItem.find_by(product: product, order: order)
@@ -37,21 +37,24 @@ describe OrdersController do
 
     it "add OrderItem to an existing order if its id is stored in session" do
       product = products(:yogamat)
-      post add_to_cart_path(product)
+      post add_to_cart_path({ id: product.id, quantity: 5})
 
       session_id = session[:order_id]
       order = Order.find_by(id: session_id)
       order_items_count = order.order_items.length
 
       second_product = products(:juice)
-      expect{post add_to_cart_path(second_product)}.wont_change "Order.count"
+      expect {post add_to_cart_path({ id: second_product.id, quantity: 1})}.wont_change "Order.count"
+
       expect(session[:order_id]).must_equal session_id
+
+      order = Order.find_by(id: session_id)
       expect(order.order_items.count).must_equal order_items_count + 1
     end
 
     it "creates a new instance of OrderItem if there are enough products in stock" do
       product = products(:yogamat)
-      expect{post add_to_cart_path(product)}.must_differ "OrderItem.count", 1
+      expect{post add_to_cart_path({ id: product.id, quantity: 1})}.must_differ "OrderItem.count", 1
     end
 
     it "doesn't create a new instance of OrderItem if there are not enough products in stock" do
@@ -87,7 +90,7 @@ describe OrdersController do
   describe "confirmation" do
     it "responds with success if session[:order_id] matches the existing order and sets it to nil" do
       product = products(:yogamat)
-      post add_to_cart_path(product)
+      post add_to_cart_path({id: product.id, quantity: 5})
       order_item = Order.find_by(id: session[:order_id]).order_items[0]
       order_item.status = "Paid"
       order_item.save
@@ -104,7 +107,7 @@ describe OrdersController do
 
     it "redirects to cart if the order status is pending" do
       product = products(:yogamat)
-      post add_to_cart_path(product)
+      post add_to_cart_path({ id: product.id, quantity: 5})
       order_item = Order.find_by(id: session[:order_id]).order_items[0]
 
       expect(order_item.status).must_equal "Pending"
