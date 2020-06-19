@@ -9,4 +9,38 @@ describe OrderItemsController do
             must_redirect_to cart_path
         end 
     end 
+
+    describe 'make complete' do
+        it 'will change order_item status to complete' do
+            order_item = order_items(:mat_orderitem)
+
+            expect{ patch mark_complete_path(order_item.id) }.wont_change "OrderItem.count"
+            order_item.reload
+            expect(order_item.status).must_equal "Completed"
+        end
+
+        it 'will respond with no found if provided an invalid id ' do
+            invalid_id = -1
+
+            expect{ patch mark_complete_path(invalid_id) }.wont_change "OrderItem.count"
+            must_respond_with :not_found
+        end
+    end
+
+    describe 'make cancel' do
+        it 'will change order_item status to complete' do
+            order_item = order_items(:mat_orderitem)
+
+            expect{ patch mark_cancel_path(order_item.id) }.wont_change "OrderItem.count"
+            order_item.reload
+            expect(order_item.status).must_equal "Cancelled"
+        end
+
+        it 'will respond with no found if provided an invalid id ' do
+            invalid_id = -1
+
+            expect{ patch mark_cancel_path(invalid_id) }.wont_change "OrderItem.count"
+            must_respond_with :not_found
+        end
+    end
 end

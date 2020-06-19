@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_222338) do
+ActiveRecord::Schema.define(version: 2020_06_18_184841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2020_06_15_222338) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.decimal "price", precision: 10, scale: 2
+    t.float "price"
     t.string "image", default: "https://i.imgur.com/WO2Uui9.jpg"
     t.integer "stock"
     t.integer "rating"

@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe ApplicationController do
-    # Setup Anonymous Controller for testing
   describe 'find_merchant' do
     it 'will save a login merchant id to session so it will allow merchant to access merchant restricted pages' do
       sharon = merchants(:sharon)
