@@ -19,7 +19,6 @@
           <% if product_list == @products%>
             <p><%= truncate product.description, length: 50 %></p>
           <% end %>
-          <div class="price mt-2">$ <%= sprintf("%.2f",product.price)%></div>
           <% if product_list == @products%>
           <p class="mb-0">
             <%= product.stock %> left in stock!
@@ -50,7 +49,7 @@
               <% end %>
 
           <% else %>
-            <div class="mt-2 float-right">$ <%= product.price%></div>
+            <div class="mt-2 float-right">$ <%= sprintf("%.2f",product.price)%></div>
           <% end %>
           </figcaption>
         </div>
