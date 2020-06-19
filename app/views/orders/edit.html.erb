@@ -1,4 +1,4 @@
-<body style="background-image: url(<%= asset_path("water.jpg")%>); background-position: center; background-size: cover">
+<body>
 <% if @order && @order.errors.any? %>
 
   <section class="alert alert-danger">
@@ -13,7 +13,6 @@
   </section>
 <% end %>
 
-<div class="form">
 <%= form_with model: @order, url: order_path(@order), method: :patch do |f| %>
 <div class="container wow fadeIn">   
   <%# Heading  %>
@@ -95,7 +94,7 @@
                 </small>
               </div>
 
-                <span >$<%=sprintf("%.2f",order_item.total_price_qty)%>
+                <span class="text-muted">$<%=sprintf("%.2f",order_item.total_price_qty)%>
                
               </span>  
             
@@ -108,6 +107,5 @@
               <span>Total(USD)</span>
               <strong>$<%=sprintf("%.2f", @order.purchase_total)%></strong> 
              </li> 
-          </ul> 
-          </div>   
+          </ul>    
  </body>
