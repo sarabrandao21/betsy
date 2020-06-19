@@ -8,15 +8,6 @@ describe Order do
   let(:g_order_item) { order_items(:gear_orderitem)}
   let(:order) { orders(:nataliyas_order) }
 
-  describe "validation" do 
-    it "has at least one order item" do 
-      order.order_items = nil
-  
-      expect(order.valid?).must_equal false
-      expect(order.errors.messages).must_include :order_items
-      #expect(order.errors.messages[:order_items]).must_equal ["order items is too short (minimum is 1 character)"]
-    end 
-  end 
   describe "relations" do 
     it "can have many order_items" do 
     #all orders belongs to Merchant Nataliya
@@ -102,11 +93,11 @@ describe Order do
         expect(order.all_cart_items).must_equal 9
       end
 
-      it 'will return 0 if the cart order is empty' do
-        order = Order.create!
+      # it 'will return 0 if the cart order is empty' do
+      #   order = Order.create!
 
-        expect(order.all_cart_items).must_equal 0
-      end
+      #   expect(order.all_cart_items).must_equal 0
+      # end
     end
   end
 end

@@ -4,9 +4,15 @@ class OrderItemsController < ApplicationController
   before_action :require_product, only: :create
   
   def destroy
+    order = Order.find_by(id: session[:order_id])
     @order_item.destroy
     flash[:success] = "Item deleted from your cart."
     redirect_to cart_path
+    order.reload
+    if order && order.order_items.empty?  
+      order.destroy
+      session[:order_id] = nil 
+    end 
     return 
   end
 

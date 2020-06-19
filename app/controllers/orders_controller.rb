@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
-    order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
+    order = session[:order_id] ? find_order(id: session[:order_id]) : Order.new
     order_item = order.order_items.find_by(product_id: @product.id) 
 
     if order_item && order_item.check_quantity_cart(params[:quantity], @product.stock)
@@ -49,7 +49,10 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
       return 
     end 
-
+    order.order_items << order_item
+    order.save
+    session[:order_id] = order.id
+    
     order_item.status = "Pending"
     
     if order_item.save
@@ -135,16 +138,15 @@ class OrdersController < ApplicationController
     return order
   end
 
-  def create_order
-    order = Order.new
-    unless order.save
-      flash[:error] = "Something went wrong: #{order.errors.messages}"
-    end
-    order.reload
-    session[:order_id] = order.id
-    return order
-
-  end  
+  # def create_order
+  #   order = Order.new
+  #   # unless order.save
+  #   #   flash[:error] = "Something went wrong: #{order.errors.messages}"
+  #   # end
+  #   # session[:order_id] = order.id
+  #   # order.reload
+  #   # return order
+  # end  
 end
 
 
