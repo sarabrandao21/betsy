@@ -90,5 +90,23 @@ describe Order do
         expect(order.all_cart_items).must_equal 0
       end
     end
+
+    describe 'verify_merchant' do
+      it 'will return true if the login merchant is include in the order items merchants' do
+        order = orders(:sharon_order)
+        merchant = merchants(:sharon)
+        
+        expect(order.verify_merchant(merchant)).must_equal true
+
+      end
+
+      it 'will return false if the login merchant is include in the order items merchants' do
+        order = orders(:sharon_order)
+        merchant = merchants(:sara)
+        
+        expect(order.verify_merchant(merchant)).must_equal false
+
+      end
+    end
   end
 end
