@@ -5,11 +5,7 @@ describe Order do
   let(:drink_product) { products(:juice) }
   let(:y_order_item) { order_items(:yogamat_orderitem) }
   let(:j_order_item) { order_items(:juice_orderitem) }
-<<<<<<< HEAD
-  let(:g_order_item) { order_items(:gear_orderitem)}
-=======
   let(:g_order_item) { order_items(:gear_orderitem) }
->>>>>>> master
   let(:order) { orders(:nataliyas_order) }
 
   describe "relations" do 

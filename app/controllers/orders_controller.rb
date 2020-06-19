@@ -4,18 +4,23 @@ class OrdersController < ApplicationController
 
   def cart
     @order = Order.find_by(id: session[:order_id])
+
   end
 
   def edit
-    if session[:order_id]
+    if params[:order_id]
+      @order = Order.find_by(id: params[:order_id])
+    elsif params[:id]
+      @order = Order.find_by(id: params[:id])
+    elsif session[:order_id] && session[:order_id] != nil
       @order = Order.find_by(id: session[:order_id])
-    else
-      flash[:error] = "A problem occured. We couldn't find your order." 
-      redirect_to root_path
+    else 
+      redirect_back cart_path
     end 
   end
 
-  def update
+  def update  
+
     @order = Order.find_by(id: session[:order_id])
   
     if @order.update(order_params)
@@ -32,7 +37,7 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
-    order = session[:order_id] ? find_order(id: session[:order_id]) : Order.new
+    order = session[:order_id] ? find_order(id: session[:order_id]) : create_order
     order_item = order.order_items.find_by(product_id: @product.id) 
 
     if order_item && order_item.check_quantity_cart(params[:quantity], @product.stock)
@@ -44,10 +49,7 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
       return 
     end 
-    order.order_items << order_item
-    order.save
-    session[:order_id] = order.id
-    
+
     order_item.status = "Pending"
     
     if order_item.save
@@ -132,16 +134,16 @@ class OrdersController < ApplicationController
     end
     return order
   end
-  #TODO 
-  # def create_order
-  #   order = Order.new
-  #   # unless order.save
-  #   #   flash[:error] = "Something went wrong: #{order.errors.messages}"
-  #   # end
-  #   # session[:order_id] = order.id
-  #   # order.reload
-  #   # return order
-  # end  
+
+  def create_order
+    order = Order.new
+    unless order.save
+      flash[:error] = "Something went wrong: #{order.errors.messages}"
+    end
+    session[:order_id] = order.id
+    order.reload
+    return order
+  end  
 end
 
 
