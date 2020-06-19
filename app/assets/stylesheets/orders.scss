@@ -15,7 +15,9 @@
    animation-name: fadeIn;
 }
 
-
+.text-center {
+   text-align: center!important;
+}
 .row {
    display: -ms-flexbox;
    display: flex;
@@ -144,12 +146,6 @@ a {
    background-color: #fa3434;
 }
 //  Order Form - card
-.mb-5, .my-5 {
-   margin-bottom: 3rem!important;
-}
-.text-center {
-   text-align: center!important;
-}
 .card {
    font-weight: 400;
    border: 0;
@@ -178,7 +174,10 @@ a {
    min-height: 1px;
    padding: 1.25rem;
 }
-
+form {
+   display: block;
+   margin-top: 0em;
+}
 .mb-2, .my-2 {
    margin-bottom: .5rem!important;
 }
@@ -320,10 +319,12 @@ button, input, optgroup, select, textarea {
 }
 
 .text-muted {
+
    color:  black!important;
 }
 .text-color {
    color:  blanchedalmond!important;
+
 }
 .small, small {
    font-size: 80%;
